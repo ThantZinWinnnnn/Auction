@@ -12,8 +12,14 @@ import {
   ListItemButton,
   Typography,
   Divider,
+  useMediaQuery,
+  useTheme,
+  IconButton,
+  SwipeableDrawer,
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
+import Searchbar from "./Searchbar";
+import MenuIcon from "@mui/icons-material/Menu";
 
 interface DropdownProps {
   options: string[];
@@ -29,8 +35,29 @@ const lists: Array<lists> = [
   { name: "Laptops" },
 ];
 
+const mobileLists: Array<lists> = [
+  { name: "Auctions" },
+  { name: "Liquidations" },
+  { name: "High Street Goods" },
+  { name: "Children & Baby" },
+  { name: "Electronics" },
+  { name: "Art" },
+  { name: "Jewellery" },
+  { name: "Watches" },
+  { name: "Fashion" },
+  { name: "About Us" },
+  { name: "Sign Up" },
+  { name: "Account" },
+];
+
 const Navbar = () => {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+  const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const [openDrawer, setOpenDrawer] = useState<Boolean | undefined>(false);
+  const closeDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,23 +69,30 @@ const Navbar = () => {
 
   const open = Boolean(anchorEl);
   return (
-    <AppBar sx={{ bgcolor: "inherit", color: "black" }} position="static">
+    <AppBar
+      sx={{ bgcolor: "inherit", color: "black" }}
+      position="static"
+      elevation={1}
+    >
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
           <Link to={"/"}>
             <Box
               sx={{
                 width: {
+                  sm: "146px",
                   md: "100px",
                   lg: "120px",
                   xl: "150px",
                 },
                 height: {
+                  sm: "146px",
                   md: "100px",
                   lg: "120px",
                   xl: "150px",
                 },
               }}
+              overflow="hidden"
               component="div"
             >
               <img
@@ -68,78 +102,108 @@ const Navbar = () => {
             </Box>
           </Link>
         </Box>
-        <Box
-          display={"flex"}
-          alignItems="center"
-          justifyContent={"center"}
-          gap={{
-            md: 5,
-            lg: 6,
-            xl: 8,
-          }}
-          paddingRight={{ md: 3, lg: 4, xl: 6 }}
-        >
-          <Link to={"/features"}>
-            <Typography>Auctions</Typography>
-          </Link>
+        {/*Deskto Nav */}
+        {isNonMobileScreen && (
           <Box
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handleOpen}
-            onMouseLeave={handleClose}
+            display={"flex"}
+            alignItems="center"
+            justifyContent={"center"}
+            gap={{
+              md: 5,
+              lg: 6,
+              xl: 8,
+            }}
+            paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
-            <Typography>Auctions Categories</Typography>
-            <Popover
-              open={open}
-              id="mouse-over-popover"
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
+            <Link to={"/features"}>
+              <Typography>Auctions</Typography>
+            </Link>
+            <Box
+              aria-owns={open ? "mouse-over-popover" : undefined}
+              aria-haspopup="true"
+              onMouseEnter={handleOpen}
+              onMouseLeave={handleClose}
             >
-              <List sx={{ width: "200px" }}>
-                {lists.map((option) => (
-                  <Link to={option.name} key={option.name}>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemText primary={option.name} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-                ))}
-              </List>
-            </Popover>
-          </Box>
-          <Link to={"/features"}>
-            <Typography>About Us</Typography>
-          </Link>
-          <Stack
-            direction={"row"}
-            spacing={4}
-            divider={
-              <Divider
-                orientation="vertical"
-                flexItem
-                sx={{ border: 1, borderColor: "error.dark" }}
-              />
-            }
-          >
-            <Link to={"/signup"}>
-              <Typography>Sing Up</Typography>
+              <Typography>Auctions Categories</Typography>
+              <Popover
+                open={open}
+                id="mouse-over-popover"
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <List sx={{ width: "200px" }}>
+                  {lists.map((option) => (
+                    <Link to={option.name} key={option.name}>
+                      <ListItem disablePadding>
+                        <ListItemButton>
+                          <ListItemText primary={option.name} />
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  ))}
+                </List>
+              </Popover>
+            </Box>
+            <Link to={"/features"}>
+              <Typography>About Us</Typography>
             </Link>
+            <Stack
+              direction={"row"}
+              spacing={4}
+              divider={
+                <Divider
+                  orientation="vertical"
+                  flexItem
+                  sx={{ border: 1, borderColor: "error.dark" }}
+                />
+              }
+            >
+              <Link to={"/signup"}>
+                <Typography>Sing Up</Typography>
+              </Link>
 
-            <Link to={"/login"}>
-              <Typography>Log In</Typography>
-            </Link>
-          </Stack>
-        </Box>
+              <Link to={"/login"}>
+                <Typography>Log In</Typography>
+              </Link>
+            </Stack>
+          </Box>
+        )}
+
+        {/*Mobile Navigation */}
+
+        {!isNonMobileScreen && (
+          <IconButton onClick={closeDrawer}>
+            <MenuIcon fontSize="large" />
+          </IconButton>
+        )}
       </Toolbar>
+      <Searchbar />
+      <SwipeableDrawer open={openDrawer} onClose={closeDrawer}>
+        <List disablePadding sx={{width:250}}>
+          {mobileLists.map((list) => (
+            <>
+              <ListItem sx={{"&:hover":{
+                bgcolor:"#e0e0e0"
+              }}}>
+                <Link to={list.name}>
+                  <ListItemText
+                    primary={<Typography sx={{fontSize:14}}>{list.name}</Typography>}
+                  />
+                </Link>
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+        </List>
+      </SwipeableDrawer>
     </AppBar>
   );
 };
