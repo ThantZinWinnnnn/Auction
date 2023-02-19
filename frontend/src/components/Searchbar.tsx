@@ -17,12 +17,13 @@ import {
   IconButton,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Searchbar = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [values, setValues] = useState<string | null>(null);
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
   const searchHandler = () => {
     //api call
@@ -40,94 +41,125 @@ const Searchbar = () => {
   const open = Boolean(anchorEl);
   return (
     <Box
-      bgcolor="inherit"
       sx={{
-        mx: "auto",
         display: "flex",
+        mx: "auto",
+        paddingX: 2,
+        width: {
+          sm: "90%",
+          md: "85%",
+        },
         gap: {
           sm: "1.7rem",
           md: "1rem",
         },
-        width: {
-          sm: "90%",
-          lg: "70%",
-        },
-        mb:{
-          sm:1,
-          md:2
-        }
       }}
     >
-      <OutlinedInput
-        fullWidth={true}
-        value={values}
+      <Box
+        width={"100%"}
+        paddingX={isDesktop ? "0" : 3}
+        bgcolor="inherit"
         sx={{
-          height: {
-            sm: "35px",
-            md: "40px",
+          display: "flex",
+          flexWrap: isDesktop ? "nowrap" : "wrap",
+          gap: {
+            sm: "1.7rem",
+            md: "1rem",
+          },
+          mb: {
+            sm: 1,
+            md: 2,
           },
         }}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setValues(e.target.value);
-        }}
-        placeholder="Search..."
-      />
-      <Button
-        variant="contained"
-        disableElevation
-        disableRipple
-        sx={{
-          color: "white",
-          fontSize: {
-            sm: 14,
-          },
-          fontWeight: "bold",
-          bgcolor: "warning.main",
-          width: {
-            sm: 120,
-            lg: "100px",
-          },
-          height: {
-            sm: "35px",
-            md: "40px",
-          },
-          "&:hover": {
-            bgcolor: "warning.light",
-          },
-        }}
-        onClick={searchHandler}
       >
-        Search
-      </Button>
+        <OutlinedInput
+          value={values}
+          sx={{
+            height: {
+              xs: "32px",
+              sm: "35px",
+              md: "40px",
+            },
+            width: {
+              xs: "75%",
+              sm: "100%",
+            },
+          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setValues(e.target.value);
+          }}
+          placeholder="Search..."
+        />
+        <Button
+          variant="contained"
+          disableElevation
+          disableRipple
+          sx={{
+            color: "white",
+            fontSize: {
+              sm: 14,
+            },
+            marginLeft: {
+              xs: 3,
+              sm: "0px",
+            },
+            fontWeight: "bold",
+            bgcolor: "warning.main",
+            width: {
+              xs: 10,
+              sm: 120,
+              lg: "100px",
+            },
+            height: {
+              xs: "32px",
+              sm: "35px",
+              md: "40px",
+            },
+            "&:hover": {
+              bgcolor: "warning.light",
+            },
+          }}
+          onClick={searchHandler}
+        >
+          {isDesktop ? "Search" : <SearchOutlinedIcon fontSize="medium" />}
+        </Button>
+      </Box>
       <Box
         aria-owns={open ? "mouse-over-popover" : undefined}
         aria-haspopup="true"
         onMouseEnter={handleOpen}
         onMouseLeave={handleClose}
       >
-        <Box display={"flex"} justifyContent="center" gap={0} bgcolor="#e0e0e0">
+        <Box
+          display={"flex"}
+          justifyContent="center"
+          gap={0}
+          bgcolor="#e0e0e0"
+          sx={{ marginY: isDesktop ? 0 : 2 }}
+          borderRadius="0.2rem"
+        >
           <Box
             sx={{
-              width:{
-                sm:95,
-                md:"100px"
+              width: {
+                sm: 95,
+                md: "100px",
               },
               height: {
-                sm: "35px",
+                xs: "35px",
                 md: "40px",
               },
               display: "flex",
-              alignItems:"center",
-              paddingX:1
+              alignItems: "center",
+              paddingX: 1
             }}
           >
-            <Typography variant="caption">Hello,sign in</Typography>
+            <Typography letterSpacing={'0.05rem'} variant="caption">Hello,sign in</Typography>
             {/* <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-              Your account
-            </Typography> */}
+           Your account
+         </Typography> */}
           </Box>
           <Box display={"flex"} alignItems={"center"}>
-            <ExpandMoreIcon/>
+            <ExpandMoreIcon />
           </Box>
         </Box>
         <Popover
@@ -150,7 +182,10 @@ const Searchbar = () => {
                 <ListItemButton>
                   <ListItemText
                     primary={
-                      <Typography sx={{ fontSize: 12, textAlign: "center" }}>
+                      <Typography
+                        color="black"
+                        sx={{ fontSize: 12, textAlign: "center" }}
+                      >
                         Win Lots
                       </Typography>
                     }
@@ -163,7 +198,10 @@ const Searchbar = () => {
                 <ListItemButton>
                   <ListItemText
                     primary={
-                      <Typography sx={{ fontSize: 12, textAlign: "center" }}>
+                      <Typography
+                        color="black"
+                        sx={{ fontSize: 12, textAlign: "center" }}
+                      >
                         Lost Lots
                       </Typography>
                     }
@@ -176,7 +214,10 @@ const Searchbar = () => {
                 <ListItemButton>
                   <ListItemText
                     primary={
-                      <Typography sx={{ fontSize: 12, textAlign: "center" }}>
+                      <Typography
+                        color="black"
+                        sx={{ fontSize: 12, textAlign: "center" }}
+                      >
                         Watch Lists
                       </Typography>
                     }

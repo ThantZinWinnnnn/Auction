@@ -54,7 +54,8 @@ const Navbar = () => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
-  const [openDrawer, setOpenDrawer] = useState<Boolean | undefined>(false);
+  const lowSm = useMediaQuery(theme.breakpoints.down('sm'))
+  const [openDrawer, setOpenDrawer] = useState(false);
   const closeDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -80,12 +81,14 @@ const Navbar = () => {
             <Box
               sx={{
                 width: {
+                  xs:"130px",
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
                   xl: "150px",
                 },
                 height: {
+                  xs:"130px",
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
@@ -116,7 +119,7 @@ const Navbar = () => {
             paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
             <Link to={"/features"}>
-              <Typography>Auctions</Typography>
+              <Typography color={"black"}>Auctions</Typography>
             </Link>
             <Box
               aria-owns={open ? "mouse-over-popover" : undefined}
@@ -153,7 +156,7 @@ const Navbar = () => {
               </Popover>
             </Box>
             <Link to={"/features"}>
-              <Typography>About Us</Typography>
+              <Typography color={"black"}>About Us</Typography>
             </Link>
             <Stack
               direction={"row"}
@@ -167,11 +170,11 @@ const Navbar = () => {
               }
             >
               <Link to={"/signup"}>
-                <Typography>Sing Up</Typography>
+                <Typography color={"black"}>Sing Up</Typography>
               </Link>
 
               <Link to={"/login"}>
-                <Typography>Log In</Typography>
+                <Typography color={"black"}>Log In</Typography>
               </Link>
             </Stack>
           </Box>
@@ -181,13 +184,16 @@ const Navbar = () => {
 
         {!isNonMobileScreen && (
           <IconButton onClick={closeDrawer}>
-            <MenuIcon fontSize="large" />
+            <MenuIcon fontSize={lowSm ? 'medium' : 'large'}/>
           </IconButton>
         )}
       </Toolbar>
       <Searchbar />
-      <SwipeableDrawer open={openDrawer} onClose={closeDrawer}>
-        <List disablePadding sx={{width:250}}>
+      <SwipeableDrawer open={openDrawer} onOpen={()=>{}} onClose={closeDrawer}>
+        <List disablePadding sx={{width:{
+          xs:150,
+          sm:250
+        }}}>
           {mobileLists.map((list) => (
             <>
               <ListItem sx={{"&:hover":{
@@ -195,7 +201,7 @@ const Navbar = () => {
               }}}>
                 <Link to={list.name}>
                   <ListItemText
-                    primary={<Typography sx={{fontSize:14}}>{list.name}</Typography>}
+                    primary={<Typography fontSize={lowSm? 10 : 14} color="black">{list.name}</Typography>}
                   />
                 </Link>
               </ListItem>
