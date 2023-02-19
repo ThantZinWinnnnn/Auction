@@ -43,9 +43,14 @@ const Searchbar = () => {
     <Box
       sx={{
         display: "flex",
+        flexDirection: isDesktop ? "row" : "column",
         mx: "auto",
-        paddingX: 2,
+        paddingX: {
+          xs:0,
+          sm:2
+        },
         width: {
+          xs:'100%',
           sm: "90%",
           md: "85%",
         },
@@ -61,8 +66,8 @@ const Searchbar = () => {
         bgcolor="inherit"
         sx={{
           display: "flex",
-          flexWrap: isDesktop ? "nowrap" : "wrap",
           gap: {
+            xs:"1.5rem",
             sm: "1.7rem",
             md: "1rem",
           },
@@ -81,7 +86,7 @@ const Searchbar = () => {
               md: "40px",
             },
             width: {
-              xs: "75%",
+              xs: "100%",
               sm: "100%",
             },
           }}
@@ -98,10 +103,6 @@ const Searchbar = () => {
             color: "white",
             fontSize: {
               sm: 14,
-            },
-            marginLeft: {
-              xs: 3,
-              sm: "0px",
             },
             fontWeight: "bold",
             bgcolor: "warning.main",
@@ -135,7 +136,12 @@ const Searchbar = () => {
           justifyContent="center"
           gap={0}
           bgcolor="#e0e0e0"
-          sx={{ marginY: isDesktop ? 0 : 2 }}
+          marginLeft={isDesktop ? 0 : 3}
+          sx={{ marginY: isDesktop ? 0 : 2 ,
+          width:{
+            xs:130
+          },
+          }}
           borderRadius="0.2rem"
         >
           <Box

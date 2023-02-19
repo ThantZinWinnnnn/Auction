@@ -73,7 +73,7 @@ const Navbar = () => {
     <AppBar
       sx={{ bgcolor: "inherit", color: "black" }}
       position="static"
-      elevation={1}
+      elevation={2}
     >
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
