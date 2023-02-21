@@ -1,95 +1,60 @@
 import {
-  Typography,
-  List,
-  ListItem,
-  ListSubheader,
-  ListItemText,
-  ListItemSecondaryAction,
-  Checkbox,
+	Box,
+	Typography,
+	Checkbox,
+	FormControl,
+	FormLabel,
+	FormGroup,
+	FormControlLabel,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { PrimaryCategories } from "../data/DummyData";
 
 const SidebarLists = () => {
-  const [check, setCheck] = useState(false);
-  const checkHandler = () => {
-    setCheck(!check);
-  };
-  return (
-    <>
-      <Typography>Filter by</Typography>
-      {PrimaryCategories.map((name) => (
-        <List>
-          <ListItem>
-            <ListSubheader>{name.header}</ListSubheader>
-            <List>
-              <Link to={name.c1}>
-                <ListItem>
-                  <ListItemText primary={name.c1} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="start"
-                      checked={check}
-                      onChange={checkHandler}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-              <Link to={name.c2}>
-                <ListItem>
-                  <ListItemText primary={name.c2} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="start"
-                      checked={check}
-                      onChange={checkHandler}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-              <Link to={name.c3}>
-                <ListItem>
-                  <ListItemText primary={name.c3} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="start"
-                      checked={check}
-                      onChange={checkHandler}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-              <Link to={name.c4}>
-                <ListItem>
-                  <ListItemText primary={name.c4} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="start"
-                      checked={check}
-                      onChange={checkHandler}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-              <Link to={name.c5}>
-                <ListItem>
-                  <ListItemText primary={name.c5} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="start"
-                      checked={check}
-                      onChange={checkHandler}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-            </List>
-          </ListItem>
-        </List>
-      ))}
-    </>
-  );
+	const [category, setCategory] = useState<Array<string>>([]);
+	console.log({ category });
+	const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const index = category.indexOf(event.target.value);
+		if (index === -1) {
+			setCategory([...category, event.target.value]);
+		} else {
+			setCategory(
+				category.filter((category) => category !== event.target.value)
+			);
+		}
+	};
+	return (
+		<>
+			<Box bgcolor={""} sx={{ width: "25%" }}>
+				<Typography sx={{ marginBottom: 2 }}>Filter by</Typography>
+				<FormControl>
+					<FormLabel
+						component={"h5"}
+						sx={{ color: "black", marginBottom: 1, fontWeight: "bold" }}
+					>
+						Categories
+					</FormLabel>
+					<FormGroup sx={{ paddingLeft: 1.5 ,fontSize:9}}>
+						{PrimaryCategories.map((item) => (
+							<FormControlLabel
+								control={
+									<Checkbox
+										value={item.name}
+										checked={category.includes(`${item.name}`)}
+										onChange={checkHandler}
+										name={`${item.name}`}
+										disableRipple
+									/>
+								}
+								label={<Typography variant="body2">{item.name}</Typography>}
+							/>
+						))}
+					</FormGroup>
+				</FormControl>
+			</Box>
+		</>
+	);
 };
 
 export default SidebarLists;
