@@ -9,7 +9,7 @@ const HomePage = () => {
 		<>
     <Navbar/>
 			<Container fixed>
-				<Box sx={{ display: "flex" ,gap:"5%",paddingTop:"2%"}}>
+				<Box sx={{ display: "flex" ,gap:"1%",paddingTop:"2%"}}>
 					<SidebarLists />
 					<Product/>
 				</Box>
