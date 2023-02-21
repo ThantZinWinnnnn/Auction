@@ -1,21 +1,20 @@
-import { Box ,Container} from '@mui/material'
-import Navbar from '../components/Navbar';
-import Product from '../components/product/Product';
-import ProdudctDetail from '../components/product/ProdudctDetail'
-import SidebarLists from '../components/SidebarLists'
+import { Box, Container } from "@mui/material";
+import Navbar from "../components/Navbar";
+import Product from "../components/product/Product";
+import SidebarLists from "../components/SidebarLists";
 
 const HomePage = () => {
-  return (
+	return (
 		<>
-    <Navbar/>
+			<Navbar />
 			<Container fixed>
-				<Box sx={{ display: "flex" ,gap:"1%",paddingTop:"2%"}}>
+				<Box sx={{ display: "flex", gap: "1%", paddingTop: "2%" }}>
 					<SidebarLists />
-					<Product/>
+					<Product />
 				</Box>
 			</Container>
 		</>
 	);
-}
+};
 
-export default HomePage
+export default HomePage;
