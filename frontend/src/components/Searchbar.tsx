@@ -53,6 +53,7 @@ const Searchbar = () => {
 					xs: "100%",
 					sm: "90%",
 					md: "85%",
+					xl:"60%"
 				},
 				gap: {
 					sm: "1.7rem",
@@ -102,7 +103,8 @@ const Searchbar = () => {
 					sx={{
 						color: "white",
 						fontSize: {
-							sm: 14,
+							sm:12,
+							lg: 14,
 						},
 						fontWeight: "bold",
 						bgcolor: "warning.main",

@@ -1,10 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography,useMediaQuery,useTheme } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Product = () => {
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up("sm"))
 	return (
-		<Box display={"flex"} sx={{ width: "74%", gap: "3%" }}>
+		<Box display={"flex"} flexDirection={isDesktop ? "row" : "column"} sx={{ width: "74%", gap: {
+			sm:"1%",
+			md:"3%"
+		} ,
+		}}>
 			<Box sx={{ width: "30%" }}>
 				<Box sx={{ mb: 1, paddingX: 3 }} overflow="hidden">
 					<Link to={"/detail"}>
@@ -26,20 +32,22 @@ const Product = () => {
 					<Typography
 						color={"black"}
 						fontWeight="bold"
-						variant="subtitle2"
 						component={"div"}
 						sx={{
-							marginBottom: 3,
+							marginBottom: 1,
 							"&:hover": {
 								color: "primary.light",
 							},
+							fontSize:{
+								sm:11
+							}
 						}}
 					>
 						No Reserve Pallets of Customer Returns I Small Domestic Appliances,
 						Fashion, Toys & Furniture - Sourced from a Major UK Retailer
 					</Typography>
 				</Link>
-				<Typography
+				{/* <Typography
 					variant="caption"
 					color={"grey.600"}
 					component="p"
@@ -48,16 +56,17 @@ const Product = () => {
 					All pallets are delivery only.Standard pallets £70+VAT,oversized
 					pallets £140+VAT to the UK exc Highlands,Islands&South-West which are
 					a higher rate
-				</Typography>
+				</Typography> */}
 				<Typography
-					variant="subtitle2"
 					component={"h5"}
 					fontWeight={"bold"}
-					sx={{ mb: 1.8 }}
+					sx={{ mb: 1.8 ,fontSize:{
+						sm:10.5
+					}}}
 				>
 					Auction dates
 				</Typography>
-				<Typography variant="caption" component={"h6"} marginBottom={"0.5rem"}>
+				<Typography variant="caption" component={"h6"}>
 					Starts: Feb 08, 2023 12:00 PM GMT
 				</Typography>
 				<Typography variant="caption" component={"h6"}>
@@ -75,6 +84,7 @@ const Product = () => {
 						<Typography
 							sx={{
 								fontSize: {
+									sm:9,
 									md: 10,
 								},
 								py: {
