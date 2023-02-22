@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { relatedItems } from "../../data/DummyData";
 
@@ -26,9 +26,10 @@ const FeaturedLots = () => {
 						key={`${item.id}`}
 						sx={{ gridColumn: "span 1", minHeight: "100%" }}
 					>
-						<Box width={"100%"} overflow="hidden" height={"50%"} mb={4}>
+						<Box width={"100%"} overflow="hidden" height={"50%"}>
 							<img width={"100%"} src={`${item.url}`} alt={`${item.name}`} />
 						</Box>
+						<Divider sx={{mb:4}} />
 						<Box px={3}>
 							<Typography
 								variant="body2"
@@ -43,6 +44,14 @@ const FeaturedLots = () => {
 							</Typography>
 						</Box>
 					</Paper>
+
+					// <Card>
+					// 	<CardMedia component={'img'} image={`${item.url}`} alt={`${item.name}`} height="180" width={'100%'} />
+					// 	<CardContent sx={{px:3}}>
+					// 		<Typography variant="body2" component={'div'} mb={1.5} color='primary.light'>{item.info}</Typography>
+					// 		<Typography variant="caption">{item.currentlot}</Typography>
+					// 	</CardContent>
+					// </Card>
 				))}
 			</Box>
 		</>

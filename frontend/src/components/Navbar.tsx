@@ -1,217 +1,236 @@
 import React from "react";
 import { useState } from "react";
 import {
-  AppBar,
-  Toolbar,
-  Box,
-  Stack,
-  Popover,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  Typography,
-  Divider,
-  useMediaQuery,
-  useTheme,
-  IconButton,
-  SwipeableDrawer,
+	AppBar,
+	Toolbar,
+	Box,
+	Stack,
+	Popover,
+	List,
+	ListItem,
+	ListItemText,
+	ListItemButton,
+	Typography,
+	Divider,
+	useMediaQuery,
+	useTheme,
+	IconButton,
+	SwipeableDrawer,
+	Container,
 } from "@mui/material";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface DropdownProps {
-  options: string[];
+	options: string[];
 }
 
 interface lists {
-  name: string;
+	name: string;
 }
 
 const lists: Array<lists> = [
-  { name: "books" },
-  { name: "Electronics" },
-  { name: "Laptops" },
+	{ name: "books" },
+	{ name: "Electronics" },
+	{ name: "Laptops" },
 ];
 
 const mobileLists: Array<lists> = [
-  { name: "Auctions" },
-  { name: "Liquidations" },
-  { name: "High Street Goods" },
-  { name: "Children & Baby" },
-  { name: "Electronics" },
-  { name: "Art" },
-  { name: "Jewellery" },
-  { name: "Watches" },
-  { name: "Fashion" },
-  { name: "About Us" },
-  { name: "Sign Up" },
-  { name: "Account" },
+	{ name: "Auctions" },
+	{ name: "Liquidations" },
+	{ name: "High Street Goods" },
+	{ name: "Children & Baby" },
+	{ name: "Electronics" },
+	{ name: "Art" },
+	{ name: "Jewellery" },
+	{ name: "Watches" },
+	{ name: "Fashion" },
+	{ name: "About Us" },
+	{ name: "Sign Up" },
+	{ name: "Account" },
 ];
 
 const Navbar = () => {
-  const theme = useTheme();
-  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-  const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
-  const lowSm = useMediaQuery(theme.breakpoints.down('sm'))
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const closeDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
+	const theme = useTheme();
+	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+	const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
+	const lowSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const is4k = useMediaQuery(theme.breakpoints.up("xl"));
+	const [openDrawer, setOpenDrawer] = useState(false);
+	const closeDrawer = () => {
+		setOpenDrawer(!openDrawer);
+	};
 
-  const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  const open = Boolean(anchorEl);
-  return (
-    <AppBar
-      sx={{ bgcolor: "inherit", color: "black" }}
-      position="static"
-      elevation={2}
-    >
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
-          <Link to={"/"}>
-            <Box
-              sx={{
-                width: {
-                  xs:"130px",
-                  sm: "146px",
-                  md: "100px",
-                  lg: "120px",
-                  xl: "150px",
-                },
-                height: {
-                  xs:"130px",
-                  sm: "146px",
-                  md: "100px",
-                  lg: "120px",
-                  xl: "150px",
-                },
-              }}
-              overflow="hidden"
-              component="div"
-            >
-              <img
-                src="https://res.cloudinary.com/dhprtrwtd/image/upload/v1648056557/WG_2022_reskin.svg"
-                alt="logo"
-              />
-            </Box>
-          </Link>
-        </Box>
-        {/*Deskto Nav */}
-        {isNonMobileScreen && (
-          <Box
-            display={"flex"}
-            alignItems="center"
-            justifyContent={"center"}
-            gap={{
-              md: 5,
-              lg: 6,
-              xl: 8,
-            }}
-            paddingRight={{ md: 3, lg: 4, xl: 6 }}
-          >
-            <Link to={"/features"}>
-              <Typography color={"black"}>Auctions</Typography>
-            </Link>
-            <Box
-              aria-owns={open ? "mouse-over-popover" : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handleOpen}
-              onMouseLeave={handleClose}
-            >
-              <Typography>Auctions Categories</Typography>
-              <Popover
-                open={open}
-                id="mouse-over-popover"
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-              >
-                <List sx={{ width: "200px" }}>
-                  {lists.map((option) => (
-                    <Link to={option.name} key={option.name}>
-                      <ListItem disablePadding>
-                        <ListItemButton>
-                          <ListItemText primary={option.name} />
-                        </ListItemButton>
-                      </ListItem>
-                    </Link>
-                  ))}
-                </List>
-              </Popover>
-            </Box>
-            <Link to={"/features"}>
-              <Typography color={"black"}>About Us</Typography>
-            </Link>
-            <Stack
-              direction={"row"}
-              spacing={4}
-              divider={
-                <Divider
-                  orientation="vertical"
-                  flexItem
-                  sx={{ border: 1, borderColor: "error.dark" }}
-                />
-              }
-            >
-              <Link to={"/signup"}>
-                <Typography color={"black"}>Sing Up</Typography>
-              </Link>
+	const open = Boolean(anchorEl);
+	return (
+		<AppBar
+			sx={{ bgcolor: "inherit", color: "black", px: is4k ? "1%" : "" }}
+			position="static"
+			elevation={2}
+		>
+			<Toolbar>
+				<Box sx={{ flexGrow: 1 }}>
+					<Link to={"/"}>
+						<Box
+							sx={{
+								width: {
+									xs: "130px",
+									sm: "146px",
+									md: "100px",
+									lg: "120px",
+									xl: "150px",
+								},
+								height: {
+									xs: "130px",
+									sm: "146px",
+									md: "100px",
+									lg: "120px",
+									xl: "150px",
+								},
+							}}
+							overflow="hidden"
+							component="div"
+						>
+							<img
+								src="https://res.cloudinary.com/dhprtrwtd/image/upload/v1648056557/WG_2022_reskin.svg"
+								alt="logo"
+							/>
+						</Box>
+					</Link>
+				</Box>
+				{/*Deskto Nav */}
+				{isNonMobileScreen && (
+					<Box
+						display={"flex"}
+						alignItems="center"
+						justifyContent={"center"}
+						gap={{
+							md: 5,
+							lg: 6,
+							xl: 8,
+						}}
+						paddingRight={{ md: 3, lg: 4, xl: 6 }}
+					>
+						<Link to={"/features"}>
+							<Typography color={"black"}>Auctions</Typography>
+						</Link>
+						<Box
+							aria-owns={open ? "mouse-over-popover" : undefined}
+							aria-haspopup="true"
+							onMouseEnter={handleOpen}
+							onMouseLeave={handleClose}
+						>
+							<Typography>Auctions Categories</Typography>
+							<Popover
+								open={open}
+								id="mouse-over-popover"
+								anchorEl={anchorEl}
+								onClose={handleClose}
+								anchorOrigin={{
+									vertical: "bottom",
+									horizontal: "center",
+								}}
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "center",
+								}}
+							>
+								<List sx={{ width: "200px" }}>
+									{lists.map((option) => (
+										<Link to={option.name} key={option.name}>
+											<ListItem disablePadding>
+												<ListItemButton>
+													<ListItemText primary={option.name} />
+												</ListItemButton>
+											</ListItem>
+										</Link>
+									))}
+								</List>
+							</Popover>
+						</Box>
+						<Link to={"/features"}>
+							<Typography color={"black"}>About Us</Typography>
+						</Link>
+						<Stack
+							direction={"row"}
+							spacing={4}
+							divider={
+								<Divider
+									orientation="vertical"
+									flexItem
+									sx={{ border: 1, borderColor: "error.dark" }}
+								/>
+							}
+						>
+							<Link to={"/signup"}>
+								<Typography color={"black"}>Sing Up</Typography>
+							</Link>
 
-              <Link to={"/login"}>
-                <Typography color={"black"}>Log In</Typography>
-              </Link>
-            </Stack>
-          </Box>
-        )}
+							<Link to={"/login"}>
+								<Typography color={"black"}>Log In</Typography>
+							</Link>
+						</Stack>
+					</Box>
+				)}
 
-        {/*Mobile Navigation */}
+				{/*Mobile Navigation */}
 
-        {!isNonMobileScreen && (
-          <IconButton onClick={closeDrawer}>
-            <MenuIcon fontSize={lowSm ? 'medium' : 'large'}/>
-          </IconButton>
-        )}
-      </Toolbar>
-      <Searchbar />
-      <SwipeableDrawer open={openDrawer} onOpen={()=>{}} onClose={closeDrawer}>
-        <List disablePadding sx={{width:{
-          xs:150,
-          sm:250
-        }}}>
-          {mobileLists.map((list) => (
-            <>
-              <ListItem sx={{"&:hover":{
-                bgcolor:"#e0e0e0"
-              }}}>
-                <Link to={list.name}>
-                  <ListItemText
-                    primary={<Typography fontSize={lowSm? 10 : 14} color="black">{list.name}</Typography>}
-                  />
-                </Link>
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </SwipeableDrawer>
-    </AppBar>
-  );
+				{!isNonMobileScreen && (
+					<IconButton onClick={closeDrawer}>
+						<MenuIcon fontSize={lowSm ? "medium" : "large"} />
+					</IconButton>
+				)}
+			</Toolbar>
+			<Searchbar />
+			<SwipeableDrawer
+				open={openDrawer}
+				onOpen={() => {}}
+				onClose={closeDrawer}
+			>
+				<List
+					disablePadding
+					sx={{
+						width: {
+							xs: 150,
+							sm: 250,
+						},
+					}}
+				>
+					{mobileLists.map((list) => (
+						<>
+							<ListItem
+								sx={{
+									"&:hover": {
+										bgcolor: "#e0e0e0",
+									},
+								}}
+							>
+								<Link to={list.name}>
+									<ListItemText
+										primary={
+											<Typography fontSize={lowSm ? 10 : 14} color="black">
+												{list.name}
+											</Typography>
+										}
+									/>
+								</Link>
+							</ListItem>
+							<Divider />
+						</>
+					))}
+				</List>
+			</SwipeableDrawer>
+		</AppBar>
+	);
 };
 
 export default Navbar;

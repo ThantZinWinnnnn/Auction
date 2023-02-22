@@ -6,7 +6,7 @@ const Product = () => {
 	return (
 		<Box display={"flex"} sx={{ width: "74%", gap: "3%" }}>
 			<Box sx={{ width: "30%" }}>
-				<Box sx={{mb:1,paddingX:3}} overflow='hidden'>
+				<Box sx={{ mb: 1, paddingX: 3 }} overflow="hidden">
 					<Link to={"/detail"}>
 						<img
 							width={"100%"}
@@ -15,7 +15,9 @@ const Product = () => {
 						/>
 					</Link>
 				</Box>
-				<Typography variant="caption" component={"div"} textAlign='center'>Thant Zin Win</Typography>
+				<Typography variant="caption" component={"div"} textAlign="center">
+					Thant Zin Win
+				</Typography>
 			</Box>
 
 			<Box sx={{ width: "50%" }}>
@@ -26,10 +28,11 @@ const Product = () => {
 						fontWeight="bold"
 						variant="subtitle2"
 						component={"div"}
-						sx={{ marginBottom: 3 ,
-							"&:hover":{
-								color:"primary.light"
-							}
+						sx={{
+							marginBottom: 3,
+							"&:hover": {
+								color: "primary.light",
+							},
 						}}
 					>
 						No Reserve Pallets of Customer Returns I Small Domestic Appliances,
@@ -46,13 +49,22 @@ const Product = () => {
 					pallets £140+VAT to the UK exc Highlands,Islands&South-West which are
 					a higher rate
 				</Typography>
-				<Typography variant="subtitle2" component={"h5"} fontWeight={"bold"} sx={{mb:1.8}}>
+				<Typography
+					variant="subtitle2"
+					component={"h5"}
+					fontWeight={"bold"}
+					sx={{ mb: 1.8 }}
+				>
 					Auction dates
 				</Typography>
-				<Typography variant="caption" component={'h6'} marginBottom={"0.5rem"}>Starts: Feb 08, 2023 12:00 PM GMT</Typography>
-				<Typography variant="caption" component={'h6'}>Ends from: Feb 21, 2023 01:00 PM GMT</Typography>
+				<Typography variant="caption" component={"h6"} marginBottom={"0.5rem"}>
+					Starts: Feb 08, 2023 12:00 PM GMT
+				</Typography>
+				<Typography variant="caption" component={"h6"}>
+					Ends from: Feb 21, 2023 01:00 PM GMT
+				</Typography>
 			</Box>
-			<Box sx={{ width: "17%" }}>
+			<Box sx={{ width: "20%" }}>
 				<Link to={"/detail"}>
 					<Button
 						fullWidth
@@ -60,7 +72,19 @@ const Product = () => {
 						color="warning"
 						disableElevation
 					>
-						<Typography fontSize={"12px"}>View Catalog</Typography>
+						<Typography
+							sx={{
+								fontSize: {
+									md: 10,
+								},
+								py: {
+									md: 0.4,
+									lg: 0.6,
+								},
+							}}
+						>
+							View Catalog
+						</Typography>
 					</Button>
 				</Link>
 			</Box>

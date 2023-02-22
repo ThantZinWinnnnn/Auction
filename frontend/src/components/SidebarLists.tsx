@@ -26,7 +26,7 @@ const SidebarLists = () => {
 	};
 	return (
 		<>
-			<Box bgcolor={""} sx={{ width: "25%" }}>
+			<Box bgcolor={""} sx={{ width: "22%" }}>
 				<Typography sx={{ marginBottom: 2 }}>Filter by</Typography>
 				<FormControl>
 					<FormLabel

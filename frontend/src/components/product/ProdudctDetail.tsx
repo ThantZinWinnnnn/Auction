@@ -1,5 +1,5 @@
 import Container from "@mui/material/Container";
-import { Box, Divider, Typography,Button } from "@mui/material";
+import { Box, Divider, Typography, Button } from "@mui/material";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import FeaturedLots from "./FeaturedLots";
@@ -96,26 +96,43 @@ const ProdudctDetail = () => {
 							>
 								Accepted for payment
 							</Typography>
-							<Box width={"75px"} height="30px" overflow={"hidden"} display="flex" gap={2}>
+							<Box
+								width={"75px"}
+								height="30px"
+								overflow={"hidden"}
+								display="flex"
+								gap={2}
+							>
 								<img
 									width={"50%"}
 									src="https://th.bing.com/th?q=Kbz+Pay+Logo.png&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=1.3&pid=InlineBlock&mkt=en-WW&cc=MM&setlang=en&adlt=moderate&t=1&mw=247"
-                  alt="kbz pay logo"
+									alt="kbz pay logo"
 								/>
-								<img width={"50%"} src="https://th.bing.com/th/id/OIP.DKCLUwFCa1rywQLs-HGpGwAAAA?w=179&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="wavemoney logo" />
+								<img
+									width={"50%"}
+									src="https://th.bing.com/th/id/OIP.DKCLUwFCa1rywQLs-HGpGwAAAA?w=179&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+									alt="wavemoney logo"
+								/>
 							</Box>
 						</Box>
 					</Box>
 
 					<Box sx={{ width: "16%" }}>
 						<Link to={"/register"}>
-              <Button fullWidth variant="contained" color="warning" disableElevation>Register to bid</Button>
-            </Link>
+							<Button
+								fullWidth
+								variant="contained"
+								color="warning"
+								disableElevation
+							>
+								Register to bid
+							</Button>
+						</Link>
 					</Box>
 				</Box>
 				<Divider />
 
-        <FeaturedLots/>
+				<FeaturedLots />
 			</Container>
 		</>
 	);
