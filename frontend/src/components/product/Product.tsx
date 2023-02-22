@@ -20,7 +20,7 @@ const Product = () => {
 
 			<Box sx={{ width: "50%" }}>
 				{/*dynamic routes */}
-				<Link to={"/detail"}>
+				<Link to={"/detail/hello"}>
 					<Typography
 						color={"black"}
 						fontWeight="bold"

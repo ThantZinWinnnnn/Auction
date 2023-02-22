@@ -2,6 +2,7 @@ import Container from "@mui/material/Container";
 import { Box, Divider, Typography,Button } from "@mui/material";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
+import FeaturedLots from "./FeaturedLots";
 
 const ProdudctDetail = () => {
 	return (
@@ -113,6 +114,8 @@ const ProdudctDetail = () => {
 					</Box>
 				</Box>
 				<Divider />
+
+        <FeaturedLots/>
 			</Container>
 		</>
 	);
