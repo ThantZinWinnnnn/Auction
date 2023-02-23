@@ -2,6 +2,7 @@ import { Box, Container,useMediaQuery,useTheme} from "@mui/material";
 import Navbar from "../components/Navbar";
 import Product from "../components/product/Product";
 import SidebarLists from "../components/SidebarLists";
+import MobileLists from "../components/SideLists/MobileLists";
 
 const HomePage = () => {
 	const theme = useTheme()
@@ -13,7 +14,7 @@ const HomePage = () => {
 			<Navbar />
 			<Container maxWidth= {is4kScreen ? 'xl' : 'lg'} >
 				<Box display={'flex'} flexDirection={isDesktop ? "row" : "column"}  sx={{ gap: "1%", paddingTop: "2%" }}>
-					<SidebarLists />
+					{isDesktop ? (<SidebarLists margin={0}/>) : (<MobileLists/>)}
 					<Product />
 				</Box>
 			</Container>

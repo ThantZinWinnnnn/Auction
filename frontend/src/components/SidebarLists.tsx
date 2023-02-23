@@ -15,8 +15,11 @@ import { Link } from "react-router-dom";
 import { PrimaryCategories } from "../data/DummyData";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import { margin } from "@mui/system";
 
-const SidebarLists = () => {
+
+
+const SidebarLists = ({margin}) => {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -34,8 +37,8 @@ const SidebarLists = () => {
 	};
 	return (
 		<>
-			<Box bgcolor={"grey"} width={isMobile ? "100%" : "22%"}>
-				<Typography sx={{ marginBottom: 2 }} fontWeight="bold">Filter by</Typography>
+			<Box bgcolor={""} width={isMobile ? "100%" : "22%"} marginTop={margin} marginBottom={isMobile ? 4 : 0}> 
+				{!isMobile && <Typography sx={{ marginBottom: 2 }} fontWeight="bold">Filter by</Typography>}
 				<FormControl>
 					<FormLabel
 						component={"h5"}
@@ -62,6 +65,7 @@ const SidebarLists = () => {
 									/>
 								}
 								label={<Typography fontWeight={"bold"} sx={{fontSize:{
+									xs:14,
 									sm:10,
 									md:12
 								}}}>{item.name}</Typography>}
@@ -69,7 +73,7 @@ const SidebarLists = () => {
 						))}
 					</FormGroup>
 				</FormControl>
-				<Divider/>
+				<Divider sx={{mt: isMobile ? 5 : 0}}/>
 			</Box>
 		</>
 	);
