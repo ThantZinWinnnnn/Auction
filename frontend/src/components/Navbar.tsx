@@ -17,10 +17,12 @@ import {
 	IconButton,
 	SwipeableDrawer,
 	Container,
+	Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface DropdownProps {
 	options: string[];
@@ -51,7 +53,8 @@ const mobileLists: Array<lists> = [
 	{ name: "Account" },
 ];
 
-const Navbar = () => {
+const Navbar = ({openSearch}) => {
+	console.log("onwn",openSearch)
 	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
@@ -129,7 +132,7 @@ const Navbar = () => {
 							onMouseEnter={handleOpen}
 							onMouseLeave={handleClose}
 						>
-							<Typography>Auctions Categories</Typography>
+							<Button sx={{textTransform:"none",color:"black"}} endIcon={<ExpandMoreIcon/>}>Auctions Categories</Button>
 							<Popover
 								open={open}
 								id="mouse-over-popover"
@@ -190,7 +193,7 @@ const Navbar = () => {
 					</IconButton>
 				)}
 			</Toolbar>
-			<Searchbar />
+			<Searchbar/>
 			<SwipeableDrawer
 				open={openDrawer}
 				onOpen={() => {}}
