@@ -53,8 +53,7 @@ const mobileLists: Array<lists> = [
 	{ name: "Account" },
 ];
 
-const Navbar = ({openSearch}) => {
-	console.log("onwn",openSearch)
+const Navbar = () => {
 	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));

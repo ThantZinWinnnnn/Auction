@@ -59,7 +59,7 @@ const DetailSearchbar = () => {
 						height: {
 							xs: "32px",
 							sm: "35px",
-							md: "40px",
+							
 						},
 						width: {
 							xs: "100%",
@@ -82,7 +82,6 @@ const DetailSearchbar = () => {
 						color: "white",
 						fontSize: {
 							sm:12,
-							lg: 14,
 						},
 						fontWeight: "bold",
 						bgcolor: "warning.main",
@@ -94,7 +93,7 @@ const DetailSearchbar = () => {
 						height: {
 							xs: "32px",
 							sm: "35px",
-							md: "40px",
+							
 						},
 						"&:hover": {
 							bgcolor: "warning.light",

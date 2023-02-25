@@ -77,7 +77,7 @@ const DetailNavbar = () => {
     <AppBar
       sx={{ bgcolor: "inherit", color: "black", px: is4k ? "1%" : "" }}
       position="static"
-      elevation={2}
+      elevation={1}
     >
       <Toolbar
         disableGutters
@@ -96,14 +96,14 @@ const DetailNavbar = () => {
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
-                  xl: "150px",
+                  xl: "90px",
                 },
                 height: {
                   xs: "130px",
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
-                  xl: "150px",
+                  xl: "90px",
                 },
               }}
               overflow="hidden"
@@ -172,25 +172,6 @@ const DetailNavbar = () => {
                 </List>
               </Popover>
             </Box>
-            <Stack
-              direction={"row"}
-              spacing={4}
-              divider={
-                <Divider
-                  orientation="vertical"
-                  flexItem
-                  sx={{ border: 1, borderColor: "error.dark" }}
-                />
-              }
-            >
-              <Link to={"/signup"}>
-                <Typography color={"black"}>Sing Up</Typography>
-              </Link>
-
-              <Link to={"/login"}>
-                <Typography color={"black"}>Log In</Typography>
-              </Link>
-            </Stack>
           </Box>
         )}
 
