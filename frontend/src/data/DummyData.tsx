@@ -35,8 +35,8 @@ interface feature{
   id:Number,
   name:String,
   url:String,
-  info : String,
-  currentlot:String
+  info ?: String,
+  currentlot ?:String
 }
 
 export const relatedItems: Array<feature> = [
@@ -75,4 +75,22 @@ export const relatedItems: Array<feature> = [
 		info: "Mekamon Robot",
 		currentlot: "Lot 580000",
 	}
+];
+
+export const shopCategories: Array<feature> = [
+	{
+		id: 1,
+		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62166267f1bac34f6ac84ff3_Phone-Category.jpg",
+		name: "Phones",
+	},
+	{
+		id: 2,
+		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
+		name: "Audio",
+	},
+	{
+		id: 3,
+		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
+		name: "Gaming",
+	},
 ];
