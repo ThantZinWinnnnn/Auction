@@ -4,7 +4,7 @@ import { shopCategories } from "../../data/DummyData";
 
 const ChooseDetailsCategory = () => {
 	return (
-		<Box width={"90%"} mx="auto" marginBottom={30} mt={20}>
+		<Box width={"90%"} mx="auto" marginBottom={20} mt={20}>
 			<Typography variant="h6" component={"div"} fontWeight="bold">
 				Shop By Category
 			</Typography>

@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import ChooseDetailsCategory from '../DetailPageComponent/ChooseDetailsCategory';
 import Description from '../DetailPageComponent/Description';
+import MoreAuctions from '../DetailPageComponent/MoreAuctions';
 import SellWithUs from '../DetailPageComponent/SellWithUs';
 
 const BannerDetail = () => {
@@ -73,6 +74,7 @@ const BannerDetail = () => {
 			<Description/>
 			<ChooseDetailsCategory/>
 			<SellWithUs/>
+			<MoreAuctions/>
 		</Box>
 	);
 }

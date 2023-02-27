@@ -94,3 +94,27 @@ export const shopCategories: Array<feature> = [
 		name: "Gaming",
 	},
 ];
+
+
+export const moreAuctions:Array<feature> = [
+	{
+		id:1,
+		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
+		name:"Retail Returns"
+	},
+	{
+		id:1,
+		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
+		name:"Home Improvement"
+	},
+	{
+		id:1,
+		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
+		name:"Children & Baby"
+	},
+	{
+		id:1,
+		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
+		name:"High Street Goods"
+	},
+]
