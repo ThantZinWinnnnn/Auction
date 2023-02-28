@@ -1,3 +1,5 @@
+import { Component } from "react";
+
 interface category {
   id:Number,
   name:String
@@ -34,7 +36,7 @@ export const PrimaryCategories: Array<category> = [
 interface feature{
   id:Number,
   name:String,
-  url:String,
+  url?:String,
   info ?: String,
   currentlot ?:String
 }
@@ -117,4 +119,31 @@ export const moreAuctions:Array<feature> = [
 		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
 		name:"High Street Goods"
 	},
-]
+];
+
+export const information:Array<feature> = [
+	{
+		id:1,
+		name:"Sign Up for Email"
+	},
+	{
+		id:2,
+		name:"Bidding"
+	},
+	{
+		id:3,
+		name:"Selling"
+	},
+	{
+		id:4,
+		name:"Online Auctions"
+	},
+	{
+		id:5,
+		name:"Orders & Payments"
+	},
+	{
+		id:6,
+		name:"Contact Us"
+	},
+];

@@ -6,7 +6,7 @@ import { moreAuctions } from '../../data/DummyData'
 const MoreAuctions = () => {
   return (
     <Box width={"90%"} mx="auto">
-        <Grid container spacing={2} marginBottom={40} width={"100%"}>
+        <Grid container spacing={2} marginBottom={5} width={"100%"}>
             {moreAuctions.map((auction)=>(
                 <Grid item xs={12} sm={6} md={3}>
                     <Box  sx={{

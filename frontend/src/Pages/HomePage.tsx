@@ -1,4 +1,5 @@
 import { Box, Container,useMediaQuery,useTheme} from "@mui/material";
+import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar";
 import Product from "../components/product/Product";
 import SidebarLists from "../components/SidebarLists";
@@ -18,6 +19,7 @@ const HomePage = () => {
 					<Product />
 				</Box>
 			</Container>
+			<Footer/>
 		</>
 	);
 };
