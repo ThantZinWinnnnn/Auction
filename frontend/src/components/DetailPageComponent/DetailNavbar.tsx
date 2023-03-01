@@ -85,6 +85,7 @@ const DetailNavbar = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          px: lowSm ? 3 : "",
         }}
       >
         <Box>
@@ -116,7 +117,7 @@ const DetailNavbar = () => {
             </Box>
           </Link>
         </Box>
-        <DetailSearchbar />
+        {!lowSm && <DetailSearchbar />}
         {/*Deskto Nav */}
         {isNonMobileScreen && (
           <Box
@@ -164,7 +165,10 @@ const DetailNavbar = () => {
                     <Link to={option.name} key={option.name}>
                       <ListItem disablePadding>
                         <ListItemButton>
-                          <ListItemText sx={{color:"black"}} primary={option.name} />
+                          <ListItemText
+                            sx={{ color: "black" }}
+                            primary={option.name}
+                          />
                         </ListItemButton>
                       </ListItem>
                     </Link>
@@ -178,11 +182,12 @@ const DetailNavbar = () => {
         {/*Mobile Navigation */}
 
         {!isNonMobileScreen && (
-          <IconButton onClick={closeDrawer}>
-            <MenuIcon fontSize={lowSm ? "medium" : "large"} />
+          <IconButton onClick={closeDrawer} sx={{ mb: 1.2 }}>
+            <MenuIcon fontSize={"large"} />
           </IconButton>
         )}
       </Toolbar>
+      {lowSm && <DetailSearchbar />}
       <SwipeableDrawer
         open={openDrawer}
         onOpen={() => {}}
@@ -209,7 +214,7 @@ const DetailNavbar = () => {
                 <Link to={list.name}>
                   <ListItemText
                     primary={
-                      <Typography fontSize={lowSm ? 10 : 14} color="black">
+                      <Typography fontSize={lowSm ? 12 : 14} color="black">
                         {list.name}
                       </Typography>
                     }

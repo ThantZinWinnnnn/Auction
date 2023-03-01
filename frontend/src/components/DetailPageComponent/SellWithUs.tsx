@@ -1,37 +1,88 @@
-import { Box } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 const SellWithUs = () => {
+  const theme = useTheme();
+  const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <Box width={"90%"} mx="auto" mb={20}>
-      <Box width={"100%"} display="flex" p={4} justifyContent='space-evenly'>
+    <Box width={"90%"} mx="auto" mb={Mobile ? 10 : 20}>
+      <Box width={"100%"} display="flex" p={4}>
         <Box
           display="flex"
-          gap={5}
-          justifyItems="center"
+          gap={Mobile ? 3 : 5}
+          justifyContent="center"
           alignItems={"center"}
-          pl={6}
+          width={"90%"}
+          mx="auto"
         >
-          <Typography variant="h1" fontWeight={"bold"} color={"#28589B"}>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: "2.5rem",
+                sm: "4rem",
+                md: "6rem",
+              },
+            }}
+            fontWeight={"bold"}
+            color={"#28589B"}
+          >
             Sell
           </Typography>
-          <Typography variant="h1" fontWeight={"bold"} color={"#102343"}>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: "2.5rem",
+                sm: "4rem",
+                md: "6rem",
+              },
+            }}
+            fontWeight={"bold"}
+            color={"#102343"}
+          >
             With
           </Typography>
-          <Typography variant="h1" fontWeight={"bold"} color={"#F65A03"}>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: "2.5rem",
+                sm: "4rem",
+                md: "6rem",
+              },
+            }}
+            fontWeight={"bold"}
+            color={"#F65A03"}
+          >
             Us
           </Typography>
         </Box>
       </Box>
 
       {/* Change One component with Description */}
-      <Box textAlign={"center"} width="50%" mx={"auto"} marginTop="3%">
-        <Typography variant="h4" fontWeight={"bold"} marginBottom="4%">
+      <Box
+        textAlign={"center"}
+        mx={"auto"}
+        marginTop="3%"
+        sx={{
+          width: {
+            xs: "100%",
+          },
+        }}
+      >
+        <Typography
+          variant={Mobile ? "h6" : "h4"}
+          fontWeight={"bold"}
+          marginBottom="4%"
+        >
           Got something to sell?
         </Typography>
-        <Typography variant="body1" fontWeight={"light"} lineHeight={2.5}>
+        <Typography
+          variant={Mobile ? "body2" : "body1"}
+          fontWeight={"light"}
+          lineHeight={Mobile ? 2 : 2.5}
+        >
           There’s never been a better time to sell with us. With a wide audience
           of buyers, no seller commission, free listings in collectives and a
           dedicated account manager on hand should you need them, William George
@@ -41,9 +92,9 @@ const SellWithUs = () => {
           color="warning"
           variant="contained"
           sx={{
+            width: Mobile ? "50%" : "24%",
             textTransform: "none",
             borderRadius: 10,
-            width: "24%",
             mx: "auto",
             fontWeight: "medium",
             fontSize: 16,
