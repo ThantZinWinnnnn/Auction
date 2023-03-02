@@ -40,7 +40,12 @@ const MoreAuctions = () => {
                 pb: 4,
               }}
             >
-              <Typography variant={Mobile ? "h5" : "h4"} fontWeight={"bold"}>
+              <Typography  fontWeight={"bold"} sx={{
+                fontSize:{
+                    xs:"1.2rem",
+                    sm:"1rem"
+                }
+              }}>
                 {auction.name}
               </Typography>
               <Link to={`${auction.name}`}>
@@ -52,12 +57,20 @@ const MoreAuctions = () => {
                   sx={{
                     textTransform: "none",
                     borderRadius: 10,
-                    width: "35%",
+                    width: {
+                        xs:"35%",
+                        sm:"40%",
+                        md:"60%",
+                        xl:"35%"
+                    },
                     mx: "auto",
                     fontWeight: "bold",
-                    fontSize: 16,
+                    fontSize: {
+                      xs:16,
+                      xl:18
+                    },
                     mt: 3,
-                    py: "10px",
+                    py: "8px",
                     "&:hover": {
                       backgroundColor: "#102343",
                     },

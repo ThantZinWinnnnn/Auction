@@ -13,7 +13,7 @@ const ChooseDetailsCategory = () => {
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box width={"90%"} mx="auto" my={Mobile ? 8 : 20}>
+    <Box width={"90%"} mx="auto" my={Mobile ? 8 : 10}>
       <Typography variant="h6" component={"div"} fontWeight="bold">
         Shop By Category
       </Typography>
@@ -46,7 +46,15 @@ const ChooseDetailsCategory = () => {
               mt: 3,
             }}
           >
-            <Typography variant={Mobile ? "h5" : "h4"} fontWeight={"bold"}>
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "2rem",
+                  sm: "1.5rem",
+                },
+              }}
+              fontWeight={"bold"}
+            >
               {category.name}
             </Typography>
             <Link to={`${category.name}`}>
@@ -56,12 +64,22 @@ const ChooseDetailsCategory = () => {
                 sx={{
                   textTransform: "none",
                   borderRadius: 10,
-                  width: Mobile ? "40%" : "24%",
+                  width: {
+                    xs: "40%",
+                    sm: "50%",
+                    xl: "28%",
+                  },
                   mx: "auto",
                   fontWeight: "medium",
-                  fontSize: 16,
+                  fontSize: {
+                    xs: 16,
+                    xl: 18,
+                  },
                   mt: 3,
-                  py: "10px",
+                  py: {
+                    sm:"6px",
+                    xl:"10px"
+                  },
                   "&:hover": {
                     backgroundColor: "#102343",
                   },

@@ -8,8 +8,8 @@ const SellWithUs = () => {
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box width={"90%"} mx="auto" mb={Mobile ? 10 : 20}>
-      <Box width={"100%"} display="flex" p={4}>
+    <Box width={"90%"} mx="auto" mb={Mobile ? 10 : 10}>
+      <Box width={"100%"} display="flex" p={1}>
         <Box
           display="flex"
           gap={Mobile ? 3 : 5}
@@ -64,10 +64,11 @@ const SellWithUs = () => {
       <Box
         textAlign={"center"}
         mx={"auto"}
-        marginTop="3%"
+        marginTop="1%"
         sx={{
           width: {
             xs: "100%",
+            lg:"50%"
           },
         }}
       >
@@ -92,12 +93,19 @@ const SellWithUs = () => {
           color="warning"
           variant="contained"
           sx={{
-            width: Mobile ? "50%" : "24%",
+            width:{
+              xs:"50%",
+              sm:"24%",
+              xl:"18%"
+            },
             textTransform: "none",
             borderRadius: 10,
             mx: "auto",
             fontWeight: "medium",
-            fontSize: 16,
+            fontSize: {
+              xs:16,
+              xl:18
+            },
             mt: 3,
             py: "10px",
             "&:hover": {

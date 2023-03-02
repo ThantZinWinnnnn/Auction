@@ -75,7 +75,7 @@ const DetailNavbar = () => {
   const open = Boolean(anchorEl);
   return (
     <AppBar
-      sx={{ bgcolor: "inherit", color: "black", px: is4k ? "1%" : "" }}
+      sx={{ bgcolor: "inherit", color: "black", px: is4k ? "2%" : "" }}
       position="static"
       elevation={1}
     >
@@ -97,14 +97,14 @@ const DetailNavbar = () => {
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
-                  xl: "90px",
+                  xl: "100px",
                 },
                 height: {
                   xs: "130px",
                   sm: "146px",
                   md: "100px",
                   lg: "120px",
-                  xl: "90px",
+                  xl: "100px",
                 },
               }}
               overflow="hidden"

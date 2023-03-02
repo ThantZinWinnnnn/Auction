@@ -12,7 +12,8 @@ const Description = () => {
       sx={{
         width: {
           xs: "90%",
-          md: "70%",
+		  sm:"85%",
+          md: "80%",
         },
       }}
     >
