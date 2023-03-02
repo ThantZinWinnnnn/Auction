@@ -30,7 +30,12 @@ const FeaturedLots = () => {
 							<img width={"100%"} src={`${item.url}`} alt={`${item.name}`} />
 						</Box>
 						<Divider sx={{mb:4}} />
-						<Box px={3}>
+						<Box sx={{
+							px:{
+								md:1,
+								lg:3
+							}
+						}}>
 							<Typography
 								variant="body2"
 								component={"div"}
