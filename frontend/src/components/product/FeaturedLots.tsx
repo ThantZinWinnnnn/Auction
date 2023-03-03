@@ -1,66 +1,74 @@
-import { Box, Card, CardContent, CardMedia, Divider, Grid, Paper, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Divider,
+} from "@mui/material";
 import { relatedItems } from "../../data/DummyData";
 
-const FeaturedLots = () => {
-	return (
-		<>
-			{/* To Change Card Component with Box */}
-			<Typography
-				variant="subtitle1"
-				fontWeight={"bold"}
-				component={"div"}
-				my={3}
-			>
-				Featured Lots
-			</Typography>
-			<Box
-				display="grid"
-				gridTemplateColumns="repeat(5, 1fr)"
-				gap={1.5}
-				mb={5}
-				height={300}
-			>
-				{relatedItems.map((item) => (
-					<Paper
-						key={`${item.id}`}
-						sx={{ gridColumn: "span 1", minHeight: "100%" }}
-					>
-						<Box width={"100%"} overflow="hidden" height={"50%"}>
-							<img width={"100%"} src={`${item.url}`} alt={`${item.name}`} />
-						</Box>
-						<Divider sx={{mb:4}} />
-						<Box sx={{
-							px:{
-								md:1,
-								lg:3
-							}
-						}}>
-							<Typography
-								variant="body2"
-								component={"div"}
-								mb={1.5}
-								color="primary.light"
-							>
-								{item.info}
-							</Typography>
-							<Typography variant="caption" component={"div"}>
-								{item.currentlot}
-							</Typography>
-						</Box>
-					</Paper>
-
-					// <Card>
-					// 	<CardMedia component={'img'} image={`${item.url}`} alt={`${item.name}`} height="180" width={'100%'} />
-					// 	<CardContent sx={{px:3}}>
-					// 		<Typography variant="body2" component={'div'} mb={1.5} color='primary.light'>{item.info}</Typography>
-					// 		<Typography variant="caption">{item.currentlot}</Typography>
-					// 	</CardContent>
-					// </Card>
-				))}
-			</Box>
-		</>
-	);
+const FeaturedLots2 = () => {
+  return (
+    <>
+      <Typography
+        fontWeight={"bold"}
+        component={"div"}
+        sx={{
+          fontSize:{
+            xs:"1.2rem"
+          }
+        }}
+        my={5}
+      >
+        Featured Lots
+      </Typography>
+      <Grid container spacing={4}  mb={5}>
+        {relatedItems.map((item) => (
+          <Grid item xs={12} sm={6} md={4} xl={3}>
+            <Card sx={{height:"400px",
+            }}>
+              <CardMedia
+                sx={{width:"100%", height: "50%" ,paddingTop: '56.25%'}}
+                image={`${item.url}`}
+                title={`${item.name}`}
+              />
+              <Divider sx={{ mb: 2 }} />
+              <CardContent sx={{
+                px:{
+                    md:1,
+                    lg:3
+                }
+              }}>
+                <Typography
+                  variant="body2"
+                  component={"div"}
+                  mb={1}
+                  color="primary.light"
+                  sx={{fontSize:{
+                    xs:"1.5rem",
+                    sm:"1.2rem",
+                    xl:"0.875rem"
+                  }}}
+                >
+                  {item.info}
+                </Typography>
+                <Typography  component={"div"} sx={{
+                  fontSize:{
+                    xs:"1rem",
+                    xl:"0.75rem"
+                  }
+                }}>
+                  {item.currentlot}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </>
+  );
 };
 
-export default FeaturedLots;
+export default FeaturedLots2;

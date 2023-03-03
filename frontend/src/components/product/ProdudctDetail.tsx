@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
-import FeaturedLots from "./FeaturedLots";
+import FeaturedLots from "./FeaturedLots3";
 import Footer from "../Footer/Footer";
-import FeaturedLots2 from "./FeaturedLots2";
+import FeaturedLots2 from "./FeaturedLots";
 
 const ProdudctDetail = () => {
   const theme = useTheme();
