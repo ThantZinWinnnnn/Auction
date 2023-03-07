@@ -1,5 +1,10 @@
 import { Component } from "react";
 
+import SummerizeItems from "../assets/images/summerizeItems.jpg"
+import smallestGadegats from "../assets/images/smallestGadegats.jpg"
+import kitchenRefri from "../assets/images/kitchenRefri.jpg"
+import kitchenAndAccessories from "../assets/images/kitchenAndAccessories.jpg"
+
 interface category {
   id:Number,
   name:String
@@ -36,7 +41,7 @@ export const PrimaryCategories: Array<category> = [
 interface feature{
   id:Number,
   name:String,
-  url?:String,
+  url?:String | React.Component,
   info ?: String,
   currentlot ?:String
 }
@@ -147,3 +152,27 @@ export const information:Array<feature> = [
 		name:"Contact Us"
 	},
 ];
+
+
+export const carouselData:Array<feature> =[
+	{
+		id:1,
+		url:"https://media.istockphoto.com/id/653058890/photo/home-appliances-group-of-white-refrigerator-washing-machine-stove-microwave.jpg?s=612x612&w=0&k=20&c=OzENCxEGezSfCY_yWTLJRm-M8RIvPjdqEWqexJBoBEA=",
+		name:"summerizeItems"
+	},
+	{
+		id:2,
+		url:"https://media.istockphoto.com/id/1453338188/photo/old-computers-digital-tablets-mobile-phones-many-used-electronic-gadgets-devices-broken.jpg?s=612x612&w=0&k=20&c=hhqrDjtkBRNy0spzlf8-W6pERJkT8i4lxAlYz7aPjHM=",
+		name:"kitchenRefri"
+	},
+	{
+		id:3,
+		url:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+		name:"Laptops And Computers"
+	},
+	{
+		id:4,
+		url:"https://media.istockphoto.com/id/1307512096/photo/asian-chinese-female-boutique-shop-clothing-store-owner-checking-stock-with-digital-tablet.jpg?s=2048x2048&w=is&k=20&c=QDMw0b4F1a4c89xZK60t56-WAx3yJjxqFVEVA331LNs=",
+		name:"Fashions"
+	},
+]

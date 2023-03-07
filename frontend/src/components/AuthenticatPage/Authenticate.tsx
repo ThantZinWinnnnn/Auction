@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import Carousel from "./Carousel";
+import Carousel from "../Carousel/Carousel";
 import LoginSignUp from "./LoginSignUp";
 import backgroundImage from "../../assets/images/bg.avif";
 import {useMediaQuery,useTheme} from "@mui/material"
