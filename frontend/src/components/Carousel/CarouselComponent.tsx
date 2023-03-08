@@ -1,13 +1,12 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-
 
 const CarouselComponent = ({ items }) => {
   return (
     <Box
-    color={"primary.main"}
+      color={"primary.main"}
       width={"100%"}
-      height={"100vh"}
+      minHeight={"100vh"}
       display="flex"
       flexDirection={"column"}
       justifyContent={"center"}
@@ -21,7 +20,9 @@ const CarouselComponent = ({ items }) => {
         backgroundPosition: "50% 50%",
       }}
     >
-      {items.name}
+      <Typography variant="h2" fontWeight={"bold"} color="common.white">
+        {items.name}
+      </Typography>
     </Box>
   );
 };

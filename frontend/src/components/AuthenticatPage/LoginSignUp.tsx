@@ -32,6 +32,8 @@ const schema = yup.object().shape({
 });
 
 const LoginSignUp = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const {
     register,
     control,
@@ -45,8 +47,10 @@ const LoginSignUp = () => {
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("md"));
 
+  const onSubmitHandler = (data) => console.log(data);
+
   return (
-    <Box width={desktop ? "50%" : "100%"} height="100vh" sx={{ p: 2 }}>
+    <Box width={desktop ? "50%" : "100%"} minHeight="100vh" sx={{ p: 2 }}>
       <Box display={"flex"} alignItems="center" gap={3} mb={2}>
         <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
           <img width={"100%"} src={`${logo}`} alt="logo" />
@@ -88,73 +92,121 @@ const LoginSignUp = () => {
           mx={"auto"}
           sx={{
             mt: 10,
-            width:{
-              xs:"98%",
-              sm:"80%"
-            }
+            width: {
+              xs: "98%",
+              sm: "80%",
+            },
           }}
         >
-          <form>
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
             <Box
               display={"flex"}
               flexDirection="column"
               sx={{
-                gap: 4,
+                gap: 3,
               }}
             >
+              {loggedIn && (
+                <Box>
+                  <Typography
+                    id="userName"
+                    sx={{
+                      mb: 1,
+                      fontSize: {
+                        xs: 18,
+                        sm: 20,
+                      },
+                    }}
+                  >
+                    Username
+                  </Typography>
+                  <TextField
+                    aria-labelledby="userName"
+                    type="text"
+                    variant="outlined"
+                    error={!!errors.username}
+                    helperText={errors.username ? errors?.username.message : ""}
+                    fullWidth
+                    {...register("username", { required: true })}
+                  />
+                </Box>
+              )}
               <Box>
-                <Typography id="email" sx={{
-                  mb:1,
-                  fontSize:{
-                    xs:18,
-                    sm:20
-                  }
-                }}>Email</Typography>
+                <Typography
+                  id="email"
+                  sx={{
+                    mb: 1,
+                    fontSize: {
+                      xs: 18,
+                      sm: 20,
+                    },
+                  }}
+                >
+                  Email
+                </Typography>
                 <TextField
-                aria-labelledby="email"
-                type="email"
-                variant="outlined"
-                error={!!errors.email}
-                helperText={errors.email ? errors?.email.message : ""}
-                fullWidth
-              />
+                  aria-labelledby="email"
+                  type="email"
+                  variant="outlined"
+                  error={!!errors.email}
+                  helperText={errors.email ? errors?.email.message : ""}
+                  fullWidth
+                  {...register("email", { required: true })}
+                />
               </Box>
-              
+
               <Box>
-                <Typography id="password" fontWeight={'medium'} sx={{
-                  fontSize:{
-                    xs:18,
-                    sm:20
-                  }
-                }}>Password</Typography>
+                <Typography
+                  id="password"
+                  fontWeight={"medium"}
+                  sx={{
+                    fontSize: {
+                      xs: 18,
+                      sm: 20,
+                    },
+                  }}
+                >
+                  Password
+                </Typography>
                 <TextField
-                aria-labelledby="password"
-                type="password"
-                variant="outlined"
-                error={!!errors.password}
-                helperText={errors.password ? errors?.password.message : ""}
-                fullWidth
-              />
+                  aria-labelledby="password"
+                  type="password"
+                  variant="outlined"
+                  error={!!errors.password}
+                  helperText={errors.password ? errors?.password.message : ""}
+                  fullWidth
+                  {...register("password", { required: true })}
+                />
               </Box>
             </Box>
             <Link to={"/forgotpassword"}>
-              <Typography sx={{ color: "black", textDecoration: "underline",mb:6,mt:2,"&:hover":{
-                color:"blue"
-              } }}>
+              <Typography
+                sx={{
+                  color: "black",
+                  textDecoration: "underline",
+                  mb: 6,
+                  mt: 2,
+                  "&:hover": {
+                    color: "blue",
+                  },
+                }}
+              >
                 Forgot your password?
               </Typography>
             </Link>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox defaultChecked disableRipple disableTouchRipple/>}
+                control={<Checkbox disableRipple disableTouchRipple />}
                 label={
-                  <Typography textAlign={'left'} sx={{
-                    fontSize:{
-                      xs:14,
-                      sm:16
-                    },
-                    
-                  }}>
+                  <Typography
+                    textAlign={"left"}
+                    sx={{
+                      fontSize: {
+                        xs: 14,
+                        sm: 16,
+                      },
+                    }}
+                  >
                     I agree to the{" "}
                     <span style={{ color: "blue" }}>Terms & Conditions</span>{" "}
                     and <span style={{ color: "blue" }}>Privacy Policy</span>
@@ -162,28 +214,54 @@ const LoginSignUp = () => {
                 }
               />
             </FormGroup>
-            <Button fullWidth variant="contained" sx={{
-              textTransform:"none",
-              bgcolor:"#181818",
-              mt:4,
-              py:1.5,
-              fontSize:{
-                xs:16,
-                sm:18
-              }
-            }}>Sign In</Button>
+            <Button
+              disableElevation
+              disableRipple
+              fullWidth
+              variant="contained"
+              type="submit"
+              sx={{
+                textTransform: "none",
+                bgcolor: "#181818",
+                mt: 4,
+                py: 1.5,
+                fontSize: {
+                  xs: 16,
+                  sm: 18,
+                },
+                "&:hover": {
+                  bgcolor: "grey.800",
+                },
+              }}
+            >
+              {loggedIn ? "Sign Up" : "Sign In"}
+            </Button>
           </form>
 
-          <Box display={'flex'} justifyContent='center' alignItems='center' sx={{
-            mt:4
-          }}>
-            <Typography color={'#D1D0CC'}>Don't have an account?</Typography>
-            <Button sx={{
-              textTransform:"none",
-              color:"black",
-              fontSize:16,
-              fontWeight:"bold"
-            }}>Sign Up</Button>
+          <Box
+            display={"flex"}
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              mt: 2,
+            }}
+          >
+            <Typography color={"#D1D0CC"}>
+              {loggedIn ? "Already have an account?" : "Don't have an account?"}
+            </Typography>
+            <Button
+              disableRipple
+              disableElevation
+              onClick={() => setLoggedIn(!loggedIn)}
+              sx={{
+                textTransform: "none",
+                color: "black",
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              {loggedIn ? "Sign In" : "Sign Up"}
+            </Button>
           </Box>
         </Box>
       </Box>

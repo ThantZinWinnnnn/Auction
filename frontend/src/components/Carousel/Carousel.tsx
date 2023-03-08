@@ -8,7 +8,7 @@ import CarouselComponent from './CarouselComponent'
 const CarouselSlide = () => {
   
   return (
-      <Carousel sx={{width:"50%"}}>
+      <Carousel sx={{width:"50%",minHeight:"100%"}} indicators={false} animation="slide" navButtonsAlwaysInvisible>
         {
           carouselData.map((item)=>(
             <CarouselComponent key={`${item.id}`} items={item}/>

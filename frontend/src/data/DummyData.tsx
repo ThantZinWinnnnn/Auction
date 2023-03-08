@@ -158,12 +158,12 @@ export const carouselData:Array<feature> =[
 	{
 		id:1,
 		url:"https://media.istockphoto.com/id/653058890/photo/home-appliances-group-of-white-refrigerator-washing-machine-stove-microwave.jpg?s=612x612&w=0&k=20&c=OzENCxEGezSfCY_yWTLJRm-M8RIvPjdqEWqexJBoBEA=",
-		name:"summerizeItems"
+		name:"GadeGats"
 	},
 	{
 		id:2,
 		url:"https://media.istockphoto.com/id/1453338188/photo/old-computers-digital-tablets-mobile-phones-many-used-electronic-gadgets-devices-broken.jpg?s=612x612&w=0&k=20&c=hhqrDjtkBRNy0spzlf8-W6pERJkT8i4lxAlYz7aPjHM=",
-		name:"kitchenRefri"
+		name:"Electronics"
 	},
 	{
 		id:3,

@@ -2,29 +2,41 @@ import { Box, Container } from "@mui/material";
 import Carousel from "../Carousel/Carousel";
 import LoginSignUp from "./LoginSignUp";
 import backgroundImage from "../../assets/images/bg.avif";
-import {useMediaQuery,useTheme} from "@mui/material"
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const Authenticate = () => {
-
   const theme = useTheme();
-  const tablet = useMediaQuery(theme.breakpoints.up('md'))
+  const tablet = useMediaQuery(theme.breakpoints.up("md"));
+  const Desktop = useMediaQuery(theme.breakpoints.up('xl'));
+  const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Box
-      display={'flex'}
-      justifyItems='center'
-      alignItems={'center'}
+      display={"flex"}
+      justifyItems="center"
+      alignItems={"center"}
       sx={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        width:"100vw",
-        height:"100vh"
+        width: "100vw",
+        minHeight: "100vh",
+        overflow:mobile ? "scroll" : "hidden"
       }}
     >
-      <Container maxWidth='lg' sx={{bgcolor:"white" ,display:"flex"}}>
+      <Container
+        disableGutters
+        maxWidth="xl"
+        
+        sx={{
+          bgcolor: "white",
+          display: "flex",
+          maxHeight:Desktop ? "95vh":"auto",
+          borderRadius: 2,
+        }}
+      >
         <LoginSignUp />
-        {tablet && (<Carousel/>)}
+        {tablet && <Carousel />}
       </Container>
     </Box>
   );
