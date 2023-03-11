@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const userRouter = require('./routes/userRoutes/userRoute')
 
  
 require('dotenv').config()
@@ -10,6 +11,9 @@ app.use(express.urlencoded({extended:true}))
 
 //cookie parser
 app.use(cookieParser())
+app.use('/api/user',userRouter)
+
+
 
 app.get("/", (req, res) => {
   res.send("Hi I am testing");
