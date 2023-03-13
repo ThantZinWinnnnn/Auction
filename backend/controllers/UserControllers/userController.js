@@ -47,7 +47,7 @@ exports.logout=async(req,res)=>{
 }
 
 exports.getAllUser = async (req, res, next) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.product.deleteMany()
   console.log(users);
   res.status(200).json({ users });
 };

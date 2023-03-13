@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/userRoutes/userRoute')
+const postRouter = require('./routes/PostRoutes/post.route')
 
  
 require('dotenv').config()
@@ -12,6 +13,7 @@ app.use(express.urlencoded({extended:true}))
 //cookie parser
 app.use(cookieParser())
 app.use('/api/user',userRouter)
+app.use('/api/post',postRouter)
 
 
 
@@ -20,6 +22,6 @@ app.get("/", (req, res) => {
 });
 
 //to change port in env file
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });
