@@ -12,6 +12,7 @@ exports.createPost = async(req,res)=>{
             owner
         },
     })
+    console.log('test')
 
     res.status(201).json({
         success:true,
