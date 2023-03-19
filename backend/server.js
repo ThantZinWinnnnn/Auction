@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/userRoutes/userRoute')
 const postRouter = require('./routes/PostRoutes/post.route')
+const commentRouter = require('./routes/PostRoutes/comment.route')
 
  
 require('dotenv').config()
@@ -14,6 +15,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use('/api/user',userRouter)
 app.use('/api/post',postRouter)
+app.use('/api/post/comment',commentRouter)
+
 
 
 

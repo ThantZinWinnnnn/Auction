@@ -9,14 +9,14 @@ datasource db {
 }
 
 model User {
-  id       String     @id @default(uuid())
-  email    String     @unique
-  name     String
-  password String
-  role     Role       @default(USER)
-  post     Product[]
-  location Location[]
-  comment  Comment[]
+  id         String       @id @default(uuid())
+  email      String       @unique
+  name       String
+  password   String
+  role       Role         @default(USER)
+  location   Location[]
+  comment    Comment[]
+  bidProduct BidProduct[]
 }
 
 enum Role {
@@ -25,7 +25,7 @@ enum Role {
 }
 
 model Location {
-  id      String @id @default(uuid())
+  id      String  @id @default(uuid())
   street  String
   town    String
   region  String
@@ -35,33 +35,22 @@ model Location {
 
   @@index([userId])
 }
-model Category {
-  id        String  @id @default(uuid())
-  name      String
-  post      Product? @relation(fields: [productId], references: [id])
-  productId String?
 
-  @@index([productId])
-}
 
 model Product {
-  id        String     @id @default(uuid())
-  title     String
-  image     String
-  price     Int
-  bidPrice  Int?
-  owner     String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  category  Category[]
-  user      User?      @relation(fields: [userId], references: [id]) //add owner
-  userId    String?
-  comment   Comment[]
+  id         String       @id @default(uuid())
+  title      String
+  image      String
+  price      Int
+  owner      String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  category   Json
+  comment    Comment[]
+  bidProduct BidProduct[]
 
-  @@index([userId])
+
 }
-
-
 
 model Comment {
   id        String   @id @default(uuid())
@@ -70,9 +59,21 @@ model Comment {
   createdAt DateTime @default(now())
   user      User?    @relation(fields: [userId], references: [id])
   userId    String?
-  product   Product?  @relation(fields: [productId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id])
   productId String?
 
   @@index([userId])
   @@index([productId])
+}
+
+model BidProduct {
+  id        String  @id @default(uuid())
+  bidPrice  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([productId])
+  @@index([userId])
 }
