@@ -1,5 +1,13 @@
 const prisma = require("../../prisma/index");
 
+exports.getAllPosts = async (req,res)=>{
+  const allPosts = await prisma.product.findMany();
+
+  res.status(200).json({
+    allPosts
+  })
+}
+
 exports.createPost = async (req, res) => {
   const { title, image, price, owner, proCat } = req.body;
 
@@ -68,3 +76,27 @@ exports.postByCategory = async (req, res) => {
 
   res.status(200).json(posts);
 };
+
+exports.queryProduct = async(req,res)=>{
+
+  try {
+      const product = req.query;
+      console.log("q",product)
+
+      const products = await prisma.product.findMany({
+        where:{
+          title:{
+            contains:"Laptops"
+            
+          }
+        }
+      })
+
+      res.status(200).json({
+        products
+      })
+
+  } catch (error) {
+    res.status(404).json({message:"Not Found which you find"})
+  }
+}

@@ -23,3 +23,24 @@ exports.createComment = async (req, res) => {
     });
   }
 };
+
+exports.deleteComment = async(req,res)=>{
+  try {
+      const {commentId} = req.body;
+
+      const deleteComment = await prisma.comment.delete({
+        where:{
+          id:commentId
+        }
+      });
+
+      res.status(200).json({
+        success:true,
+        message:"Deleted message",
+        deleteComment
+      })
+
+  } catch (err) {
+    
+  }
+}
