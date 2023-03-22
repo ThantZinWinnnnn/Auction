@@ -43,7 +43,7 @@ const data = [
       "https://portal-images.azureedge.net/auctions-2023/wi415170/images/98f208e2-7cf0-4245-9a17-94a2e71e38c5.png?w=250",
     price: "",
     owner: "Thant Zin Win",
-    proCat: "Watches",
+    proCat: "Jewellery",
   },
   {
     title: "Stunning Collection of Gemstones and Jewellery | Very Low Reserves",
@@ -51,7 +51,7 @@ const data = [
       "https://portal-images.azureedge.net/auctions-2023/wi415244/images/8b5bc45f-3158-4ebc-8965-d06ecd058ae7.png?w=250",
     price: "",
     owner: "Thant Zin Win",
-    proCat: "Watches",
+    proCat: "Jewellery",
   },
   //venchile
   {
@@ -103,6 +103,84 @@ const data = [
       "Rare Antiques & Collectables | Jade Sculptures, Pencil Drawings & Paintings, Engraved Copper Printing Matrix Plates & more",
     image:
       "https://portal-images.azureedge.net/auctions-2023/wi415252/images/1a3c71a3-bf4d-48fb-bef0-961c93d03b16.png?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Watches",
+  },
+
+///Jewelly addition 
+  {
+    title:
+      "18ct Yellow Gold Single Stone Diamond Ring With Stone Set Shoulders (1.11) 1.28 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/3c68ea86-af74-4112-a74e-afbd00aadd75.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Jewellery",
+  },
+  {
+    title:
+      "18ct Rose Gold Cluster Diamond Bracelet 22.36 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/fd635096-9786-4e0d-8c17-afbd00ab0f22.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Jewellery",
+  },
+  {
+    title:
+      "18ct White Gold Single Stone Emerald Cut Diamond Ring (D5.00) 5.35 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/24412080-0016-499c-855e-afbd00ab5c31.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Jewellery",
+  },
+  {
+    title:
+      "18ct White Gold Single Stone Oval Cut Diamond Earring 2.55 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/21eb4541-2f80-4fda-9e53-afbd00ab82cb.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Jewellery",
+  },
+
+
+
+  ///Watches Addition
+  {
+    title:
+      "18ct White Gold Single Stone Oval Cut Diamond Earring 2.55 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/21eb4541-2f80-4fda-9e53-afbd00ab82cb.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Watches",
+  },
+  {
+    title:
+      "18ct White Gold Single Stone Oval Cut Diamond Earring 2.55 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/21eb4541-2f80-4fda-9e53-afbd00ab82cb.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Watches",
+  },
+  {
+    title:
+      "18ct White Gold Single Stone Oval Cut Diamond Earring 2.55 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/21eb4541-2f80-4fda-9e53-afbd00ab82cb.jpg?w=250",
+    price: "",
+    owner: "Thant Zin Win",
+    proCat: "Watches",
+  },
+  {
+    title:
+      "18ct White Gold Single Stone Oval Cut Diamond Earring 2.55 Carats",
+    image:
+      "https://portal-images.azureedge.net/auctions-2023/wi415244/images/21eb4541-2f80-4fda-9e53-afbd00ab82cb.jpg?w=250",
     price: "",
     owner: "Thant Zin Win",
     proCat: "Watches",

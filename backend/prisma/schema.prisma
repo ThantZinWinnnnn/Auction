@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -38,24 +37,27 @@ model Location {
 }
 
 model Product {
-  id         String       @id @default(uuid())
-  title      String
-  image      String
-  price      Int
-  owner      String
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  category   Json
-  comment    Comment[]
-  bidProduct BidProduct[]
-
-  
+  id          String        @id @default(uuid())
+  title       String
+  image       String
+  price       Int
+  owner       String
+  detailTitle String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  category    Json
+  subCategory Json?
+  comment     Comment[]
+  bidProduct  BidProduct[]
 }
+
+
+
 
 model Comment {
   id        String   @id @default(uuid())
   comment   String?
-  rating    Float?
+  rating    Float?  @default(0)
   createdAt DateTime @default(now())
   user      User?    @relation(fields: [userId], references: [id])
   userId    String?

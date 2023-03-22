@@ -41,7 +41,10 @@ exports.deleteById = async (req, res) => {
     },
   });
 
-  res.status(200).json(post);
+  res.status(200).json({
+    success:true,
+    post
+  });
 };
 
 exports.postById = async (req, res) => {
@@ -80,21 +83,21 @@ exports.postByCategory = async (req, res) => {
 exports.queryProduct = async(req,res)=>{
 
   try {
-      const product = req.query;
+      const product = req.query.product;
       console.log("q",product)
 
       const products = await prisma.product.findMany({
         where:{
           title:{
-            contains:"Laptops"
+            contains:product
             
           }
         }
       })
 
-      res.status(200).json({
+      res.status(200).json(
         products
-      })
+      )
 
   } catch (error) {
     res.status(404).json({message:"Not Found which you find"})
