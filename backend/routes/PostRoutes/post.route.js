@@ -10,9 +10,10 @@ const {
   getAllPosts,
   queryProduct
 } = require("../../controllers/PostsController/post.controller");
-const {detailTitles} = require("../../controllers/detail.component.title.api/detail.title")
+const {detailTitles} = require("../../controllers/detail.component.title.api/detail.title");
+const {isAuthenticatedUser} = require("../../middleware/AuthUser")
 
-router.route("/allPosts").get(getAllPosts);
+router.route("/allPosts").get(isAuthenticatedUser,getAllPosts);
 router.route("/createpost").post(createPost);
 router.route("/delete/:id").get(deleteById);
 router.route("/:id").get(postById);
