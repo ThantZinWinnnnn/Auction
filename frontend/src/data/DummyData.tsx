@@ -25,11 +25,11 @@ export const PrimaryCategories: Array<category> = [
   },
     {
     id:4,
-    name:"Consumer Goods"
+    name:"Automotive & Vehicles"
   },
     {
     id:5,
-    name:"Vehicles"
+    name:"Decorative Art"
   },
     {
     id:6,

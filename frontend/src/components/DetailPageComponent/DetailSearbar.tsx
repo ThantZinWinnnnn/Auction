@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
-const DetailSearchbar = () => {
+const   DetailSearchbar = () => {
   const [values, setValues] = useState<string | null>(null);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
