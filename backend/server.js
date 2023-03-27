@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/userRoutes/userRoute')
 const postRouter = require('./routes/PostRoutes/post.route')
 const commentRouter = require('./routes/PostRoutes/comment.route')
+const bidProductRouter = require('./routes/BidRoutes/bidProduct.route')
 
  
 require('dotenv').config()
@@ -16,6 +17,7 @@ app.use(cookieParser())
 app.use('/api/user',userRouter)
 app.use('/api/post',postRouter)
 app.use('/api/post/comment',commentRouter)
+app.use('/api/product/auction',bidProductRouter)
 
 
 

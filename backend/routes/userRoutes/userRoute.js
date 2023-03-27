@@ -11,4 +11,5 @@ router.route('/forgotpss').post(forgotPassword)
 router.route('/updatepass').post(updatePassword)
 
 
+
 module.exports = router

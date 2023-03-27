@@ -142,7 +142,7 @@ exports.updatePassword = async (req, res) => {
 };
 
 exports.getAllUser = async (req, res, next) => {
-  const users = await prisma.user.deleteMany();
+  const users = await prisma.user.findMany();
   console.log(users);
   res.status(200).json({ users });
 };
