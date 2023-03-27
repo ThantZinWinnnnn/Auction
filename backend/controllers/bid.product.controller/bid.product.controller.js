@@ -92,6 +92,10 @@ exports.bidProduct = async (req, res) => {
           id:winLotProductToDisconnect? winLotProductToDisconnect.id:undefined
         }
       }
+    },
+    include:{
+      winLotProducts:true,
+      lostLotProducts:true
     }
   });
 
