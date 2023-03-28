@@ -8,6 +8,8 @@ exports.getAllPosts = async (req,res)=>{
   })
 }
 
+
+//temporary later i will drop this codes
 exports.createPost = async (req, res) => {
   const { title, image, price, owner, proCat } = req.body;
 
@@ -26,6 +28,24 @@ exports.createPost = async (req, res) => {
     post,
   });
 };
+
+exports.userCreateProduct = async(req,res)=>{
+  const {id:userId,name} = req.user;
+
+  const {title,image,price,proCat} = req.body;
+
+  const sellProduct = await prisma.product.create({
+    data:{
+      title,
+      image,
+      price,
+      owner:name,
+      category:proCat
+    }
+  });
+
+  res.status(201).json({success:true,sellProduct})
+}
 
 exports.deletePosts = async (req, res) => {
   const post = await prisma.product.deleteMany();

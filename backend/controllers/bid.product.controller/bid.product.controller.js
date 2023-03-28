@@ -29,7 +29,7 @@ exports.bidProduct = async (req, res) => {
       currentOwnerName:userName
     },
   });
-  console.log("updatePro", updatedProduct);
+  //console.log("updatePro", updatedProduct);
 
   //create a new WinLOtProduct entry with the new owner and bid price
   const winProduct = await prisma.winLotProduct.create({
@@ -39,7 +39,7 @@ exports.bidProduct = async (req, res) => {
       userId,
     },
   });
-  console.log("winPro", winProduct);
+  //console.log("winPro", winProduct);
 
   //get the previous owner's id and all of winLotProducts
   const { currentOwnerId} = product;
@@ -53,7 +53,7 @@ exports.bidProduct = async (req, res) => {
       ownerId: currentOwnerId,
     },
   });
-  console.log("lostPro", lostProduct);
+  //console.log("lostPro", lostProduct);
 
   const currentuser = await prisma.user.findUnique({
     where:{
@@ -64,7 +64,7 @@ exports.bidProduct = async (req, res) => {
     }
   });
 
-  console.log("array",currentuser)
+  //console.log("array",currentuser)
 
   //find the winlotproduct to disconnect find((wp) => wp.productId === product.id)
    const winLotProductToDisconnect = currentuser.winLotProducts.find((wp)=> wp.productId === product.id)
@@ -91,6 +91,11 @@ exports.bidProduct = async (req, res) => {
         disconnect:{
           id:winLotProductToDisconnect? winLotProductToDisconnect.id:undefined
         }
+      },
+      lostLotProducts:{
+        connect:{
+          id:lostProduct.id
+        }
       }
     },
     include:{
@@ -114,7 +119,7 @@ exports.bidProduct = async (req, res) => {
   //       ]
   //   }
   // });
-  console.log(deleteLostProductFromLoser);
+  //console.log(deleteLostProductFromLoser);
 
   res.status(200).json({success:true,
     deleteLostProductFromLoser})

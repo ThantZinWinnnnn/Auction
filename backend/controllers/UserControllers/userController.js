@@ -146,3 +146,35 @@ exports.getAllUser = async (req, res, next) => {
   console.log(users);
   res.status(200).json({ users });
 };
+
+
+exports.updateProfile = async(req,res)=>{
+  const userId = req.user.id;
+
+  const{name,email,profileUrl,street,town,region,country} = req.body;
+
+  const updatedUser = await prisma.user.update({
+    where:{
+      id:userId
+    },
+    data:{
+      email,
+      name,
+      profileUrl,
+      location:{
+        create:{
+          street,
+          town,
+          region,
+          country
+        }
+      }
+    },
+    include:{location:true}
+  });
+
+  res.status(200).json({
+    success:true,
+    updatedUser
+  })
+}
