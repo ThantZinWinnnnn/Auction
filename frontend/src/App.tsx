@@ -5,6 +5,7 @@ import HomePage from "./Pages/HomePage"
 import { createTheme,ThemeProvider } from "@mui/material"
 import Authenticate from "./components/AuthenticatPage/Authenticate"
 import BidProductPage from "./Pages/BidProductPage"
+import ProfilePage from "./Pages/ProfilePage"
 
 
 const theme = createTheme({
@@ -23,6 +24,7 @@ function App() {
 				<Route path="/detailHome" element={<CategoryOverview />} />
 				<Route path="/login" element={<Authenticate/>}/>
 				<Route path="/bidProduct" element={<BidProductPage/>}/>
+				<Route path="/profile" element={<ProfilePage/>}/>
 			</Routes>
 		</ThemeProvider>
 	);
