@@ -10,7 +10,7 @@ const Wrapper= ({ children }: any) => {
 
   return (
    <>
-    <Box bgcolor={"#FAFAFA"} width="100vw" height={"100vh"}>
+    <Box bgcolor={"#FAFAFA"} width="100vw" height={"100vh"} overflow="scroll">
         {/*to fix key for detail navbar */}
     <DetailNavbar/>
      <Container maxWidth={is4kScreen ? "lg" : "lg"} sx={{bgcolor:"#FAFAFA"}} disableGutters>

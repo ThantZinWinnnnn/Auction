@@ -1,5 +1,5 @@
 import React from "react";
-import ProfilePage from "../../Pages/ProfilePage";
+import UserPage from "./ProfilePages/UserPage";
 
 import Wrapper from "./Wrapper";
 
@@ -9,7 +9,7 @@ const ProfileComponent = (props: Props) => {
   return (
     <>
       <Wrapper>
-        <ProfilePage/>
+          <UserPage/>
       </Wrapper>
     </>
   );

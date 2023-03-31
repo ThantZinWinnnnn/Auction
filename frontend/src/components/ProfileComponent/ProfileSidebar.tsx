@@ -39,6 +39,7 @@ const ProfileSidebar = () => {
       bgcolor={"#FFFFFF"}
       sx={{
         width: "240px",
+        height:"300px"
       }}
     >
       <Box sx={{
@@ -58,7 +59,7 @@ const ProfileSidebar = () => {
           {SidebarLists.map((list) => (
             <ListItem key={list.id} disablePadding sx={{
                 "&:hover":{
-                    borderLeft:"2px solid red"
+                    borderLeft:"4px solid red"
                 }
             }}>
               <ListItemButton key={list.id} disableRipple>

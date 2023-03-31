@@ -175,4 +175,27 @@ export const carouselData:Array<feature> =[
 		url:"https://media.istockphoto.com/id/1307512096/photo/asian-chinese-female-boutique-shop-clothing-store-owner-checking-stock-with-digital-tablet.jpg?s=2048x2048&w=is&k=20&c=QDMw0b4F1a4c89xZK60t56-WAx3yJjxqFVEVA331LNs=",
 		name:"Fashions"
 	},
-]
+];
+
+
+interface profile{
+	username:string,
+	email:string,
+	role:string,
+	street:string,
+	town:string,
+	region:string,
+	country:string
+};
+
+export const profileDetails:profile = {
+
+	username:"Thant Zin Win",
+	email:"thant.zin.windev@gmail.com",
+	role:"ADMIN",
+	street:"PayainMa Street",
+	town:"Myaung",
+	region:"Sagaing",
+	country:"Myanmar"
+}
+	
