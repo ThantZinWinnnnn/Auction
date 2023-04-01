@@ -7,27 +7,33 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface list {
   id: string;
   text: string;
+  path:string
 }
 const SidebarLists: Array<list> = [
   {
     id: "1",
     text: "Profile Setting",
+    path:"/profile"
   },
   {
     id: "2",
     text: "Sell Products Lists",
+    path:"/userProducts"
   },
   {
     id: "3",
     text: "Win Lot Products",
+    path:"/winProducts"
   },
   {
     id: "4",
     text: "Lost Lot Products",
+    path:"/lostProducts"
   },
 ];
 
@@ -62,9 +68,11 @@ const ProfileSidebar = () => {
                     borderLeft:"4px solid red"
                 }
             }}>
-              <ListItemButton key={list.id} disableRipple>
+              <Link to={list.path}>
+              <ListItemButton key={list.id} disableRipple  sx={{ color: "black" }}>
               <ListItemText key={list.id}>{list.text}</ListItemText>
               </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>

@@ -1,16 +1,31 @@
-import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Modal, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import ProfileInfo from "../components/ProfileInfo";
 import UpdateModel from "../components/UpdateModel";
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  borderRadius:1,
+  boxShadow: 24,
+  p: 4,
+};
+
+type func = () => void;
+
+
 const UserPage = () => {
 
   const [openModel, setOpenModel] = useState(false);
   const [username, setUsername] = useState("")
 
-  const modelHandler = ()=> setOpenModel(!open);
+  const modelHandler:func = ()=> setOpenModel(!openModel);
 
 
   const valueHandler = (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
@@ -69,7 +84,7 @@ const UserPage = () => {
           <ProfileInfo label="Country" data={profileDetails.country}/>
         </Box>
 
-        <Box width={"40%"} display="flex" ml={"auto"} gap={2} my={4}>
+        <Box width={"35%"} display="flex" ml={"auto"} gap={2} my={4} mr={2}>
           <BidButton
             padding={{
               sm: 1,
@@ -96,7 +111,19 @@ const UserPage = () => {
             func={modelHandler}
           />
         </Box>
-        <UpdateModel openn={openModel} closeHandler={modelHandler}/>
+        {/* <UpdateModel openn={openModel} closeHandler={modelHandler}/> */}
+
+        <Modal
+        keepMounted
+        open={Boolean(openModel)}
+        onClose={modelHandler}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+         <UpdateModel handler={modelHandler}/>
+        </Box>
+      </Modal>
       </Box>
       
     </>

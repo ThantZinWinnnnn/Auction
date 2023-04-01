@@ -8,7 +8,7 @@ interface actionButton{
     fontS : object,
     bgC: string,
     hoverC:string,
-    func:()=>void,
+    func:()=>any,
 }
 
 const BidButton = (props:actionButton) => {

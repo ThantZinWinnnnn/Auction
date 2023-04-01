@@ -24,7 +24,7 @@ function App() {
 				<Route path="/detailHome" element={<CategoryOverview />} />
 				<Route path="/login" element={<Authenticate/>}/>
 				<Route path="/bidProduct" element={<BidProductPage/>}/>
-				<Route path="/profile" element={<ProfilePage/>}/>
+				<Route path="/:usedetail" element={<ProfilePage/>}/>
 			</Routes>
 		</ThemeProvider>
 	);
