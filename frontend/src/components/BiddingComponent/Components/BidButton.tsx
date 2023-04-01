@@ -7,7 +7,8 @@ interface actionButton{
     padding:object,
     fontS : object,
     bgC: string,
-    hoverC:string
+    hoverC:string,
+    func:()=>void,
 }
 
 const BidButton = (props:actionButton) => {
@@ -29,6 +30,7 @@ const BidButton = (props:actionButton) => {
           },
       }}
       startIcon={props.icon}
+      onClick={props.func}
     >
       {props.ButtonText}
     </Button>

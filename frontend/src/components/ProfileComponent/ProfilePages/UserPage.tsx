@@ -1,13 +1,27 @@
 import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import ProfileInfo from "../components/ProfileInfo";
+import UpdateModel from "../components/UpdateModel";
 
 const UserPage = () => {
+
+  const [openModel, setOpenModel] = useState(false);
+  const [username, setUsername] = useState("")
+
+  const modelHandler = ()=> setOpenModel(!open);
+
+
+  const valueHandler = (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
+    setUsername(e.target.value)
+  }
+
+  console.log(openModel)
+
   return (
     <>
-      <Box bgcolor={"#FFFFFF"} width="100%" boxSizing={"border-box"}>
+      <Box bgcolor={"#FFFFFF"} width="100%" boxSizing={"border-box"} position={"relative"}>
         {/*profile image */}
         <Box p={2}>
           <Typography fontWeight={"bold"} variant="h6">
@@ -52,7 +66,7 @@ const UserPage = () => {
           <ProfileInfo label="Street" data={profileDetails.street} />
           <ProfileInfo label="Town" data={profileDetails.town} />
           <ProfileInfo label="Region" data={profileDetails.region} />
-          <ProfileInfo label="Country" data={profileDetails.country} />
+          <ProfileInfo label="Country" data={profileDetails.country}/>
         </Box>
 
         <Box width={"40%"} display="flex" ml={"auto"} gap={2} my={4}>
@@ -66,6 +80,7 @@ const UserPage = () => {
             }}
             hoverC="#E1E0E0"
             ButtonText="Cancel"
+            func={()=>{}}
           />
 
           <BidButton
@@ -78,9 +93,12 @@ const UserPage = () => {
             }}
             hoverC="warning.dark"
             ButtonText="Update"
+            func={modelHandler}
           />
         </Box>
+        <UpdateModel openn={openModel} closeHandler={modelHandler}/>
       </Box>
+      
     </>
   );
 };
