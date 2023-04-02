@@ -7,6 +7,7 @@ const Wrapper = ({ children }: any) => {
   const theme = useTheme();
 
   const is4kScreen = useMediaQuery(theme.breakpoints.up("xl"));
+  const NotMobile = useMediaQuery(theme.breakpoints.up('sm'))
 
   return (
     <>
@@ -14,18 +15,29 @@ const Wrapper = ({ children }: any) => {
         {/*to fix key for detail navbar */}
         <DetailNavbar />
         <Container
-          maxWidth={is4kScreen ? "lg" : "lg"}
+          maxWidth={is4kScreen ? "xl" : "lg"}
           sx={{ bgcolor: "#FAFAFA" }}
           disableGutters
+          
         >
           <Box
             sx={{
               mt: 4,
+              gap:{
+                lg:8,
+                md:4,
+                sm:2
+              },
+              pl:{
+                lg:0,
+                md:4,
+                sm:3
+              }
             }}
             display="flex"
-            gap={8}
+
           >
-            <ProfileSidebar />
+           {NotMobile &&  <ProfileSidebar />}
             {children}
           </Box>
         </Container>

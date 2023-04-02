@@ -198,4 +198,96 @@ export const profileDetails:profile = {
 	region:"Sagaing",
 	country:"Myanmar"
 }
+
+
+ export const data = [
+	{
+	  title:
+		"No Reserve, Brand New Retail Stock | Includes Pallets of Retail Returns, Headphones & Speakers, Games, Toys & More | No VAT on Hammer",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415233/images/70842db8-b4f3-4c25-90c3-4a9bc2f71368.png?w=250",
+	  price: "400",
+	  owner: "Thant Zin Win",
+	  proCat: "Electronics",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	{
+	  title:
+		"Laptops, Computers & Tech accessories | Including Apple, Windows & Dell Products",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415237/images/ecdee6cd-1fb3-4794-a488-2b7086236fdb.png?w=250",
+	  price: "400",
+	  owner: "Thant Zin Win",
+	  proCat: "Electronics",currentOwner:"Thant",
+	  currentPrice:400
+	},
+	//watches
+	{
+	  title:
+		"High Street Designer Watches | All Brand New with Delivery Available",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415230/images/7fca4d54-fc62-4029-957e-6421606f68cf.png?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Watches",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	{
+	  title:
+		"Pre-Owned and New Luxury Watches - Audemars Piguet, Omega, Rolex, Oris, Bucherer",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415249/images/d7f36a41-9e3d-4310-83cb-8eb037ff751e.png?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Watches",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	{
+	  title:
+		"No Reserve Antiques & Collectables | Jewellery | Homes & Interiors | Porcelain & Glass | Vintage Fashion & more. FREE UK Shipping unless otherwise specified",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415170/images/98f208e2-7cf0-4245-9a17-94a2e71e38c5.png?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Jewellery",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	{
+	  title: "Stunning Collection of Gemstones and Jewellery | Very Low Reserves",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415244/images/8b5bc45f-3158-4ebc-8965-d06ecd058ae7.png?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Jewellery",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	//venchile
+	{
+	  title: "Industrial Food Processing Factory Equipment & Machinery",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415227/images/2944909a-055e-43e7-ab0b-9f17610dd9dd.jpg?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Watches",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	{
+	  title: "Plant, Machinery, Automotive & Number Plates | Collective Auction",
+	  image:
+		"https://portal-images.azureedge.net/auctions-2023/wi415214/images/5d471ecd-e71e-4e3e-a7db-80c8ce7d5d3f.png?w=250",
+	  price: "",
+	  owner: "Thant Zin Win",
+	  proCat: "Watches",
+	  currentOwner:"Thant",
+	  currentPrice:400
+	},
+	//decorative
+ ]
+  
 	

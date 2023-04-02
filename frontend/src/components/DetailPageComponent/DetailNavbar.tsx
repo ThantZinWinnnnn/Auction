@@ -51,6 +51,10 @@ const mobileLists: Array<lists> = [
   { name: "About Us" },
   { name: "Sign Up" },
   { name: "Account" },
+  {name:"Profile Setting"},
+  {name:"Sell Products Lists"},
+  {name:"Win Lot Products"},
+  {name:"Lost Lot Products"}
 ];
 
 const DetailNavbar = () => {

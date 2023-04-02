@@ -1,18 +1,20 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
-interface info{
-    label:string,
-    data:string
-
+interface info {
+  label: string;
+  data: string;
 }
 
-const ProfileInfo:React.FC<info> = ({label,data}) => {
+const ProfileInfo: React.FC<info> = ({ label, data }) => {
+
+  const theme = useTheme();
+  const belowLg = useMediaQuery(theme.breakpoints.down('lg'))
+  const belowMd = useMediaQuery(theme.breakpoints.down('md'))
+
   return (
     <>
-      <Box
-        display={"flex"}
-        alignItems={"center"}
-        gap={4}
+      <Box width={belowMd? "100%" : "50%"} display={'flex'} alignItems={'center'}
+        gap={belowLg ? 1.5 : 4}
         sx={{
           mb: 4,
         }}

@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Modal, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Modal, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
@@ -10,11 +10,23 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: {
+    xs:300,
+    sm:450,
+    lg:500
+  },
+  height:{
+    xs:600,
+    xl:700
+  },
   bgcolor: 'background.paper',
   borderRadius:1,
   boxShadow: 24,
-  p: 4,
+  p: {
+    xs:2,
+    lg:4
+  },
+  overflow:"scroll"
 };
 
 type func = () => void;
@@ -24,19 +36,16 @@ const UserPage = () => {
 
   const [openModel, setOpenModel] = useState(false);
   const [username, setUsername] = useState("")
-
   const modelHandler:func = ()=> setOpenModel(!openModel);
+  const theme = useTheme();
+  const Mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-
-  const valueHandler = (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
-    setUsername(e.target.value)
-  }
 
   console.log(openModel)
 
   return (
     <>
-      <Box bgcolor={"#FFFFFF"} width="100%" boxSizing={"border-box"} position={"relative"}>
+      <Box bgcolor={"#FFFFFF"} width={Mobile ? "100%" : "82%"} boxSizing={"border-box"}  position={"relative"}>
         {/*profile image */}
         <Box p={2}>
           <Typography fontWeight={"bold"} variant="h6">
@@ -49,8 +58,9 @@ const UserPage = () => {
           {/*background Image */}
           <Box
             width={"100%"}
-            height={140}
+            height={180}
             overflow="hidden"
+            borderRadius={1}
             sx={{
               backgroundImage: `url(https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmFja2dyb3VuZCUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60)`,
               backgroundPosition: "50% 50%",
@@ -74,7 +84,7 @@ const UserPage = () => {
         {/*General setting */}
         <Divider sx={{ color: "#C9C9C9", m: 2 }}>Personal Details</Divider>
 
-        <Box width="70%" mx="auto">
+        <Box width="96%" mx="auto" display={"flex"} flexWrap={"wrap"}>
           <ProfileInfo label="UserName" data={profileDetails.username} />
           <ProfileInfo label="Email" data={profileDetails.email} />
           <ProfileInfo label="Role" data={profileDetails.role} />
@@ -84,14 +94,25 @@ const UserPage = () => {
           <ProfileInfo label="Country" data={profileDetails.country}/>
         </Box>
 
-        <Box width={"35%"} display="flex" ml={"auto"} gap={2} my={4} mr={2}>
+        <Box  display="flex" ml={"auto"} gap={2} my={4} mr={2} sx={{
+            width:{
+              lg:"24%",
+              md:"36%",
+              sm:"46%",
+              xs:"50%"
+            }
+        }}>
           <BidButton
             padding={{
-              sm: 1,
+              sm: 0.4,
+              md:0.4,
+              lg:1
             }}
             bgC="#E6E6E6"
             fontS={{
-              sm: 16,
+              xs:12,
+              sm: 14,
+              md:16
             }}
             hoverC="#E1E0E0"
             ButtonText="Cancel"
@@ -100,11 +121,15 @@ const UserPage = () => {
 
           <BidButton
             padding={{
-              sm: 1,
+              sm: 0.4,
+              md:0.4,
+              lg:1
             }}
             bgC="warning.main"
             fontS={{
-              sm: 16,
+              xs:12,
+              sm: 14,
+              md:16
             }}
             hoverC="warning.dark"
             ButtonText="Update"

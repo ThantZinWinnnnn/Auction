@@ -5,20 +5,6 @@ import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "white",
-  boxShadow: 24,
-  borderRadius: 1,
-  p: 4,
-  "&:focus-visible": {
-    outline: "none",
-  },
-};
 
 interface func{
   handler:()=> void
@@ -98,7 +84,16 @@ const UpdateModel: React.FC<func> = ({handler}) => {
       <Box
         display={"flex"}
         gap={2}
-        width={"60%"}
+        sx={{
+          width:{
+            xs:"70%",
+            sm:"60%"
+          },
+          gap:{
+            xs:0.8,
+            sm:2
+          }
+        }}
         ml={"auto"}
         mt={4}
         id="keep-mounted-modal-btn"
