@@ -26,15 +26,18 @@ const FeaturedLots2 = () => {
       </Typography>
       <Grid container spacing={4}  mb={5}>
         {relatedItems.map((item) => (
-          <Grid item xs={12} sm={6} md={4} xl={3}>
-            <Card sx={{height:"400px",
+          <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Card sx={{height:{
+              sm:"260px",
+              md:"290px",
+            },
             }}>
               <CardMedia
                 sx={{width:"100%", height: "50%" ,paddingTop: '56.25%'}}
                 image={`${item.url}`}
                 title={`${item.name}`}
               />
-              <Divider sx={{ mb: 2 }} />
+              <Divider sx={{ mb: 0.4 }} />
               <CardContent sx={{
                 px:{
                     md:1,
@@ -47,8 +50,7 @@ const FeaturedLots2 = () => {
                   mb={1}
                   color="primary.light"
                   sx={{fontSize:{
-                    xs:"1.5rem",
-                    sm:"1.2rem",
+                    xs:"0.8rem",
                     xl:"0.875rem"
                   }}}
                 >
@@ -56,7 +58,7 @@ const FeaturedLots2 = () => {
                 </Typography>
                 <Typography  component={"div"} sx={{
                   fontSize:{
-                    xs:"1rem",
+                    xs:"0.8rem",
                     xl:"0.75rem"
                   }
                 }}>

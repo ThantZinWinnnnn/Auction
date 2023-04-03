@@ -238,8 +238,8 @@ const ProdudctDetail = () => {
                   textTransform: "none",
                   py: 1,
                   fontSize: {
-                    xs: "1.4rem",
-                    sm: "1em",
+                    xs: "0.9rem",
+                    lg:"1rem"
                   },
                 }}
               >
