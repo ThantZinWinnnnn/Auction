@@ -19,10 +19,13 @@ const Footer = () => {
 
   return (
     <Box bgcolor={"#102343"} py={Mobile ? 4 : 8} color="white">
-      <Container maxWidth={is4kScreen ? "xl" : "lg"}>
+      <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{height:{
+        xs:400,
+        sm:180
+      }}}>
         <Box
           display={"flex"}
-          mb={Mobile ? 5 : 10}
+          mb={Mobile ? 5 : 5}
           flexDirection={Mobile ? "column" : "row"}
         >
           <Box
@@ -31,7 +34,7 @@ const Footer = () => {
             textAlign={"left"}
             gap={"15%"}
             flexDirection={Mobile ? "column" : "row"}
-            mb={Mobile ? 6 : 0}
+            mb={Mobile ? 1 : 0}
           >
             <Box>
               <Link to={"/singup"}>
@@ -42,9 +45,9 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
-                  mb={Mobile ? 4 : 6}
+                  mb={Mobile ? 1 : 3}
                   component={"p"}
                 >
                   Sign Up for Email
@@ -58,9 +61,9 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
-                  mb={Mobile ? 4 : 0}
+                  mb={Mobile ? 1 : 0}
                   component={"p"}
                 >
                   Bidding
@@ -76,9 +79,9 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
-                  mb={Mobile ? 4 : 6}
+                  mb={Mobile ? 1 : 3}
                   component={"p"}
                 >
                   Selling
@@ -92,9 +95,9 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
-                  mb={Mobile ? 4 : 0}
+                  mb={Mobile ? 1 : 0}
                   component={"p"}
                 >
                   Online Auctions
@@ -110,9 +113,9 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
-                  mb={Mobile ? 4 : 6}
+                  mb={Mobile ? 1 : 3}
                   component={"p"}
                 >
                   Orders & Payments
@@ -126,7 +129,7 @@ const Footer = () => {
                     },
                   }}
                   color={"white"}
-                  variant={Mobile ? "subtitle1" : "body2"}
+                  variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 4 : 0}
                   component={"p"}
@@ -137,53 +140,57 @@ const Footer = () => {
             </Box>
           </Box>
           <Box
-            width={Mobile ? "100%" : "30%"}
+            width={Mobile ? "70%" : "30%"}
             display="flex"
             justifyContent={Mobile ? "space-between" : "space-evenly"}
-            px={Mobile ? 4 : 0}
+            px={ 0}
+            mb={0}
           >
             <Link to={"/facebook"}>
               <FacebookIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
-                fontSize={"large"}
+                fontSize={"medium"}
               />
             </Link>
 
             <Link to={"/twitter"}>
               <TwitterIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
-                fontSize={"large"}
+                fontSize={"medium"}
               />
             </Link>
 
             <Link to={"/instagram"}>
               <InstagramIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
-                fontSize={"large"}
+                fontSize={"medium"}
               />
             </Link>
 
             <Link to={"/linkedIn"}>
               <LinkedInIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
-                fontSize={"large"}
+                fontSize={"medium"}
               />
             </Link>
           </Box>
         </Box>
         <Divider sx={{ bgcolor: "white" }} variant="fullWidth" light={true} />
         <Box
-          width={Mobile ? "100%" : "70%"}
+          width={Mobile ? "60%" : "70%"}
           mx="auto"
           display={"flex"}
-          justifyContent={"space-between"}
+          flexDirection={Mobile ? "column" : "row"}
+          justifyContent={Mobile ? "center" : 'space-between'}
+          gap={Mobile? 4 : 0}
           mt={2}
-          mb={4}
+          mb={Mobile ? 4 : 10}
+          textAlign={'center'}
         >
-          <Typography variant="subtitle2">Terms & Conditions</Typography>
-          <Typography variant="subtitle2">Privacy & Cookie Policy</Typography>
+          <Typography variant="body2">Terms & Conditions</Typography>
+          <Typography variant="body2">Privacy & Cookie Policy</Typography>
         </Box>
-        <Typography fontWeight={"medium"}>@Thant Zin Win 2023</Typography>
+        <Typography variant="caption" fontWeight={"medium"}>@Thant Zin Win 2023</Typography>
       </Container>
     </Box>
   );

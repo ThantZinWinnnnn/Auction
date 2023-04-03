@@ -89,23 +89,22 @@ const Navbar = () => {
               sx={{
                 width: {
                   xs: "130px",
-                  sm: "146px",
+                  sm: "110px",
                   md: "100px",
-                  lg: "120px",
-                  xl: "150px",
+                  lg: "90px",
                 },
                 height: {
                   xs: "130px",
-                  sm: "146px",
+                  sm: "110px",
                   md: "100px",
-                  lg: "120px",
-                  xl: "150px",
+                  lg: "90px",
                 },
               }}
               overflow="hidden"
               component="div"
             >
               <img
+                width={"100%"}
                 src="https://res.cloudinary.com/dhprtrwtd/image/upload/v1648056557/WG_2022_reskin.svg"
                 alt="logo"
               />
@@ -170,9 +169,7 @@ const Navbar = () => {
             <Link to={"/features"}>
               <Typography color={"black"}>About Us</Typography>
             </Link>
-            {isLogin && (
-              <ProfileTooltip/>
-            )}
+            {isLogin && <ProfileTooltip />}
             {!isLogin && (
               <Stack
                 direction={"row"}

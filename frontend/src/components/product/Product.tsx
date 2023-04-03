@@ -18,18 +18,19 @@ const Product = () => {
       width={isDesktop ? "74%" : "100%"}
       sx={{
         gap: {
-          sm: "1%",
-          md: "3%",
+          sm: "3%",
+          md:"2.4%"
         },
       }}
       px={isDesktop ? 0 : 2}
     >
       <Box
-        width={isDesktop ? "30%" : "90%"}
+        width={ "150px"}
         mx={isDesktop ? "" : "auto"}
-        mb={isDesktop ? 0 : 4}
+        mb={isDesktop ? 0 : 2}
+
       >
-        <Box mb={isDesktop ? 1 : 3} sx={{ paddingX: 3 }} overflow="hidden">
+        <Box mb={isDesktop ? 1.5 : 1} sx={{ paddingX: 0 }} overflow="hidden" width={"100%"}>
           <Link to={"/detail"}>
             <img
               width={"100%"}
@@ -110,7 +111,7 @@ const Product = () => {
           Ends from: Feb 21, 2023 01:00 PM GMT
         </Typography>
       </Box>
-      <Box width={isDesktop ? "20%" : "100%"} mt={isDesktop ? 0 : 3}>
+      <Box width={isDesktop ? "24%" : "100%"} mt={isDesktop ? 0 : 3}>
         <Link to={"/detail"}>
           <Button
             fullWidth
@@ -127,7 +128,7 @@ const Product = () => {
                   xl: 14,
                 },
                 py: {
-                  xs: 0.6,
+                  xs: 0.4,
                   md: 0.4,
                   lg: 0.6,
                 },
