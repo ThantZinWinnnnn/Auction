@@ -67,6 +67,12 @@ const   DetailSearchbar = () => {
               xs: "100%",
               sm: "100%",
             },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              border:"1px solid rgba(34,36,38,.15)"
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              border:"1px solid rgba(34,36,38,.15)"
+            },
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
           }}
@@ -88,8 +94,7 @@ const   DetailSearchbar = () => {
             bgcolor: "warning.main",
             width: {
               xs: 10,
-              sm: 120,
-              lg: "100px",
+              sm: 100,
             },
             height: {
               xs: "40px",

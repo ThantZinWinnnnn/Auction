@@ -18,7 +18,7 @@ const Footer = () => {
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box bgcolor={"#102343"} py={Mobile ? 4 : 8} color="white">
+    <Box bgcolor={"#102343"} py={Mobile ? 4 : 4} color="white">
       <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{height:{
         xs:400,
         sm:180
@@ -184,7 +184,7 @@ const Footer = () => {
           justifyContent={Mobile ? "center" : 'space-between'}
           gap={Mobile? 4 : 0}
           mt={2}
-          mb={Mobile ? 4 : 10}
+          mb={Mobile ? 4 : 4}
           textAlign={'center'}
         >
           <Typography variant="body2">Terms & Conditions</Typography>

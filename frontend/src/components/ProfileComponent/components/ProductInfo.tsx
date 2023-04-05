@@ -19,8 +19,8 @@ const ProductInfo: React.FC<detail> = ({ name, value, price }) => {
         md:0.5,
         xs:1
       }}}>
-      <Typography variant={Mobile ? "body2" : "caption"} fontWeight={"medium"}>{name}</Typography>
-      <Typography variant={ "caption"}>
+      <Typography fontWeight={"medium"} fontSize={"1rem"}>{name}</Typography>
+      <Typography fontSize={"1rem"} fontWeight={'bold'}>
         {price === undefined ? `${value}` : `${price} MMKS`}
       </Typography>
     </Box>

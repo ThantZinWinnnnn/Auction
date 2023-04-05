@@ -24,16 +24,21 @@ const SidebarLists: Array<list> = [
   },
   {
     id: "2",
+    text: "Create a Product",
+    path: "/create",
+  },
+  {
+    id: "3",
     text: "Sell Products Lists",
     path: "/userProducts",
   },
   {
-    id: "3",
+    id: "4",
     text: "Win Lot Products",
     path: "/winProducts",
   },
   {
-    id: "4",
+    id: "5",
     text: "Lost Lot Products",
     path: "/lostProducts",
   },
@@ -41,7 +46,7 @@ const SidebarLists: Array<list> = [
 
 const ProfileSidebar = () => {
 
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const theme = useTheme();
   const belowLg = useMediaQuery(theme.breakpoints.down('lg'))
 
@@ -64,8 +69,8 @@ const ProfileSidebar = () => {
           sm:"30%"
         },
         height: {
-          lg:"300px",
-          sm:"280px"
+          lg:"340px",
+          sm:"340px"
         },
       }}
     >
@@ -98,6 +103,7 @@ const ProfileSidebar = () => {
                   borderLeft: "4px solid red",
                   backgroundColor:"grey.100"
                 },
+               
                 
               }}>
                 <ListItemButton

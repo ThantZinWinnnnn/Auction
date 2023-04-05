@@ -84,7 +84,7 @@ const Searchbar = () => {
             height: {
               xs: "32px",
               sm: "35px",
-              md: "40px",
+              md: "35px",
             },
             width: {
               xs: "100%",
@@ -116,7 +116,7 @@ const Searchbar = () => {
             height: {
               xs: "32px",
               sm: "35px",
-              md: "40px",
+
             },
             "&:hover": {
               bgcolor: "warning.light",
@@ -156,7 +156,6 @@ const Searchbar = () => {
               },
               height: {
                 xs: "35px",
-                md: "40px",
               },
               display: "flex",
               alignItems: "center",

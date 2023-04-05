@@ -76,7 +76,7 @@ const ProfileTooltip = () => {
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
-            width: 140,
+            width: 160,
             height: 240,
             textAlign: "center",
           },
@@ -84,11 +84,11 @@ const ProfileTooltip = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem disableGutters sx={{pl:1.2}}>
           <Avatar
             sx={{
               width: 35,
-              height: 35,
+              height: 35
             }}
             src="https://images.unsplash.com/photo-1517242027094-631f8c218a0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bGVnbyUyMGZvciUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
             alt="profile Logo"

@@ -7,31 +7,30 @@ const Wrapper = ({ children }: any) => {
   const theme = useTheme();
 
   const is4kScreen = useMediaQuery(theme.breakpoints.up("xl"));
-  const NotMobile = useMediaQuery(theme.breakpoints.up('sm'))
+  const NotMobile = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <>
-      <Box bgcolor={"#FAFAFA"} width="100vw" height={"100vh"} overflow="scroll">
+      <Box bgcolor={"white"} width="100vw" height={"100vh"} overflow="scroll">
         {/*to fix key for detail navbar */}
         <DetailNavbar />
         <Container
           maxWidth={is4kScreen ? "xl" : "lg"}
-          sx={{ bgcolor: "#FAFAFA" }}
+          sx={{ bgcolor: "white" }}
           disableGutters
-          
         >
           <Box
             sx={{
               mt: 4,
               gap:{
-                lg:8,
-                md:4,
+                lg:4,
+                md:2.4,
                 sm:2
               },
               pl:{
                 lg:0,
-                md:4,
-                sm:3
+                md:2,
+                sm:0
               }
             }}
             display="flex"
