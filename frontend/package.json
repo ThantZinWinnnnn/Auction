@@ -9,17 +9,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.16.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.11",
     "@mui/icons-material": "^5.11.9",
-    "@mui/material": "^5.11.9",
+    "@mui/lab": "^5.0.0-alpha.125",
+    "@mui/material": "^5.11.16",
+    "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-data-grid": "^6.0.4",
+    "@mui/x-data-grid-pro": "^6.0.4",
+    "@mui/x-date-pickers": "^6.0.4",
+    "@mui/x-date-pickers-pro": "^6.0.4",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.8.1",
+    "styled-component": "^2.8.0",
     "yup": "^1.0.2"
   },
   "devDependencies": {

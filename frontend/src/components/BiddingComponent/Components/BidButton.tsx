@@ -1,17 +1,17 @@
-import React, {  ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Button } from "@mui/material";
 
-interface actionButton{
-    ButtonText:string,
-    icon? : ReactNode,
-    padding:object,
-    fontS : object,
-    bgC: string,
-    hoverC:string,
-    func:()=>any,
+interface actionButton {
+  ButtonText: string;
+  icon?: ReactNode;
+  padding: object;
+  fontS: object;
+  bgC: string;
+  hoverC: string;
+  func: () => void;
 }
 
-const BidButton = (props:actionButton) => {
+const BidButton = (props: actionButton) => {
   return (
     <Button
       variant="contained"
@@ -24,10 +24,10 @@ const BidButton = (props:actionButton) => {
         color: "white",
         bgcolor: props.bgC,
         fontSize: props.fontS,
-        fontWeight:"bold",
+        fontWeight: "bold",
         "&:hover": {
-            backgroundColor: props.hoverC,
-          },
+          backgroundColor: props.hoverC,
+        },
       }}
       startIcon={props.icon}
       onClick={props.func}
