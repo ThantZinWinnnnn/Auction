@@ -13,31 +13,17 @@ const Authenticate = () => {
   return (
     <Box
       display={"flex"}
-      justifyItems="center"
+      justifyContent="center"
       alignItems={"center"}
       sx={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        bgcolor:"#EEF2F6",
         width: "100vw",
         minHeight: "100vh",
-        overflow:mobile ? "scroll" : "hidden"
       }}
     >
-      <Container
-        disableGutters
-        maxWidth="xl"
-        
-        sx={{
-          bgcolor: "white",
-          display: "flex",
-          maxHeight:Desktop ? "95vh":"auto",
-          borderRadius: 2,
-        }}
-      >
-        <LoginSignUp />
-        {tablet && <Carousel />}
-      </Container>
+     <Box>
+     <LoginSignUp />
+     </Box>
     </Box>
   );
 };

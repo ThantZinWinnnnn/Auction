@@ -1,12 +1,9 @@
 import {
-  Container,
-  OutlinedInput,
   Typography,
   Button,
   Box,
   useTheme,
   useMediaQuery,
-  Paper,
   TextField,
   FormGroup,
   FormControlLabel,
@@ -50,21 +47,21 @@ const LoginSignUp = () => {
   const onSubmitHandler = (data) => console.log(data);
 
   return (
-    <Box width={desktop ? "50%" : "100%"} minHeight="100vh" sx={{ p: 2 }}>
+    <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
       <Box display={"flex"} alignItems="center" gap={3} mb={2}>
         <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
           <img width={"100%"} src={`${logo}`} alt="logo" />
         </Box>
         <Typography
           fontWeight={"bold"}
-          color="#FF4500"
+          color="#673AB7"
           letterSpacing={2}
           variant="h6"
         >
           Auctions
         </Typography>
       </Box>
-      <Box sx={{ pt: 4 }}>
+      <Box sx={{ pt: 1 }}>
         <Typography
           textAlign={"center"}
           fontWeight="bold"
@@ -75,9 +72,10 @@ const LoginSignUp = () => {
             mb: {
               xs: 2,
             },
+            color: "#673AB7",
           }}
         >
-          Warmly , Welcome back
+          Hi , Welcome back
         </Typography>
         <Typography
           textAlign={"center"}
@@ -85,16 +83,17 @@ const LoginSignUp = () => {
           fontWeight={"light"}
           color="#8C8E95"
         >
-          Please enter your details.
+          Enter your credentials to continue
         </Typography>
         <Box
-          width={"98%"}
-          mx={"auto"}
           sx={{
-            mt: 10,
+            mt: 5,
             width: {
               xs: "98%",
-              sm: "80%",
+              sm: "100%",
+            },
+            px: {
+              lg: 1,
             },
           }}
         >
