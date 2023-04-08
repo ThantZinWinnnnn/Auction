@@ -10,10 +10,47 @@ import ChooseDetailsCategory from "../DetailPageComponent/ChooseDetailsCategory"
 import Description from "../DetailPageComponent/Description";
 import MoreAuctions from "../DetailPageComponent/MoreAuctions";
 import SellWithUs from "../DetailPageComponent/SellWithUs";
+import { useLocation } from "react-router-dom";
+import {
+  overviewData,
+  electronicCategories,
+  watchesCategories,
+  jewelleryCategories,
+  vehicleCategories,
+  fashionCategories,
+  handbagCategories,
+} from "../../data/DummyData";
 
 const BannerDetail = () => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const location = useLocation();
+
+  const image =
+    location.pathname === "/auction/electronic"
+      ? overviewData.electronicUrl
+      : location.pathname === "/auction/watches"
+      ? overviewData.watchesUrl
+      : location.pathname === "/auction/jewellery"
+      ? overviewData.jewelleryUrl
+      : location.pathname === "/auction/vehicle"
+      ? overviewData.vehicleUrl
+      : location.pathname === "/auction/fashion"
+      ? overviewData.fashionUrl
+      : overviewData.handbagUrl;
+
+  const category =
+    location.pathname === "/auction/electronic"
+      ? electronicCategories
+      : location.pathname === "/auction/watches"
+      ? watchesCategories
+      : location.pathname === "/auction/jewellery"
+      ? jewelleryCategories
+      : location.pathname === "/auction/vehicle"
+      ? vehicleCategories
+      : location.pathname === "/auction/fashion"
+      ? fashionCategories
+      : handbagCategories;
 
   return (
     <Box>
@@ -31,7 +68,7 @@ const BannerDetail = () => {
             sm: "500px",
             md: "600px",
           },
-          backgroundImage: `url('https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6230a4b50eedd6edaa6890a3_Electronics-Hero-Image2.jpg')`,
+          backgroundImage: `url(${image})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "50% 50%",
@@ -54,7 +91,19 @@ const BannerDetail = () => {
             },
           }}
         >
-          Online Electronics Auctions
+          Online{" "}
+          {location.pathname === "/auction/electronic"
+            ? "Electronic"
+            : location.pathname === "/auction/watches"
+            ? "Watches"
+            : location.pathname === "/auction/jewellery"
+            ? "Jewellery"
+            : location.pathname === "/auction/vehicle"
+            ? "Vehicles"
+            : location.pathname === "/auction/fashion"
+            ? "Clothing"
+            : "Handbag"}{" "}
+          Auctions
         </Typography>
         <Box
           display={"flex"}
@@ -104,7 +153,7 @@ const BannerDetail = () => {
         </Box>
       </Box>
       <Description />
-      <ChooseDetailsCategory />
+      <ChooseDetailsCategory categories={category}/>
       <SellWithUs />
       <MoreAuctions />
     </Box>

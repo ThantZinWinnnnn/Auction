@@ -1,9 +1,124 @@
-import { Component } from "react";
+import { useLocation } from "react-router-dom"
 
-import SummerizeItems from "../assets/images/summerizeItems.jpg"
-import smallestGadegats from "../assets/images/smallestGadegats.jpg"
-import kitchenRefri from "../assets/images/kitchenRefri.jpg"
-import kitchenAndAccessories from "../assets/images/kitchenAndAccessories.jpg"
+interface feature{
+	id:Number,
+	name:String,
+	url?:String | React.Component,
+	info ?: String,
+	currentlot ?:String
+}
+
+
+
+export const electronicCategories: Array<feature> = [
+	{
+		id: 1,
+		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62166267f1bac34f6ac84ff3_Phone-Category.jpg",
+		name: "Phones",
+	},
+	{
+		id: 2,
+		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
+		name: "Audio",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/H45f4f94d92e64d02889002eea3fba5ad3.jpg_300x300.jpg",
+		name: "Gaming",
+	},
+];
+
+export const jewelleryCategories:Array<feature> = [
+	{
+		id: 1,
+		url: "https://s.alicdn.com/@sc04/kf/H9b74dd58c0bf46d28409aaf29da527859.jpg_720x720q50.jpg",
+		name: "Fine Jewelry",
+	},
+	{
+		id: 2,
+		url: "https://s.alicdn.com/@sc04/kf/H9acfe520526a449c846d1c20d7da852fh.jpg_720x720q50.jpg",
+		name: "Fashion Jewelry",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/H4acf44cc12ee4c07990a35e32b3803a21.jpg_300x300.jpg",
+		name: "Costume Jewelry",
+	},
+];
+
+export const vehicleCategories:Array<feature> = [
+	{
+		id: 1,
+		url: "https://s.alicdn.com/@sc04/kf/H29eaed058de84e1a882878e025702ad5n.jpg_300x300.jpg",
+		name: "Cars",
+	},
+	{
+		id: 2,
+		url: "https://s.alicdn.com/@sc04/kf/H3b0a194592124a819bd5d14fb777b2cak.jpg_300x300.jpg",
+		name: "Trucks",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/Hf56fff0d9ecf469f91a999133a389441P.jpg_300x300.jpg",
+		name: "Motorcycles",
+	},
+];
+
+export const fashionCategories:Array<feature> = [
+	{
+		id: 1,
+		url: "https://s.alicdn.com/@sc04/kf/H666a5dd54260462c8921c547b35d08d9j.jpg_300x300.jpg",
+		name: "Casual Wear",
+	},
+	{
+		id: 2,
+		url: "https://s.alicdn.com/@sc04/kf/Hcc1dd2e67b0940e09e3cca32359195dcZ.jpg_300x300.jpg",
+		name: "Formal Wear",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/H223a7def1aa74c90a92fd31861499342q.jpg_300x300.jpg",
+		name: "Activewear",
+	},
+];
+
+export const watchesCategories:Array<feature> = [
+	{
+		id: 1,
+		url: "https://s.alicdn.com/@sc04/kf/Hfb7fd0de0de644af8fdf8acf7a042f7fL.jpg_300x300.jpg",
+		name: "Casual Watches",
+	},
+	{
+		id: 2,
+		url: "https://s.alicdn.com/@sc04/kf/H6c39fa6eee4143c49d6231c07d284ba4f.jpg_300x300.jpg",
+		name: "Sports Watches",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/H5919937806394eaf89a2c89cb08a5071w.jpg_300x300.jpg",
+		name: "Luxury Watches",
+	},
+];
+
+export const handbagCategories:Array<feature> = [
+	{
+		id: 1,
+		url: "https://s.alicdn.com/@sc04/kf/H91185f17400b4ef38ab108f6441eb6ded.jpg_300x300.jpg",
+		name: "Tote Bags",
+	},
+	{
+		id: 2,
+		url: "https://s.alicdn.com/@sc04/kf/Hc96a49d62f6640b3bf8dcba1eff20f41y.jpg_300x300.jpg",
+		name: "Crossbody Bags",
+	},
+	{
+		id: 3,
+		url: "https://s.alicdn.com/@sc04/kf/H87c0217ba9144b45866a32cff2b835f7W.jpg_300x300.jpg",
+		name: "Clutch Bags",
+	},
+];
+
+
 
 interface category {
   id:Number,
@@ -29,22 +144,107 @@ export const PrimaryCategories: Array<category> = [
   },
     {
     id:5,
-    name:"Decorative Art"
+    name:"Fashion"
   },
     {
     id:6,
-    name:"Asian Art"
+    name:"Handbags"
   },
 
 ];
 
-interface feature{
-  id:Number,
-  name:String,
-  url?:String | React.Component,
-  info ?: String,
-  currentlot ?:String
-}
+export const watchesSubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Casual Watches"
+	  },
+	  {
+		id:2,
+		name:"Sports Watches"
+	  },
+		{
+		id:3,
+		name:"Luxury Watches"
+	  },
+];
+
+export const jewellerySubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Fine Jewelry"
+	  },
+	  {
+		id:2,
+		name:"Fashion Jewelry"
+	  },
+		{
+		id:3,
+		name:"Costume Jewelry"
+	  },
+];
+
+export const vehicleSubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Cars"
+	  },
+	  {
+		id:2,
+		name:"Trucks"
+	  },
+		{
+		id:3,
+		name:"Motorcycles"
+	  },
+];
+
+export const fashionSubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Casual Wear"
+	  },
+	  {
+		id:2,
+		name:"Formal Wear"
+	  },
+		{
+		id:3,
+		name:"Activewear"
+	  },
+];
+
+export const handbagSubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Tote Bags"
+	  },
+	  {
+		id:2,
+		name:"Crossbody Bags"
+	  },
+		{
+		id:3,
+		name:"Clutch Bags"
+	  },
+];
+
+export const electronicSubCategories:Array<category> = [
+	{
+		id:1,
+		name:"Phones"
+	  },
+	  {
+		id:2,
+		name:"Audio"
+	  },
+		{
+		id:3,
+		name:"Gaming"
+	  },
+];
+
+
+
 
 export const relatedItems: Array<feature> = [
 	{
@@ -82,24 +282,6 @@ export const relatedItems: Array<feature> = [
 		info: "Mekamon Robot",
 		currentlot: "Lot 580000",
 	}
-];
-
-export const shopCategories: Array<feature> = [
-	{
-		id: 1,
-		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62166267f1bac34f6ac84ff3_Phone-Category.jpg",
-		name: "Phones",
-	},
-	{
-		id: 2,
-		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
-		name: "Audio",
-	},
-	{
-		id: 3,
-		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
-		name: "Gaming",
-	},
 ];
 
 
@@ -289,5 +471,25 @@ export const profileDetails:profile = {
 	},
 	//decorative
  ]
+
+
+
+interface overviewProps{
+	electronicUrl:string
+	jewelleryUrl:string
+	watchesUrl:string
+	vehicleUrl:string
+	fashionUrl:string
+	handbagUrl:string
+}
+
+export const overviewData : overviewProps ={
+	 electronicUrl: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6230a4b50eedd6edaa6890a3_Electronics-Hero-Image2.jpg",
+	 jewelleryUrl : "https://images.unsplash.com/photo-1450297166380-cabe503887e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1165&q=80",
+	 watchesUrl:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/630e1f8c75ed090e1e6e8762_watches.png",
+	 vehicleUrl:"https://hotweelz.com/wp-content/uploads/2021/12/hakon-sataoen-yQ9mZzBdDAM-unsplash-1536x966.jpg",
+	 fashionUrl:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/620e654d41122f2c5e9982ba_Fashion-Hero-Image.jpg",
+	 handbagUrl:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6220db8951515a430b634155_Handbags-Hero-Image.jpg"
+ }
   
 	

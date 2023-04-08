@@ -6,9 +6,21 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { shopCategories } from "../../data/DummyData";
 
-const ChooseDetailsCategory = () => {
+
+interface feature{
+	id:Number,
+	name:String,
+	url?:String | React.Component,
+	info ?: String,
+	currentlot ?:String
+}
+
+interface categoryProps{
+  categories:Array<feature>
+}
+
+const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -23,7 +35,7 @@ const ChooseDetailsCategory = () => {
         width="100%"
         flexDirection={Mobile ? "column" : "row"}
       >
-        {shopCategories.map((category) => (
+        {categories.map((category) => (
           <Box
             textAlign={"center"}
             sx={{

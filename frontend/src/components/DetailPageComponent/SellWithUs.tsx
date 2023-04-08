@@ -96,7 +96,7 @@ const SellWithUs = () => {
             width:{
               xs:"50%",
               sm:"24%",
-              xl:"18%"
+              xl:"22%"
             },
             textTransform: "none",
             borderRadius: 10,

@@ -9,48 +9,67 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { PrimaryCategories } from "../../../../data/DummyData";
 
-interface categoryProps{
-    value:string,
-    handler : (event: SelectChangeEvent)=> void
+interface category {
+  id: Number;
+  name: String;
 }
 
-const CategoryLists:React.FC<categoryProps> = ({value,handler}) => {
+interface categoryProps {
+  text: string;
+  label:string;
+  value: string;
+  handler: (event: SelectChangeEvent) => void;
+  categories: Array<category>;
+}
+
+const CategoryLists: React.FC<categoryProps> = ({
+  text,
+  label,
+  value,
+  handler,
+  categories,
+}) => {
   const [category, setCategory] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
   };
   return (
-    <Box>
+    <Box sx={{
+      mb:{
+        xs:2,
+        md:2.3,
+        lg:1.9,
+        xl:2
+      }
+    }}>
       <Typography
         fontWeight={"bold"}
         component={"h6"}
         sx={{
           mb: {
-            xs:1
+            xs: 1,
+            lg:2
           },
-          fontSize:{
-            sm:14,
-            xs:13
-          }
+          fontSize: {
+            sm: 14,
+            xs: 13,
+          },
         }}
       >
-        Product Category
+        {text}
       </Typography>
-      <FormControl
-        fullWidth
-      >
-        <InputLabel id="category-dropdown">Category</InputLabel>
+      <FormControl fullWidth>
+        <InputLabel id="category-dropdown">{label}</InputLabel>
         <Select
           labelId="category-dropdown"
           id="category-lists"
-          label="Category"
+          label={label}
           value={value}
           onChange={handler}
         >
-          {PrimaryCategories.map((cat) => (
+          {categories.map((cat) => (
             <MenuItem
               key={`${cat.id}`}
               value={`${cat.name}`}

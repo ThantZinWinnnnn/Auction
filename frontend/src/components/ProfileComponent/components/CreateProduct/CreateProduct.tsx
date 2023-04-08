@@ -9,14 +9,24 @@ import {
   useTheme,
 } from "@mui/material";
 
-import ImageUpload from "../ImageUpload/ImageUpload";
+import { DateRange } from "@mui/x-date-pickers-pro";
+import dayjs, { Dayjs } from "dayjs";
+
 import { ChangeEventHandler, useState } from "react";
 import CategoryLists from "./CategoryLists";
 import Price from "./Price";
 import AuctionDatePicker from "./AuctionDatePicker";
 import BidButton from "../../../BiddingComponent/Components/BidButton";
-import { DateRange } from "@mui/x-date-pickers-pro";
-import dayjs, { Dayjs } from "dayjs";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import {
+  watchesSubCategories,
+  jewellerySubCategories,
+  vehicleSubCategories,
+  fashionSubCategories,
+  handbagSubCategories,
+  electronicSubCategories,
+} from "../../../../data/DummyData";
+import { PrimaryCategories } from "../../../../data/DummyData";
 
 const CreateProduct = () => {
   const theme = useTheme();
@@ -26,6 +36,7 @@ const CreateProduct = () => {
   const [productImage, setProductImage] = useState("");
   const [productTitle, SetProductTitle] = useState("");
   const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
   const [price, setPrice] = useState("");
   const [date, setDate] = useState<DateRange<Dayjs>>([
     dayjs("2022-04-17"),
@@ -47,6 +58,10 @@ const CreateProduct = () => {
 
   const categoryHandler = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
+  };
+
+  const subCateogryHandler = (event: SelectChangeEvent) => {
+    setSubCategory(event.target.value as string);
   };
 
   const priceHanler = (
@@ -124,6 +139,32 @@ const CreateProduct = () => {
                   width: "100%",
                 }}
               >
+                <Box>
+                  <TextField
+                    fullWidth
+                    id="outlined-product-title"
+                    value={productTitle}
+                    onChange={(e) => SetProductTitle(e.target.value)}
+                    label="Product Title"
+                    InputLabelProps={{
+                      style: {
+                        color: "black",
+                      },
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                        {
+                          border: "1px solid black",
+                        },
+                      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                        {
+                          border: "1px solid black",
+                          color: "black",
+                        },
+                      mb: 2,
+                    }}
+                  />
+                </Box>
                 <ImageUpload
                   imageHandler={handleFileSelect}
                   value={productImage}
@@ -153,33 +194,37 @@ const CreateProduct = () => {
                     },
                   }}
                 >
-                  <Box>
-                    <TextField
-                      fullWidth
-                      id="outlined-product-title"
-                      value={productTitle}
-                      onChange={(e) => SetProductTitle(e.target.value)}
-                      label="Product Title"
-                      InputLabelProps={{
-                        style: {
-                          color: "black",
-                        },
-                      }}
-                      sx={{
-                        "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                          {
-                            border: "1px solid black",
-                          },
-                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                          {
-                            border: "1px solid black",
-                            color: "black",
-                          },
-                      }}
-                    />
-                  </Box>
+                  <CategoryLists
+                    text="Product Category"
+                    label="Category"
+                    value={category}
+                    handler={categoryHandler}
+                    categories={PrimaryCategories}
+                  />
 
-                  <CategoryLists value={category} handler={categoryHandler} />
+                  {/**  when user chooses a category to show related subCategories */}
+                  {category && (
+                    <CategoryLists
+                      text="Product Subcategory"
+                      label="SubCategory"
+                      value={subCategory}
+                      handler={subCateogryHandler}
+                      categories={
+                        category === "Watches"
+                          ? watchesSubCategories
+                          : category === "Jewellery"
+                          ? jewellerySubCategories
+                          : category === "Electrical"
+                          ? electronicSubCategories
+                          : category === "Automotive & Vehicles"
+                          ? vehicleSubCategories
+                          : category === "Fashion"
+                          ? fashionSubCategories
+                          : handbagSubCategories
+                      }
+                    />
+                  )}
+
                   <Price value={price} func={priceHanler} />
                   <AuctionDatePicker value={date} func={dateHandler} />
                 </Paper>
