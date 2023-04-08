@@ -8,6 +8,25 @@ exports.getAllPosts = async (req,res)=>{
   })
 }
 
+exports.getProductBySubCategory = async(req,res)=>{
+  try {
+    const p = req.query.product;
+
+    const products = await prisma.product.findMany({
+      where:{
+        subCategory:{
+          path:'$.name',
+          equals:p
+        }
+      }
+    });
+
+    res.status(200).json(products)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+}
+
 
 //temporary later i will drop this codes
 exports.createPost = async (req, res) => {
@@ -30,7 +49,8 @@ exports.createPost = async (req, res) => {
 };
 
 exports.userCreateProduct = async(req,res)=>{
-  const {id:userId,name} = req.user;
+  try {
+    const {id:userId,name} = req.user;
 
   const {title,image,price,proCat} = req.body;
 
@@ -40,11 +60,15 @@ exports.userCreateProduct = async(req,res)=>{
       image,
       price,
       owner:name,
-      category:proCat
+      category:proCat,
+      sellerId:userId
     }
   });
 
   res.status(201).json({success:true,sellProduct})
+  } catch (er) {
+    res.status(400).json({message:er.message})
+  }
 }
 
 exports.deletePosts = async (req, res) => {

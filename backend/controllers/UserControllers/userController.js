@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
       throw new Error("Invalid email or password");
     }
   } catch (error) {
-    res.status(400).json({ message: "Invalid User" });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -147,34 +147,33 @@ exports.getAllUser = async (req, res, next) => {
   res.status(200).json({ users });
 };
 
-
-exports.updateProfile = async(req,res)=>{
+exports.updateProfile = async (req, res) => {
   const userId = req.user.id;
 
-  const{name,email,profileUrl,street,town,region,country} = req.body;
+  const { name, email, profileUrl, street, town, region, country } = req.body;
 
   const updatedUser = await prisma.user.update({
-    where:{
-      id:userId
+    where: {
+      id: userId,
     },
-    data:{
+    data: {
       email,
       name,
       profileUrl,
-      location:{
-        create:{
+      location: {
+        create: {
           street,
           town,
           region,
-          country
-        }
-      }
+          country,
+        },
+      },
     },
-    include:{location:true}
+    include: { location: true },
   });
 
   res.status(200).json({
-    success:true,
-    updatedUser
-  })
-}
+    success: true,
+    updatedUser,
+  });
+};

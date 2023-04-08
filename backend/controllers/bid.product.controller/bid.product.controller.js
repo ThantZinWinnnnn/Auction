@@ -177,7 +177,8 @@ exports.userWinProduct = async(req,res)=>{
     },
     include:{
       winLotProducts:true,
-      lostLotProducts:true
+      lostLotProducts:true,
+      sellerProducts:true
     }
   });
 
