@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactDOM from "react-dom/client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./index.css";
@@ -26,13 +27,17 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Router>
+    
       <ThemeProvider theme={theme}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </ThemeProvider>
-    </Router>
+    
   </React.StrictMode>
 );
 //

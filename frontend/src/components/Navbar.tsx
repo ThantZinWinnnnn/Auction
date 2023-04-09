@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ProfileTooltip from "./Utils/ProfileTooltip";
+import ProfileTooltip from "./Tooltip/ProfileTooltip";
 
 interface DropdownProps {
   options: string[];
@@ -156,9 +156,9 @@ const Navbar = () => {
                 <List sx={{ width: "200px" }}>
                   {lists.map((option) => (
                     <Link to={option.name} key={option.name}>
-                      <ListItem disablePadding>
-                        <ListItemButton>
-                          <ListItemText primary={option.name} />
+                      <ListItem disablePadding key={option.name}>
+                        <ListItemButton key={option.name}>
+                          <ListItemText primary={option.name} key={option.name} />
                         </ListItemButton>
                       </ListItem>
                     </Link>
@@ -220,6 +220,7 @@ const Navbar = () => {
           {mobileLists.map((list) => (
             <>
               <ListItem
+              key={list.name}
                 sx={{
                   "&:hover": {
                     bgcolor: "#e0e0e0",
@@ -228,8 +229,9 @@ const Navbar = () => {
               >
                 <Link to={list.name}>
                   <ListItemText
+                    key={list.name}
                     primary={
-                      <Typography fontSize={lowSm ? 10 : 14} color="black">
+                      <Typography fontSize={lowSm ? 10 : 14} key={list.name} color="black">
                         {list.name}
                       </Typography>
                     }

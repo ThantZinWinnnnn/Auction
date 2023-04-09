@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface list {
   id: string;
@@ -20,35 +20,40 @@ const SidebarLists: Array<list> = [
   {
     id: "1",
     text: "Profile Setting",
-    path: "/profile",
+    path: "/user/profile",
   },
   {
     id: "2",
     text: "Create a Product",
-    path: "/create",
+    path: "/user/create",
   },
   {
     id: "3",
     text: "Sell Products Lists",
-    path: "/userProducts",
+    path: "/user/userProducts",
   },
   {
     id: "4",
     text: "Win Lot Products",
-    path: "/winProducts",
+    path: "/user/winProducts",
   },
   {
     id: "5",
     text: "Lost Lot Products",
-    path: "/lostProducts",
+    path: "/user/lostProducts",
   },
 ];
 
 const ProfileSidebar = () => {
+  const location = useLocation();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(SidebarLists.findIndex(
+    (list) => location.pathname === list.path
+  ));
   const theme = useTheme();
   const belowLg = useMediaQuery(theme.breakpoints.down('lg'))
+
+
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

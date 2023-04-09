@@ -14,8 +14,9 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "../../assets/images/logo.svg";
 import * as yup from "yup";
-import { CheckBox } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { authAPI } from "../Utils/axios";
 
 interface FormValues {
   username?: string;
@@ -29,22 +30,41 @@ const schema = yup.object().shape({
 });
 
 const LoginSignUp = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [check,setCheck] = useState(true)
 
   const {
     register,
-    control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const checkHandler = ()=> setCheck(!check);
 
-  const onSubmitHandler = (data) => console.log(data);
+
+
+  const {isLoading,mutate:Authenticate} = useMutation(loggedIn ? authAPI.signin : authAPI.signup,{
+    onSuccess:(data)=>{
+      console.log(data.data)
+      localStorage.setItem("token",data.data.token)
+      navigate('/')
+    },
+    onError:()=>{
+      navigate('/auth')
+    }
+  });
+
+
+  const onSubmitHandler = (data:FormValues) => {
+      console.log("data" , data)
+
+      Authenticate(data)
+  };
 
   return (
     <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
@@ -105,7 +125,7 @@ const LoginSignUp = () => {
                 gap: 3,
               }}
             >
-              {loggedIn && (
+              {!loggedIn && (
                 <Box>
                   <Typography
                     id="userName"
@@ -124,7 +144,7 @@ const LoginSignUp = () => {
                     type="text"
                     variant="outlined"
                     error={!!errors.username}
-                    helperText={errors.username ? errors?.username.message : ""}
+                    helperText={errors?.username ? errors?.username?.message : ""}
                     fullWidth
                     {...register("username", { required: true })}
                   />
@@ -148,7 +168,7 @@ const LoginSignUp = () => {
                   type="email"
                   variant="outlined"
                   error={!!errors.email}
-                  helperText={errors.email ? errors?.email.message : ""}
+                  helperText={errors?.email ? errors?.email?.message : ""}
                   fullWidth
                   {...register("email", { required: true })}
                 />
@@ -172,7 +192,7 @@ const LoginSignUp = () => {
                   type="password"
                   variant="outlined"
                   error={!!errors.password}
-                  helperText={errors.password ? errors?.password.message : ""}
+                  helperText={errors?.password ? errors?.password?.message : ""}
                   fullWidth
                   {...register("password", { required: true })}
                 />
@@ -195,6 +215,8 @@ const LoginSignUp = () => {
             </Link>
             <FormGroup>
               <FormControlLabel
+                value={check}
+                onChange={checkHandler}
                 control={<Checkbox disableRipple disableTouchRipple />}
                 label={
                   <Typography
@@ -217,6 +239,7 @@ const LoginSignUp = () => {
               disableElevation
               disableRipple
               fullWidth
+              disabled={check || isLoading}
               variant="contained"
               type="submit"
               sx={{
@@ -233,7 +256,7 @@ const LoginSignUp = () => {
                 },
               }}
             >
-              {loggedIn ? "Sign Up" : "Sign In"}
+              {!loggedIn ? "Sign Up" : "Sign In"}
             </Button>
           </form>
 
@@ -246,7 +269,7 @@ const LoginSignUp = () => {
             }}
           >
             <Typography color={"#D1D0CC"}>
-              {loggedIn ? "Already have an account?" : "Don't have an account?"}
+              {!loggedIn ? "Already have an account?" : "Don't have an account?"}
             </Typography>
             <Button
               disableRipple
@@ -259,7 +282,7 @@ const LoginSignUp = () => {
                 fontWeight: "bold",
               }}
             >
-              {loggedIn ? "Sign In" : "Sign Up"}
+              {!loggedIn ? "Sign In" : "Sign Up"}
             </Button>
           </Box>
         </Box>

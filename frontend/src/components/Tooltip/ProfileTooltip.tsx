@@ -15,10 +15,16 @@ import { Logout } from "@mui/icons-material";
 import MoodIcon from "@mui/icons-material/Mood";
 import MoodBadIcon from "@mui/icons-material/MoodBad";
 import BidButton from "../BiddingComponent/Components/BidButton";
+import { Link } from "react-router-dom";
 
 const ProfileTooltip = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const logoutHandler = ()=> {
+    localStorage.removeItem("token")
+  }
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -84,6 +90,7 @@ const ProfileTooltip = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+        <Link to={"/profile/AccountDetails"}>
         <MenuItem disableGutters sx={{pl:1.2}}>
           <Avatar
             sx={{
@@ -95,6 +102,7 @@ const ProfileTooltip = () => {
           />
           <Typography variant="body1">Profile</Typography>
         </MenuItem>
+        </Link>
         <Divider />
         <MenuItem
           onClick={handleClose}
@@ -129,6 +137,7 @@ const ProfileTooltip = () => {
           }}
         >
           <BidButton
+            func={logoutHandler}
             ButtonText="Log Out"
             padding={{
               xs: 1,

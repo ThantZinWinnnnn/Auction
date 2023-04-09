@@ -86,6 +86,7 @@ const SidebarLists = ({ margin }) => {
                   <Checkbox
                     size={isDesktop ? "medium" : "small"}
                     value={item.name}
+                    key={`${item.id}`}
                     checked={category.includes(`${item.name}`)}
                     onChange={checkHandler}
                     name={`${item.name}`}
@@ -104,6 +105,7 @@ const SidebarLists = ({ margin }) => {
                 }
                 label={
                   <Typography
+                  key={`${item.id}`}
                     fontWeight={"medium"}
                     sx={{
                       fontSize: {

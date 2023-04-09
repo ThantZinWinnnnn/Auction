@@ -31,7 +31,7 @@ const Product = () => {
 
       >
         <Box mb={isDesktop ? 1.5 : 1} sx={{ paddingX: 0 }} overflow="hidden" width={"100%"}>
-          <Link to={"/detail"}>
+          <Link to={"/products/1"}>
             <img
               width={"100%"}
               src="https://portal-images.azureedge.net/auctions-2023/wi415169/images/27d95c96-e885-4da2-9521-fb82562ac93e.jpeg?w=250"
@@ -52,7 +52,7 @@ const Product = () => {
 
       <Box width={isDesktop ? "50%" : "100%"}>
         {/*dynamic routes */}
-        <Link to={"/detail/hello"}>
+        <Link to={"/products/1"}>
           <Typography
             color={"black"}
             fontWeight="bold"

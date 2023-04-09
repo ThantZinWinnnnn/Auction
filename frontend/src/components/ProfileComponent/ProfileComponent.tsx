@@ -14,9 +14,9 @@ const ProfileComponent = (props: Props) => {
   return (
     <>
       <Wrapper>
-         {location.pathname === '/profile' && <UserPage/>}
-         {location.pathname === '/userProducts' && <UserProducts/>}
-         {location.pathname === '/create' && <CreateProduct/>}
+         {location.pathname === '/user/profile' && <UserPage/>}
+         {location.pathname === '/user/userProducts' && <UserProducts/>}
+         {location.pathname === '/user/create' && <CreateProduct/>}
           
       </Wrapper>  
     </>

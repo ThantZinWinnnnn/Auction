@@ -1,15 +1,15 @@
-import React from 'react'
-import DetailNavbar from '../components/DetailPageComponent/DetailNavbar'
-import ProfileComponent from '../components/ProfileComponent/ProfileComponent';
+// import React from 'react'
 
-type Props = {}
+// import ProfileComponent from '../components/ProfileComponent/ProfileComponent';
 
-const ProfilePage:React.FC<Props> = (props) => {
-  return (
-    <>
-        <ProfileComponent/>
-    </>
-  )
-};
+// type Props = {}
 
-export default ProfilePage;
+// const ProfilePage:React.FC<Props> = (props) => {
+//   return (
+//     <>
+//         <ProfileComponent/>
+//     </>
+//   )
+// };
+
+// export default ProfilePage;
