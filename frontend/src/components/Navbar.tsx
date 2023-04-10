@@ -227,7 +227,7 @@ const Navbar = () => {
                   },
                 }}
               >
-                <Link to={list.name}>
+                <Link to={list.name} key={list.name}>
                   <ListItemText
                     key={list.name}
                     primary={

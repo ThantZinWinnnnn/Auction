@@ -10,8 +10,8 @@ export interface ProfileUserProps{
     email:string,
     name:string,
     password?:string,
-    profileUrl?:string,
-    backgroundUrl?:string,
+    profileUrl?:string | undefined,
+    backgroundUrl?:string | undefined,
     location:Array<UserLocation>
 }
 
@@ -53,4 +53,22 @@ export interface LotProduct{
     bidPrice:string,
     product:Array<Product>,
 
+}
+
+interface category{
+    name:string
+}
+
+export interface ResponseProduct {
+    id:string | undefined,
+    image:string,
+    owner:string,
+    price:number,
+    title:string,
+    createdAt:string,
+    updatedAt:string,
+    category:category,
+    subCategory:category,
+    currentBidPrice:string | null,
+    currentOwnerName:string | null,
 }

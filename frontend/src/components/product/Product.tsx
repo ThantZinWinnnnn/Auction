@@ -8,33 +8,44 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Product = () => {
+import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
+import moment from "moment";
+
+interface productProp {
+  product: ResponseProduct;
+}
+
+const Product: React.FC<productProp> = ({ product }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <Box
       display={"flex"}
       flexDirection={isDesktop ? "row" : "column"}
-      width={isDesktop ? "74%" : "100%"}
+      width={"100%"}
       sx={{
         gap: {
           sm: "3%",
-          md:"2.4%"
+          md: "2.4%",
         },
       }}
       px={isDesktop ? 0 : 2}
     >
-      <Box
-        width={ "150px"}
-        mx={isDesktop ? "" : "auto"}
-        mb={isDesktop ? 0 : 2}
-
-      >
-        <Box mb={isDesktop ? 1.5 : 1} sx={{ paddingX: 0 }} overflow="hidden" width={"100%"}>
+      <Box width={"150px"} mx={isDesktop ? "" : "auto"} mb={isDesktop ? 0 : 2}>
+        <Box
+          mb={isDesktop ? 1.5 : 1}
+          sx={{ paddingX: 0 }}
+          overflow="hidden"
+          width={"100%"}
+          height={"150px"}
+        >
           <Link to={"/products/1"}>
             <img
               width={"100%"}
-              src="https://portal-images.azureedge.net/auctions-2023/wi415169/images/27d95c96-e885-4da2-9521-fb82562ac93e.jpeg?w=250"
+              height={"100%"}
+              style={{ objectFit: "cover" }}
+              src={product?.image}
               alt="categories image"
             />
           </Link>
@@ -46,13 +57,13 @@ const Product = () => {
           textAlign="center"
           fontSize={isDesktop ? 10 : 16}
         >
-          Thant Zin Win
+          {product?.owner}
         </Typography>
       </Box>
 
-      <Box width={isDesktop ? "50%" : "100%"}>
+      <Box width={isDesktop ? "52%" : "100%"}>
         {/*dynamic routes */}
-        <Link to={"/products/1"}>
+        <Link to={`${product?.id}`}>
           <Typography
             color={"black"}
             fontWeight="bold"
@@ -70,20 +81,9 @@ const Product = () => {
               },
             }}
           >
-            No Reserve Pallets of Customer Returns I Small Domestic Appliances,
-            Fashion, Toys & Furniture - Sourced from a Major UK Retailer
+            {product?.title}
           </Typography>
         </Link>
-        {/* <Typography
-					variant="caption"
-					color={"grey.600"}
-					component="p"
-					sx={{ mb: 3 }}
-				>
-					All pallets are delivery only.Standard pallets £70+VAT,oversized
-					pallets £140+VAT to the UK exc Highlands,Islands&South-West which are
-					a higher rate
-				</Typography> */}
         <Typography
           component={"h5"}
           fontWeight={"bold"}
@@ -102,16 +102,16 @@ const Product = () => {
           variant={isDesktop ? "caption" : "subtitle2"}
           component={"h6"}
         >
-          Starts: Feb 08, 2023 12:00 PM GMT
+          Starts: {moment(product?.createdAt).format("MMM DD, YYYY")}
         </Typography>
         <Typography
           variant={isDesktop ? "caption" : "subtitle2"}
           component={"h6"}
         >
-          Ends from: Feb 21, 2023 01:00 PM GMT
+          Ends from: {moment(product?.updatedAt).format("MMM DD, YYYY")}
         </Typography>
       </Box>
-      <Box width={isDesktop ? "24%" : "100%"} mt={isDesktop ? 0 : 3}>
+      <Box width={isDesktop ? "20%" : "100%"} mt={isDesktop ? 0 : 3}>
         <Link to={"/detail"}>
           <Button
             fullWidth

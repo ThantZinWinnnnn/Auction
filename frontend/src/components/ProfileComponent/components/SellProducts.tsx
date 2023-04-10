@@ -14,6 +14,11 @@ import React from "react";
 import ProductInfo from "./ProductInfo";
 import { data } from "../../../data/DummyData";
 
+import { useQuery } from "@tanstack/react-query";
+
+import { productAPI } from "../../Utils/axios";
+import moment from "moment";
+
 //to add updat price button
 
 const SellProducts = () => {
@@ -21,6 +26,24 @@ const SellProducts = () => {
   const belowLg = useMediaQuery(theme.breakpoints.down("lg"));
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const {
+    isLoading,
+    data: userProducts,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: productAPI.getProductsByUserId,
+    refetchOnWindowFocus: false,
+  });
+
+  const products = userProducts?.data?.sellerProducts;
+  console.log("productsUser", products);
+  // const date = moment(products).format('MMM DD, YYYY');
+  // console.log("date",date)
+
+  if (isLoading) return <p>Loading....</p>;
 
   return (
     <Box
@@ -32,20 +55,28 @@ const SellProducts = () => {
         Products
       </Typography>
       <Grid container spacing={3}>
-        {data.map((p) => (
+        {products?.map((p) => (
           <Grid item lg={3} md={4} sm={6} xs={12}>
-            <Paper sx={{boxShadow:"rgb(0 0 0 / 4%) 0px 5px 22px, rgb(0 0 0 / 3%) 0px 0px 0px 0.5px",borderRadius:"16px",overflow:"hidden"}}>
-              <Card
-              
-              >
+            <Paper
+              sx={{
+                boxShadow:
+                  "rgb(0 0 0 / 4%) 0px 5px 22px, rgb(0 0 0 / 3%) 0px 0px 0px 0.5px",
+                borderRadius: "16px",
+                overflow: "hidden",
+              }}
+            >
+              <Card>
                 <CardMedia
                   component={"img"}
                   alt="product image"
-                  image={p.image}
+                  image={p?.image}
+                  width={mediumScreen ? "260px" : "210px"}
+                  style={{ height: mediumScreen ? "260px" : "210px" }}
                   sx={{
                     p: "12px",
                     borderRadius: "18px",
                     overflow: "hidden",
+                    objectFit: "cover  ",
                   }}
                 />
                 {/* Mobile ? "body1" : belowLg ? "caption" : "body2" */}
@@ -61,11 +92,11 @@ const SellProducts = () => {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {p.title}
+                    {p?.title}
                   </Typography>
 
-                  <ProductInfo name="Your Price" price={+p.price} />
-                  <ProductInfo name="Category" value={p.proCat} />
+                  <ProductInfo name="Your Price" price={+p?.price} />
+                  <ProductInfo name="Category" value={p?.category?.name} />
                 </CardContent>
               </Card>
             </Paper>

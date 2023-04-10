@@ -16,7 +16,7 @@ import { PrimaryCategories } from "../data/DummyData";
 
 //to remove mb from sidebar
 
-const SidebarLists = ({ margin }) => {
+const SidebarLists = ({ margin }: any) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -55,6 +55,7 @@ const SidebarLists = ({ margin }) => {
             xs: "100%",
             sm: "22%",
           },
+          height: "",
         }}
       >
         {!isMobile && (
@@ -105,7 +106,7 @@ const SidebarLists = ({ margin }) => {
                 }
                 label={
                   <Typography
-                  key={`${item.id}`}
+                    key={`${item.id}`}
                     fontWeight={"medium"}
                     sx={{
                       fontSize: {

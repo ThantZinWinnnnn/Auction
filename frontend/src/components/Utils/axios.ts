@@ -17,15 +17,21 @@
 
 import axios from "axios";
 
-import { User, LoginUser, Product, UpdateProduct,SignUpUser } from "./apiTypes/apiTypes";
+import {
+  User,
+  LoginUser,
+  Product,
+  UpdateProduct,
+  SignUpUser,
+} from "./apiTypes/apiTypes";
 
 const BASE_URL = "http://localhost:3000/api";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers:{
-    "Content-Type":"application/json"
-  }
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 axiosInstance.interceptors.request.use(
@@ -41,14 +47,15 @@ axiosInstance.interceptors.request.use(
 );
 
 const authAPI = {
-  signup: (userData: SignUpUser) => axiosInstance.post("/user/signup", userData),
+  signup: (userData: SignUpUser) =>
+    axiosInstance.post("/user/signup", userData),
   signin: (userData: LoginUser) => axiosInstance.post("/user/signin", userData),
 };
 
 const userInfoAPI = {
-  getLoggedInUser : ()=> axiosInstance.get("/user/getUser"),
-  updateProfiel:(data:User)=> axiosInstance.put("/user/updateProfile",data)
-}
+  getLoggedInUser: () => axiosInstance.get("/user/getUser"),
+  updateProfiel: (data: User) => axiosInstance.put("/user/updateProfile", data),
+};
 
 const productAPI = {
   createProduct: (productData: Product) =>
@@ -60,6 +67,7 @@ const productAPI = {
   getProduct: (productId: string) =>
     axiosInstance.get(`/products/${productId}`),
   getAllProduct: () => axiosInstance.get("/products/allProducts"),
+  getProductsByUserId: () => axiosInstance.get("/products/user"),
   bidProduct: (productId: string, price: number) =>
     axiosInstance.put(`/products/auction/bid/${productId}`, price),
 
@@ -70,4 +78,4 @@ const productAPI = {
     axiosInstance.get(`/products/search?product=${product}`),
 };
 
-export { authAPI, productAPI,userInfoAPI };
+export { authAPI, productAPI, userInfoAPI };

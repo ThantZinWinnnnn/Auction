@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 //Import tanstackquery
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 ///Import product create api
 import { productAPI } from "../../../Utils/axios";
@@ -38,8 +38,8 @@ import { PrimaryCategories } from "../../../../data/DummyData";
 
 import { Product } from "../../../Utils/apiTypes/apiTypes";
 
-
 const CreateProduct = () => {
+  const queryClient = useQueryClient();
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -83,14 +83,23 @@ const CreateProduct = () => {
 
   const dateHandler = (newValue: DateRange<dayjs.Dayjs>) => setDate(newValue);
 
-  const {isLoading,mutate:createProduct,data:product,isError,error} = useMutation(productAPI.createProduct,{
-    onSuccess:(data)=>{
-      console.log("product",data?.data)
+  const {
+    isLoading,
+    mutate: createProduct,
+    data: product,
+    isError,
+    error,
+  } = useMutation(productAPI.createProduct, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["products", "allProducts"]);
+      console.log("product", data?.data);
+      const date = data?.data?.post?.createdAt;
+      console.log("date", date);
     },
-    onError:(error)=>{
-      console.log("error",error)
-    }
-  })
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
 
   const submitHandler = () => {
     console.log(
@@ -103,21 +112,22 @@ const CreateProduct = () => {
       "price",
       price,
       "date",
-      moment(date[0]?.$d).toISOString(), moment(date[1]?.$d).toISOString()
+      moment(date[0]?.$d).toISOString(),
+      moment(date[1]?.$d).toISOString()
     );
     const productPrice = Number(price);
-    
-    const product:Product = {
-      title:productTitle,
-      image:productImage as string,
-      price : productPrice,
+
+    const product: Product = {
+      title: productTitle,
+      image: productImage as string,
+      price: productPrice,
       category,
       subCategory,
-      createdAt:moment(date[0]?.$d).toISOString(),
-      updatedAt:moment(date[0]?.$d).toISOString()
+      createdAt: moment(date[0]?.$d).toISOString(),
+      updatedAt: moment(date[1]?.$d).toISOString(),
     };
 
-   createProduct(product)
+    createProduct(product);
   };
 
   return (
@@ -198,7 +208,7 @@ const CreateProduct = () => {
                   />
                 </Box>
                 <ImageUpload
-                  imageHandler={(e)=>setProductImage(e.target.value)}
+                  imageHandler={(e) => setProductImage(e.target.value)}
                   value={productImage}
                 />
               </Paper>

@@ -98,8 +98,8 @@ const ProfileSidebar = () => {
           }}
         >
           {SidebarLists.map((list,index) => (
-           <Link to={list.path}>
-            <ListItem key={list.id}
+           <Link to={list.path} key={`${list.id}`}>
+            <ListItem key={`${list.id}`}
               disablePadding
               
               sx={{
@@ -112,7 +112,7 @@ const ProfileSidebar = () => {
                 
               }}>
                 <ListItemButton
-                  key={list.id}
+                  key={`${list.id}`}
                   disableRipple
                   sx={{ color: "black" ,
                   '&.Mui-selected': {
@@ -126,12 +126,12 @@ const ProfileSidebar = () => {
                   
                 >
                   
-                  <ListItemText key={list.id} color="black"  sx={{
+                  <ListItemText key={`${list.id}`} color="black"  sx={{
                     textDecoration:"none",
                     fontSize:"10px"
                     
                   }}
-                  primary={<Typography sx={{
+                  primary={<Typography key={`${list.id}`} sx={{
                     fontSize:{
                       sm:12,
                       md:14,

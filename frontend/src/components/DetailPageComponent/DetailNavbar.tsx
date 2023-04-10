@@ -167,11 +167,12 @@ const DetailNavbar = () => {
                 <List sx={{ width: "200px" }}>
                   {lists.map((option) => (
                     <Link to={option.name} key={option.name}>
-                      <ListItem disablePadding>
-                        <ListItemButton>
+                      <ListItem disablePadding key={option.name}>
+                        <ListItemButton key={option.name}>
                           <ListItemText
                             sx={{ color: "black" }}
                             primary={option.name}
+                            key={option.name}
                           />
                         </ListItemButton>
                       </ListItem>
@@ -209,16 +210,18 @@ const DetailNavbar = () => {
           {mobileLists.map((list) => (
             <>
               <ListItem
+                key={list.name}
                 sx={{
                   "&:hover": {
                     bgcolor: "#e0e0e0",
                   },
                 }}
               >
-                <Link to={list.name}>
+                <Link to={list.name} key={list.name}>
                   <ListItemText
+                  key={list.name}
                     primary={
-                      <Typography fontSize={lowSm ? 12 : 14} color="black">
+                      <Typography key={list.name} fontSize={lowSm ? 12 : 14} color="black">
                         {list.name}
                       </Typography>
                     }

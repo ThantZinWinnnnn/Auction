@@ -15,15 +15,17 @@ import { Logout } from "@mui/icons-material";
 import MoodIcon from "@mui/icons-material/Mood";
 import MoodBadIcon from "@mui/icons-material/MoodBad";
 import BidButton from "../BiddingComponent/Components/BidButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProfileTooltip = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const logoutHandler = ()=> {
-    localStorage.removeItem("token")
-  }
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/auth");
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -91,17 +93,17 @@ const ProfileTooltip = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Link to={"/profile/AccountDetails"}>
-        <MenuItem disableGutters sx={{pl:1.2}}>
-          <Avatar
-            sx={{
-              width: 35,
-              height: 35
-            }}
-            src="https://images.unsplash.com/photo-1517242027094-631f8c218a0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bGVnbyUyMGZvciUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-            alt="profile Logo"
-          />
-          <Typography variant="body1">Profile</Typography>
-        </MenuItem>
+          <MenuItem disableGutters sx={{ pl: 1.2 }}>
+            <Avatar
+              sx={{
+                width: 35,
+                height: 35,
+              }}
+              src="https://images.unsplash.com/photo-1517242027094-631f8c218a0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bGVnbyUyMGZvciUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+              alt="profile Logo"
+            />
+            <Typography variant="body1">Profile</Typography>
+          </MenuItem>
         </Link>
         <Divider />
         <MenuItem
