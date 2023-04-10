@@ -1,9 +1,13 @@
 import { Avatar, Box, Button, Divider, Modal, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import { useMutation, useQuery , useQueryClient} from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import ProfileInfo from "../components/ProfileInfo";
 import UpdateModel from "../components/UpdateModel";
+import {userInfoAPI} from "../../Utils/axios"
+
+import { ProfileUserProps } from "../../Utils/apiTypes/apiTypes";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -33,15 +37,68 @@ type func = () => void;
 
 
 const UserPage = () => {
+  const queryClient = useQueryClient();
+  useEffect(()=>{
+    console.log("mounting")
+
+    return console.log("unmontuing")
+  },[])
+
+  // const [username, setUsername] = useState("");
+  // const [bgUrl, setbgUrl] = useState("");
+  // const [profile, setProfile] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [street, setStreet] = useState("");
+  // const [town, setTown] = useState("");
+  // const [region, setRegion] = useState("");
+  // const [country, setCountry] = useState("");
 
   const [openModel, setOpenModel] = useState(false);
-  const [username, setUsername] = useState("")
   const modelHandler:func = ()=> setOpenModel(!openModel);
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
+  const token = localStorage.getItem("token");
+  console.log("tok",{token: token})
 
-  console.log(openModel)
+  
+
+  const {isLoading: userFetchLoading,data,isError,error} = useQuery({
+    queryKey: ["user"],
+    queryFn: userInfoAPI.getLoggedInUser,
+    refetchOnWindowFocus:false
+  });
+
+  const user:ProfileUserProps = data?.data;
+
+  // const {isLoading : updateLoading,mutate : updateApi} = useMutation(userInfoAPI.updateProfiel,{
+  //   onSuccess:(data)=>{
+  //     console.log("updat",data.data)
+  //     queryClient.invalidateQueries({queryKey:"user"})
+  //   },
+  //   onError:(error)=>{
+  //     console.log("err",error)
+  //   }
+  // })
+
+
+
+  // const updateProfileHandler = ()=>{
+  //   const profileData = {
+  //       name:username,
+  //       email,
+  //       profileUrl:profile,
+  //       backgroundUrl:bgUrl,
+  //       street,
+  //       town,
+  //       region,
+  //       country
+  //   };
+
+  //   updateApi(profileData)
+
+  // }
+ 
 
   return (
     <>
@@ -62,7 +119,7 @@ const UserPage = () => {
             overflow="hidden"
             borderRadius={1}
             sx={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmFja2dyb3VuZCUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60)`,
+              backgroundImage: `url(${user?.backgroundUrl})`,
               backgroundPosition: "50% 50%",
               backgroundSize: "cover",
               boxSizing: "border-box",
@@ -77,7 +134,7 @@ const UserPage = () => {
               mt: "-56px",
             }}
             alt="profile photo"
-            src="https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YXZhdG9yJTIwY2FydG9vbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+            src={`${user?.profileUrl}`}
           />
         </Box>
 
@@ -85,13 +142,12 @@ const UserPage = () => {
         <Divider sx={{ color: "#C9C9C9", m: 2 }}>Personal Details</Divider>
 
         <Box width="96%" mx="auto" display={"flex"} flexWrap={"wrap"}>
-          <ProfileInfo label="UserName" data={profileDetails.username} />
-          <ProfileInfo label="Email" data={profileDetails.email} />
-          <ProfileInfo label="Role" data={profileDetails.role} />
-          <ProfileInfo label="Street" data={profileDetails.street} />
-          <ProfileInfo label="Town" data={profileDetails.town} />
-          <ProfileInfo label="Region" data={profileDetails.region} />
-          <ProfileInfo label="Country" data={profileDetails.country}/>
+          <ProfileInfo label="UserName" data={user?.name} />
+          <ProfileInfo label="Email" data={user?.email} />
+          <ProfileInfo label="Street" data={user?.location[0]?.street} />
+          <ProfileInfo label="Town" data={user?.location[0]?.town} />
+          <ProfileInfo label="Region" data={user?.location[0]?.region} />
+          <ProfileInfo label="Country" data={user?.location[0]?.country}/>
         </Box>
 
         <Box  display="flex" ml={"auto"} gap={2} my={4} mr={2} sx={{
@@ -103,6 +159,7 @@ const UserPage = () => {
             }
         }}>
           <BidButton
+            disabled={false}
             padding={{
               sm: 0.4,
               md:0.4,
@@ -120,6 +177,7 @@ const UserPage = () => {
           />
 
           <BidButton
+            disabled={false}
             padding={{
               sm: 0.4,
               md:0.4,
@@ -146,7 +204,7 @@ const UserPage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         <UpdateModel handler={modelHandler}/>
+         <UpdateModel handler={modelHandler} user={user}/>
         </Box>
       </Modal>
       </Box>

@@ -1,16 +1,27 @@
 import { Box, Modal, TextField, Typography, InputBase } from "@mui/material";
 import React, { useEffect, useState } from "react";
+
+import { useMutation,useQueryClient } from "@tanstack/react-query";
+
 import Input from "./Input";
 import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
+import {ProfileUserProps, User} from "../../Utils/apiTypes/apiTypes"
+
+import { userInfoAPI } from "../../Utils/axios";
 
 
 
-interface func{
-  handler:()=> void
+interface UpdateProps{
+  handler:()=> void,
+  user:ProfileUserProps
 }
 
-const UpdateModel: React.FC<func> = ({handler}) => {
+const UpdateModel: React.FC<UpdateProps> = ({handler,user}) => {
+  console.log("user",user)
+
+  const queryClient = useQueryClient();
+
   const [username, setUsername] = useState("");
   const [bgUrl, setbgUrl] = useState("");
   const [profile, setProfile] = useState("");
@@ -23,24 +34,57 @@ const UpdateModel: React.FC<func> = ({handler}) => {
 
   //update fix bgUrl and profile Url
   useEffect(() => {
-    setUsername(profileDetails.username);
-    setEmail(profileDetails.email);
-    setStreet(profileDetails.street);
-    setTown(profileDetails.town);
-    setRegion(profileDetails.region);
-    setCountry(profileDetails.country);
-  }, [username, email, street, town, region, country]);
+    setbgUrl(user?.backgroundUrl);
+    setProfile(user?.profileUrl)
+    setUsername(user?.name);
+    setEmail(user?.email);
+    setStreet(user?.location[0]?.street); 
+    setTown(user?.location[0]?.town);
+    setRegion(user?.location[0]?.region);
+    setCountry(user?.location[0]?.country);
+  }, []);
+
+
+  const {isLoading,mutate : updateApi,data:updatedUser} = useMutation(userInfoAPI.updateProfiel,{
+    onSuccess:(data)=>{
+      console.log("updat",data.data)
+      queryClient.invalidateQueries({queryKey:["user"]})
+      handler()
+    },
+    onError:(error)=>{
+      console.log("err",error)
+    }
+  })
+
+
+  const updateProfileHandler = ()=>{
+    const profileData = {
+        name:username,
+        email,
+        profileUrl:profile,
+        backgroundUrl:bgUrl,
+        street,
+        town,
+        region,
+        country
+    };
+
+    updateApi(profileData)
+
+  }
+
+  console.log("update",updatedUser)
 
   return (
     <>
       <Input
-        text={`${username}`}
+        text={`${bgUrl}`}
         name="backImageGroundUrl"
         id="keep-mounted-modal-bgimage"
         handlerFun={(e) => setbgUrl(e.target.value)}
       />
       <Input
-        text={`${username}`}
+        text={`${profile}`}
         name="profileImageUrl"
         id="keep-mounted-modal-profileUrl"
         handlerFun={(e) => setProfile(e.target.value)}
@@ -99,6 +143,7 @@ const UpdateModel: React.FC<func> = ({handler}) => {
         id="keep-mounted-modal-btn"
       >
         <BidButton
+          disabled={isLoading}
           ButtonText="Cancel"
           bgC="black"
           hoverC="grey.800"
@@ -111,10 +156,11 @@ const UpdateModel: React.FC<func> = ({handler}) => {
           }}
         />
         <BidButton
+          disabled={isLoading}
           ButtonText="Save"
           bgC="black"
           hoverC="grey.800"
-          func={() => {}}
+          func={updateProfileHandler}
           fontS={{
             sm: 14,
           }}

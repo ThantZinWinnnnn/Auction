@@ -1,19 +1,33 @@
+
 export interface UserLocation{
-    id:string,
     street:string,
     town:string,
     region:string,
     country:string,
 }
 
-
-export interface User{
-    id:string,
+export interface ProfileUserProps{
     email:string,
     name:string,
-    password:string,
+    password?:string,
     profileUrl?:string,
-    location?:Array<UserLocation>
+    backgroundUrl?:string,
+    location:Array<UserLocation>
+}
+
+
+
+export interface User{
+    email:string,
+    name:string,
+    password?:string,
+    profileUrl?:string,
+    backgroundUrl?:string,
+    street:string,
+    town:string,
+    region:string,
+    country:string,
+    
 }
 
 export type LoginUser = Partial<User>;
@@ -21,11 +35,10 @@ export type SignUpUser = Partial<User>;
 
 
 export interface Product {
-    id:string,
     title:string,
     image:string,
     price:number,
-    owner:string,
+    owner?:string,
     currentOwner?:string,
     createdAt:string,
     updatedAt:string,

@@ -45,6 +45,11 @@ const authAPI = {
   signin: (userData: LoginUser) => axiosInstance.post("/user/signin", userData),
 };
 
+const userInfoAPI = {
+  getLoggedInUser : ()=> axiosInstance.get("/user/getUser"),
+  updateProfiel:(data:User)=> axiosInstance.put("/user/updateProfile",data)
+}
+
 const productAPI = {
   createProduct: (productData: Product) =>
     axiosInstance.post("/products/create", productData),
@@ -65,4 +70,4 @@ const productAPI = {
     axiosInstance.get(`/products/search?product=${product}`),
 };
 
-export { authAPI, productAPI };
+export { authAPI, productAPI,userInfoAPI };

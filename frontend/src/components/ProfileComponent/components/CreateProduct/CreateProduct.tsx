@@ -9,6 +9,14 @@ import {
   useTheme,
 } from "@mui/material";
 
+//Import tanstackquery
+import { useMutation } from "@tanstack/react-query";
+
+///Import product create api
+import { productAPI } from "../../../Utils/axios";
+
+import moment from "moment";
+
 import { DateRange } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
 
@@ -28,6 +36,9 @@ import {
 } from "../../../../data/DummyData";
 import { PrimaryCategories } from "../../../../data/DummyData";
 
+import { Product } from "../../../Utils/apiTypes/apiTypes";
+
+
 const CreateProduct = () => {
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -43,18 +54,18 @@ const CreateProduct = () => {
     dayjs("2022-04-21"),
   ]);
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.result) {
-          setProductImage(reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       if (reader.result) {
+  //         setProductImage(reader.result as string);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const categoryHandler = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -72,6 +83,15 @@ const CreateProduct = () => {
 
   const dateHandler = (newValue: DateRange<dayjs.Dayjs>) => setDate(newValue);
 
+  const {isLoading,mutate:createProduct,data:product,isError,error} = useMutation(productAPI.createProduct,{
+    onSuccess:(data)=>{
+      console.log("product",data?.data)
+    },
+    onError:(error)=>{
+      console.log("error",error)
+    }
+  })
+
   const submitHandler = () => {
     console.log(
       "image",
@@ -83,8 +103,21 @@ const CreateProduct = () => {
       "price",
       price,
       "date",
-      { date }
+      moment(date[0]?.$d).toISOString(), moment(date[1]?.$d).toISOString()
     );
+    const productPrice = Number(price);
+    
+    const product:Product = {
+      title:productTitle,
+      image:productImage as string,
+      price : productPrice,
+      category,
+      subCategory,
+      createdAt:moment(date[0]?.$d).toISOString(),
+      updatedAt:moment(date[0]?.$d).toISOString()
+    };
+
+   createProduct(product)
   };
 
   return (
@@ -105,7 +138,6 @@ const CreateProduct = () => {
         </Box>
         <Box
           component={"form"}
-          onSubmit={() => {}}
           boxSizing={"border-box"}
           sx={{
             mr: {
@@ -166,7 +198,7 @@ const CreateProduct = () => {
                   />
                 </Box>
                 <ImageUpload
-                  imageHandler={handleFileSelect}
+                  imageHandler={(e)=>setProductImage(e.target.value)}
                   value={productImage}
                 />
               </Paper>
@@ -243,6 +275,7 @@ const CreateProduct = () => {
                 }}
               >
                 <BidButton
+                  disabled={isLoading}
                   ButtonText="Create Product"
                   bgC="warning.main"
                   padding={{

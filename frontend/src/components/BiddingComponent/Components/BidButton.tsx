@@ -9,6 +9,7 @@ interface actionButton {
   bgC: string;
   hoverC: string;
   func: () => void;
+  disabled:boolean
 }
 
 const BidButton = (props: actionButton) => {
@@ -18,6 +19,7 @@ const BidButton = (props: actionButton) => {
       disableElevation
       disableRipple
       fullWidth
+      disabled={props.disabled}
       sx={{
         textTransform: "none",
         py: props.padding,

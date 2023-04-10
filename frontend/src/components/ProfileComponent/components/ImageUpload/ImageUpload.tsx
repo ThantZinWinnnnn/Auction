@@ -1,8 +1,9 @@
-import { Box, Typography, Input, InputProps } from "@mui/material";
+import { Box, Typography, InputProps } from "@mui/material";
+import Input from "../Input";
 import React from "react";
 
 interface imageUploadProps {
-  imageHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  imageHandler: (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>void;
   value: string;
 }
 interface FileInputProps extends InputProps {
@@ -24,7 +25,7 @@ const ImageUpload: React.FC<imageUploadProps> = (
           borderRadius: "10px",
         }}
       >
-        <Typography
+        {/* <Typography
           fontWeight={"bold"}
           sx={{
             fontSize: {
@@ -46,7 +47,10 @@ const ImageUpload: React.FC<imageUploadProps> = (
             color: "primary.main",
             mb: 2,
           }}
-        />
+        /> */}
+
+        <Input name="Image Url" text={value} id="image-upload" handlerFun={imageHandler}/>
+
         <Box
           width={"100%"}
           height={"300px"}
