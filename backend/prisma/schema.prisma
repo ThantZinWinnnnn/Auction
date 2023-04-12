@@ -14,6 +14,7 @@ model User {
   name                 String
   password             String
   profileUrl           String?          @default("")
+  backgroundUrl        String?          @default("")
   role                 Role             @default(USER)
   location             Location[]
   comment              Comment[]

@@ -6,9 +6,9 @@ const getJwtToken = require("../../token/getJwtToken");
 
 exports.singUp = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       res.status(400).send({ message: "please provide all fields" });
     }
 
@@ -17,10 +17,9 @@ exports.singUp = async (req, res) => {
 
     const user = await prisma.user.create({
       data: {
-        name,
+        name: username,
         email,
         password: hashPass,
-        role,
       },
     });
 
@@ -150,7 +149,16 @@ exports.getAllUser = async (req, res, next) => {
 exports.updateProfile = async (req, res) => {
   const userId = req.user.id;
 
-  const { name, email, profileUrl, street, town, region, country } = req.body;
+  const {
+    name,
+    email,
+    profileUrl,
+    backgroundUrl,
+    street,
+    town,
+    region,
+    country,
+  } = req.body;
 
   const updatedUser = await prisma.user.update({
     where: {
@@ -160,6 +168,7 @@ exports.updateProfile = async (req, res) => {
       email,
       name,
       profileUrl,
+      backgroundUrl,
       location: {
         create: {
           street,
@@ -172,8 +181,18 @@ exports.updateProfile = async (req, res) => {
     include: { location: true },
   });
 
-  res.status(200).json({
-    success: true,
-    updatedUser,
+  res.status(200).json(updatedUser);
+};
+
+exports.getLoggedInUser = async (req, res) => {
+  const userId = req.user.id;
+
+  const loggedInUser = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: { location: true },
   });
+
+  res.status(200).json(loggedInUser);
 };

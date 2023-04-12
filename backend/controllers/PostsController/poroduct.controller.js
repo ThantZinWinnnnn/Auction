@@ -1,44 +1,51 @@
 const prisma = require("../../prisma/index");
 
-exports.getAllPosts = async (req,res)=>{
+exports.getAllPosts = async (req, res) => {
   const allPosts = await prisma.product.findMany();
 
   res.status(200).json({
-    allPosts
-  })
-}
+    allPosts,
+  });
+};
 
-exports.getProductBySubCategory = async(req,res)=>{
+//to combine two api to one api
+exports.getProductBySubCategory = async (req, res) => {
   try {
     const p = req.query.product;
 
     const products = await prisma.product.findMany({
-      where:{
-        subCategory:{
-          path:'$.name',
-          equals:p
-        }
-      }
+      where: {
+        subCategory: {
+          path: "$.name",
+          equals: p,
+        },
+      },
     });
 
-    res.status(200).json(products)
+    res.status(200).json(products);
   } catch (error) {
-    res.status(400).json(error.message)
+    res.status(400).json(error.message);
   }
-}
-
+};
 
 //temporary later i will drop this codes
 exports.createPost = async (req, res) => {
-  const { title, image, price, owner, proCat } = req.body;
+  const username = req.user.name;
+  const userId = req.user.id;
+  const { title, image, price, category, subCategory, createdAt, updatedAt } =
+    req.body;
 
   const post = await prisma.product.create({
     data: {
       title,
       image,
       price,
-      owner,
-      category: { name: proCat },
+      owner: username,
+      sellerId: userId,
+      category: { name: category },
+      subCategory: { name: subCategory },
+      createdAt,
+      updatedAt,
     },
   });
 
@@ -48,28 +55,24 @@ exports.createPost = async (req, res) => {
   });
 };
 
-exports.userCreateProduct = async(req,res)=>{
+exports.userCreateProduct = async (req, res) => {
   try {
-    const {id:userId,name} = req.user;
+    const { title, image, price, proCat } = req.body;
 
-  const {title,image,price,proCat} = req.body;
+    const sellProduct = await prisma.product.create({
+      data: {
+        title,
+        image,
+        price,
+        category: proCat,
+      },
+    });
 
-  const sellProduct = await prisma.product.create({
-    data:{
-      title,
-      image,
-      price,
-      owner:name,
-      category:proCat,
-      sellerId:userId
-    }
-  });
-
-  res.status(201).json({success:true,sellProduct})
+    res.status(201).json({ success: true, sellProduct });
   } catch (er) {
-    res.status(400).json({message:er.message})
+    res.status(400).json({ message: er.message });
   }
-}
+};
 
 exports.deletePosts = async (req, res) => {
   const post = await prisma.product.deleteMany();
@@ -77,73 +80,99 @@ exports.deletePosts = async (req, res) => {
 };
 
 exports.deleteById = async (req, res) => {
-  const { id } = req.params;
+  const { productId } = req.params;
 
   const post = await prisma.product.delete({
     where: {
-      id,
+      id: productId,
     },
   });
 
   res.status(200).json({
-    success:true,
-    post
+    success: true,
+    post,
   });
 };
 
 exports.postById = async (req, res) => {
-  const { id } = req.params;
+  const { productId } = req.params;
 
   const post = await prisma.product.findUnique({
     where: {
-      id,
+      id: productId,
     },
   });
-
   res.status(200).json(post);
 };
 
-exports.postByCategory = async (req, res) => {
-  const { name } = req.body;
-  const posts = await prisma.product.findMany({
-    where:{
-        category:{
-            path:'$.name',
-            equals:name
-        },
-        
-        
-    },
-    include:{
-      comment:true,
-      
-    },
+// exports.postByCategory = async (req, res) => {
+//   const name = req.query.cat;
+//   console.log("name ",name)
+//   const posts = await prisma.product.findMany({
+//     where: {
+//       category: {
+//         path: "$.name",
+//         equals: name,
+//       },
+//     },
+//     include: {
+//       comment: true,
+//     },
+//   });
 
+//   res.status(200).json(posts);
+// };
+
+exports.productByCategory = async (req, res) => {
+  const { category } = req.body;
+  console.log("cat", category);
+
+  const products = await prisma.product.findMany({
+    where: {
+      category: {
+        path: "$.name",
+        equals: category,
+      },
+    },
   });
-
-  res.status(200).json(posts);
+  res.status(200).json(products);
 };
 
-exports.queryProduct = async(req,res)=>{
-
+exports.queryProduct = async (req, res) => {
   try {
-      const product = req.query.product;
-      console.log("q",product)
+    const product = req.query.product;
+    console.log("q", product);
 
-      const products = await prisma.product.findMany({
-        where:{
-          title:{
-            contains:product
-            
-          }
-        }
-      })
+    const products = await prisma.product.findMany({
+      where: {
+        title: {
+          contains: product,
+        },
+      },
+    });
 
-      res.status(200).json(
-        products
-      )
-
+    res.status(200).json(products);
   } catch (error) {
-    res.status(404).json({message:"Not Found which you find"})
+    res.status(404).json({ message: "Not Found which you find" });
   }
-}
+};
+
+exports.getAllProductsByUserId = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    console.log("id", userId);
+
+    const products = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        sellerProducts: true,
+      },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
