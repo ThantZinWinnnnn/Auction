@@ -16,22 +16,31 @@ import { PrimaryCategories } from "../data/DummyData";
 
 //to remove mb from sidebar
 
-const SidebarLists = ({ margin }: any) => {
+
+interface sidebarProps{
+  func:(event: React.ChangeEvent<HTMLInputElement>) => void,
+  margin:number,
+  checkValue:Array<string>
+}
+
+const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [category, setCategory] = useState<Array<string>>([]);
-  console.log({ category });
-  const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const index = category.indexOf(event.target.value);
-    if (index === -1) {
-      setCategory([...category, event.target.value]);
-    } else {
-      setCategory(
-        category.filter((category) => category !== event.target.value)
-      );
-    }
-  };
+  // const [category, setCategory] = useState<Array<string>>([]);
+  // console.log( category.length );
+  // const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const index = category.indexOf(event.target.value);
+  //   if (index === -1) {
+  //     setCategory([event.target.value]);
+  //   } else {
+  //     setCategory(
+  //       category.filter((category) => category !== event.target.value)
+  //     );
+  //   }
+  // };
+
+
   return (
     <>
       <Box
@@ -83,13 +92,14 @@ const SidebarLists = ({ margin }: any) => {
           <FormGroup sx={{ fontSize: 9 }}>
             {PrimaryCategories.map((item) => (
               <FormControlLabel
+              key={`${item.id}`}
                 control={
                   <Checkbox
                     size={isDesktop ? "medium" : "small"}
                     value={item.name}
-                    key={`${item.id}`}
-                    checked={category.includes(`${item.name}`)}
-                    onChange={checkHandler}
+              
+                    checked={checkValue.includes(`${item.name}`)}
+                    onChange={func}
                     name={`${item.name}`}
                     sx={{
                       color: "#DBDBDE",
@@ -106,7 +116,6 @@ const SidebarLists = ({ margin }: any) => {
                 }
                 label={
                   <Typography
-                    key={`${item.id}`}
                     fontWeight={"medium"}
                     sx={{
                       fontSize: {

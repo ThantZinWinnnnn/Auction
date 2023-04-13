@@ -35,8 +35,9 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
         width="100%"
         flexDirection={Mobile ? "column" : "row"}
       >
-        {categories.map((category) => (
+        {categories.map((category,index) => (
           <Box
+            key={index}
             textAlign={"center"}
             sx={{
               height: {
@@ -59,6 +60,7 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
             }}
           >
             <Typography
+
               sx={{
                 fontSize: {
                   xs: "2rem",

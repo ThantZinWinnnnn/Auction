@@ -37,21 +37,7 @@ type func = () => void;
 
 
 const UserPage = () => {
-  const queryClient = useQueryClient();
-  useEffect(()=>{
-    console.log("mounting")
 
-    return console.log("unmontuing")
-  },[])
-
-  // const [username, setUsername] = useState("");
-  // const [bgUrl, setbgUrl] = useState("");
-  // const [profile, setProfile] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [street, setStreet] = useState("");
-  // const [town, setTown] = useState("");
-  // const [region, setRegion] = useState("");
-  // const [country, setCountry] = useState("");
 
   const [openModel, setOpenModel] = useState(false);
   const modelHandler:func = ()=> setOpenModel(!openModel);
@@ -71,34 +57,6 @@ const UserPage = () => {
 
   const user:ProfileUserProps = data?.data;
 
-  // const {isLoading : updateLoading,mutate : updateApi} = useMutation(userInfoAPI.updateProfiel,{
-  //   onSuccess:(data)=>{
-  //     console.log("updat",data.data)
-  //     queryClient.invalidateQueries({queryKey:"user"})
-  //   },
-  //   onError:(error)=>{
-  //     console.log("err",error)
-  //   }
-  // })
-
-
-
-  // const updateProfileHandler = ()=>{
-  //   const profileData = {
-  //       name:username,
-  //       email,
-  //       profileUrl:profile,
-  //       backgroundUrl:bgUrl,
-  //       street,
-  //       town,
-  //       region,
-  //       country
-  //   };
-
-  //   updateApi(profileData)
-
-  // }
- 
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   OutlinedInput,
   Box,
@@ -18,12 +18,38 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useQuery } from "@tanstack/react-query";
+import { userInfoAPI } from "./Utils/axios";
+import { ProfileUserProps } from "./Utils/apiTypes/apiTypes";
+import BidButton from "./BiddingComponent/Components/BidButton";
+import { IntroMenu } from "../data/DummyData";
 
 const Searchbar = () => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [values, setValues] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null | undefined>(
+    null || undefined
+  );
+  const [values, setValues] = useState<string | null>(null || "");
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/auth");
+  };
+
+  const {
+    isLoading: userFetchLoading,
+    data,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: userInfoAPI.getLoggedInUser,
+    refetchOnWindowFocus: false,
+  });
+
+  const user: ProfileUserProps = data?.data;
 
   const searchHandler = () => {
     //api call
@@ -116,7 +142,6 @@ const Searchbar = () => {
             height: {
               xs: "32px",
               sm: "35px",
-
             },
             "&:hover": {
               bgcolor: "warning.light",
@@ -143,17 +168,14 @@ const Searchbar = () => {
             marginTop: isDesktop ? 0 : 2,
             marginBottom: isDesktop ? 0 : 1,
             width: {
-              xs: 130,
+              xs: "auto",
             },
           }}
           borderRadius="0.2rem"
         >
           <Box
             sx={{
-              width: {
-                sm: 95,
-                md: "100px",
-              },
+              width: "100%",
               height: {
                 xs: "35px",
               },
@@ -162,8 +184,17 @@ const Searchbar = () => {
               paddingX: 1,
             }}
           >
-            <Typography letterSpacing={"0.05rem"} variant="caption">
-              Hello,sign in
+            <Typography
+              letterSpacing={"0.05rem"}
+              variant="caption"
+              width={"100%"}
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Hello,{user?.name}
             </Typography>
             {/* <Typography variant="caption" sx={{ fontWeight: "bold" }}>
            Your account
@@ -188,7 +219,27 @@ const Searchbar = () => {
           }}
         >
           <List sx={{ width: isDesktop ? "120px" : "140px" }}>
-            <Link to={"/myaccount/winlots"}>
+
+            {IntroMenu.map((menu)=>(
+              <Link to={`${menu.path}`} key={`${menu.id}`} >
+                <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        color="black"
+                        sx={{ fontSize: 12, textAlign: "left" }}
+                      >
+                        {menu.name}
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+              </Link>
+            ))}
+
+            {/* <Link to={"/myaccount/winlots"}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemText
@@ -235,9 +286,9 @@ const Searchbar = () => {
                   />
                 </ListItemButton>
               </ListItem>
-            </Link>
+            </Link> */}
             <Divider sx={{ mb: 2 }} />
-            <Link to={"/signin"}>
+            {/* <Link to={"/signin"}>
               <Box
                 sx={{
                   width: "75%",
@@ -256,7 +307,22 @@ const Searchbar = () => {
               >
                 Sign In
               </Box>
-            </Link>
+            </Link> */}
+            <Box width={"80%"} mx={"auto"}>
+
+            <BidButton
+              func={logoutHandler}
+              ButtonText="Log Out"
+              padding={{
+                xs: 0.5,
+              }}
+              fontS={{
+                xs: 14,
+              }}
+              bgC="warning.dark"
+              hoverC="warning.main"
+            />
+            </Box>
           </List>
         </Popover>
       </Box>

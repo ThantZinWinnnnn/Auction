@@ -92,7 +92,7 @@ const ProfileTooltip = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to={"/profile/AccountDetails"}>
+        <Link to={"/user/profile"}>
           <MenuItem disableGutters sx={{ pl: 1.2 }}>
             <Avatar
               sx={{

@@ -25,35 +25,7 @@ import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ProfileTooltip from "./Tooltip/ProfileTooltip";
-
-interface DropdownProps {
-  options: string[];
-}
-
-interface lists {
-  name: string;
-}
-
-const lists: Array<lists> = [
-  { name: "books" },
-  { name: "Electronics" },
-  { name: "Laptops" },
-];
-
-const mobileLists: Array<lists> = [
-  { name: "Auctions" },
-  { name: "Liquidations" },
-  { name: "High Street Goods" },
-  { name: "Children & Baby" },
-  { name: "Electronics" },
-  { name: "Art" },
-  { name: "Jewellery" },
-  { name: "Watches" },
-  { name: "Fashion" },
-  { name: "About Us" },
-  { name: "Sign Up" },
-  { name: "Account" },
-];
+import { PrimaryCategories, mobileLists } from "../data/DummyData";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -154,23 +126,33 @@ const Navbar = () => {
                 }}
               >
                 <List sx={{ width: "200px" }}>
-                  {lists.map((option) => (
-                    <Link to={option.name} key={option.name}>
-                      <ListItem disablePadding key={option.name}>
-                        <ListItemButton key={option.name}>
-                          <ListItemText primary={option.name} key={option.name} />
-                        </ListItemButton>
-                      </ListItem>
-                    </Link>
+                  {PrimaryCategories.map((option) => (
+                    <Box key={`${option.id}`}>
+                      <Link to={`${option.path}`}>
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemText
+                              primary={option.name}
+                              sx={{
+                                color: "black",
+                                "&:hover": {
+                                  color: "warning.dark",
+                                },
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                    </Box>
                   ))}
                 </List>
               </Popover>
             </Box>
             <Link to={"/features"}>
-              <Typography color={"black"}>About Us</Typography>
+              <Typography color={"black"}>Dark Mode</Typography>
             </Link>
-            {isLogin && <ProfileTooltip />}
-            {!isLogin && (
+            {/* {isLogin && <ProfileTooltip />} */}
+            {/* {!isLogin && (
               <Stack
                 direction={"row"}
                 spacing={4}
@@ -190,7 +172,7 @@ const Navbar = () => {
                   <Typography color={"black"}>Log In</Typography>
                 </Link>
               </Stack>
-            )}
+            )} */}
           </Box>
         )}
 
@@ -218,20 +200,18 @@ const Navbar = () => {
           }}
         >
           {mobileLists.map((list) => (
-            <>
+            <Box key={`${list.id}`}>
               <ListItem
-              key={list.name}
                 sx={{
                   "&:hover": {
                     bgcolor: "#e0e0e0",
                   },
                 }}
               >
-                <Link to={list.name} key={list.name}>
+                <Link to={list.name}>
                   <ListItemText
-                    key={list.name}
                     primary={
-                      <Typography fontSize={lowSm ? 10 : 14} key={list.name} color="black">
+                      <Typography fontSize={lowSm ? 10 : 14} color="black">
                         {list.name}
                       </Typography>
                     }
@@ -239,7 +219,7 @@ const Navbar = () => {
                 </Link>
               </ListItem>
               <Divider />
-            </>
+            </Box>
           ))}
         </List>
       </SwipeableDrawer>

@@ -43,7 +43,7 @@ export interface Product {
     createdAt:string,
     updatedAt:string,
     category:string,
-    subCategory:string
+    subCategory:string,
 }
 
 export type UpdateProduct = Partial<Product>;
@@ -71,4 +71,25 @@ export interface ResponseProduct {
     subCategory:category,
     currentBidPrice:string | null,
     currentOwnerName:string | null,
+}
+
+export interface BidProductByUser{
+    productId:string,
+    price:number
+};
+
+export interface UserProductsResponse{
+    id:string | undefined,
+    image:string,
+    owner:string,
+    price:number,
+    title:string,
+    createdAt:string,
+    updatedAt:string,
+    category:category,
+    subCategory:category,
+    currentBidPrice:string | null,
+    currentOwnerName:string | null,
+    currentOwnerId:string,
+    sellerId:string
 }

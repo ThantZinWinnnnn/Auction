@@ -50,7 +50,7 @@ const Footer = () => {
                   mb={Mobile ? 1 : 3}
                   component={"p"}
                 >
-                  Sign Up for Email
+                  Account Setting
                 </Typography>
               </Link>
               <Link to={"/bid"}>
@@ -118,7 +118,7 @@ const Footer = () => {
                   mb={Mobile ? 1 : 3}
                   component={"p"}
                 >
-                  Orders & Payments
+                  Favourite Products
                 </Typography>
               </Link>
               <Link to={"/contact"}>

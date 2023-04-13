@@ -8,8 +8,15 @@ import {
   Divider,
 } from "@mui/material";
 import { relatedItems } from "../../data/DummyData";
+import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
 
-const FeaturedLots2 = () => {
+interface realatedProductsProps{
+  products :Array<ResponseProduct>
+}
+
+const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
+
+
   return (
     <>
       <Typography
@@ -25,17 +32,17 @@ const FeaturedLots2 = () => {
         Featured Lots
       </Typography>
       <Grid container spacing={4}  mb={5}>
-        {relatedItems.map((item) => (
-          <Grid item xs={12} sm={4} md={3} xl={2}>
-            <Card sx={{height:{
+        {products?.map((product) => (
+          <Grid item xs={12} sm={4} md={3} xl={2} key={`${product.id}`}>
+            <Card key={`${product.id}`} sx={{height:{
               sm:"260px",
               md:"290px",
             },
             }}>
               <CardMedia
-                sx={{width:"100%", height: "50%" ,paddingTop: '56.25%'}}
-                image={`${item.url}`}
-                title={`${item.name}`}
+                sx={{width:"100%", height: "70%" ,paddingTop: '56.25%'}}
+                image={`${product?.image}`}
+                title={`${product?.title}`}
               />
               <Divider sx={{ mb: 0.4 }} />
               <CardContent sx={{
@@ -51,10 +58,13 @@ const FeaturedLots2 = () => {
                   color="primary.light"
                   sx={{fontSize:{
                     xs:"0.8rem",
-                    xl:"0.875rem"
+                    xl:"0.875rem",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}}
                 >
-                  {item.info}
+                  {product?.title}
                 </Typography>
                 <Typography  component={"div"} sx={{
                   fontSize:{
@@ -62,7 +72,7 @@ const FeaturedLots2 = () => {
                     xl:"0.75rem"
                   }
                 }}>
-                  {item.currentlot}
+                  {new Intl.NumberFormat('en-Us',{style:'currency',currency:'MMK'}).format(product?.price).replace(/(\d+)\.(\d+)/, '$1,$2 MMK')}
                 </Typography>
               </CardContent>
             </Card>

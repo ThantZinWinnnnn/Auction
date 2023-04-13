@@ -21,7 +21,7 @@ const MoreAuctions = () => {
       </Typography>
       <Grid container spacing={2} marginBottom={5} p="0px">
         {moreAuctions.map((auction) => (
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3} key={`${auction.id}`}>
             <Box
               sx={{
                 height: {
@@ -40,12 +40,15 @@ const MoreAuctions = () => {
                 pb: 4,
               }}
             >
-              <Typography  fontWeight={"bold"} sx={{
-                fontSize:{
-                    xs:"1.2rem",
-                    sm:"1rem"
-                }
-              }}>
+              <Typography
+                fontWeight={"bold"}
+                sx={{
+                  fontSize: {
+                    xs: "1.2rem",
+                    sm: "1rem",
+                  },
+                }}
+              >
                 {auction.name}
               </Typography>
               <Link to={`${auction.name}`}>
@@ -58,16 +61,16 @@ const MoreAuctions = () => {
                     textTransform: "none",
                     borderRadius: 10,
                     width: {
-                        xs:"35%",
-                        sm:"40%",
-                        md:"60%",
-                        xl:"35%"
+                      xs: "35%",
+                      sm: "40%",
+                      md: "60%",
+                      xl: "35%",
                     },
                     mx: "auto",
                     fontWeight: "bold",
                     fontSize: {
-                      xs:16,
-                      xl:18
+                      xs: 16,
+                      xl: 18,
                     },
                     mt: 3,
                     py: "8px",

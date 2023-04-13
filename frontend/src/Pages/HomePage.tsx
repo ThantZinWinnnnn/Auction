@@ -10,6 +10,7 @@ import Products from "../components/product/Products";
 
 //React-Query
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const HomePage = () => {
   const theme = useTheme();
@@ -17,19 +18,44 @@ const HomePage = () => {
   const mediumScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
+  const [category, setCategory] = useState<Array<string>>([]);
+
+  const productCategory = category;
+  console.log("cat",productCategory)
+  const jsonCategory = JSON.parse(`{"category":"${productCategory}"}`);
+  console.log("jsonC",jsonCategory)
+
+  console.log(category.length);
+  const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const index = category.indexOf(event.target.value);
+    if (index === -1) {
+      setCategory([event.target.value]);
+    } else {
+      setCategory(
+        category.filter((category) => category !== event.target.value)
+      );
+    }
+  };
+
   const {
     isLoading,
     data: products,
     isError,
     error,
-  } = useQuery({
-    queryKey: ["allProducts"],
-    queryFn: productAPI.getAllProduct,
-    refetchOnWindowFocus: false,
-  });
+  } = category.length === 0
+    ? useQuery({
+        queryKey: ["allProducts"],
+        queryFn: productAPI.getAllProduct,
+        refetchOnWindowFocus: false,
+      })
+    : useQuery({
+        queryKey: ["relatedProductByCategory", jsonCategory],
+        queryFn: () => productAPI.getProductByCategory(jsonCategory),
+        refetchOnWindowFocus: false,
+      });
 
-  console.log("products", products?.data?.allPosts);
-  const allProducts: Array<ResponseProduct> = products?.data?.allPosts;
+  console.log("products", products?.data);
+  const allProducts: Array<ResponseProduct> = products?.data ?? [];
 
   return (
     <>
@@ -41,7 +67,7 @@ const HomePage = () => {
           flexDirection={isDesktop ? "row" : "column"}
           sx={{ gap: "2%", paddingTop: "2%" }}
         >
-          {isDesktop ? <SidebarLists margin={0} /> : <MobileLists />}
+          {isDesktop ? <SidebarLists margin={0} func={checkHandler} checkValue={category}/> : <MobileLists />}
           <Products products={allProducts} />
         </Box>
       </Container>

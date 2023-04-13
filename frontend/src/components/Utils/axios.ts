@@ -1,19 +1,3 @@
-// import axios from "axios";
-
-// const client = axios.create({baseURL:"http://localhost:3000/api"});
-
-// export const request = ({...options})=>{
-//     client.defaults.headers.common.Authorization = `Bearer Token`;
-
-//     const onSuccess = (response:any) => response;
-//     const onError = (error: any)=>{
-//         return error
-//     }
-
-//     return client(options).then(onSuccess).catch(onError)
-// };
-
-// export const signUpRequest = ()
 
 import axios from "axios";
 
@@ -23,6 +7,7 @@ import {
   Product,
   UpdateProduct,
   SignUpUser,
+  BidProductByUser
 } from "./apiTypes/apiTypes";
 
 const BASE_URL = "http://localhost:3000/api";
@@ -37,6 +22,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+    config.headers["Content-Type"]= "application/json"
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -64,16 +50,20 @@ const productAPI = {
     axiosInstance.put(`/products/${productId}`, productData),
   deleteProduct: (productId: string) =>
     axiosInstance.delete(`/products/${productId}`),
-  getProduct: (productId: string) =>
+  getProduct: (productId: string | undefined) =>
     axiosInstance.get(`/products/${productId}`),
   getAllProduct: () => axiosInstance.get("/products/allProducts"),
-  getProductsByUserId: () => axiosInstance.get("/products/user"),
-  bidProduct: (productId: string, price: number) =>
-    axiosInstance.put(`/products/auction/bid/${productId}`, price),
+  getProductsByUserId: () => axiosInstance.get('/user/product'),
+  getUserWinProducts:()=>axiosInstance.get("/products/auction/winProducts"),
+  getUserLostProducts:()=>axiosInstance.get("/products/auction/lostProducts"),
+  bidProduct: (data: BidProductByUser) =>
+    axiosInstance.put(`/products/auction/bid`, data),
+  firstBidProduct:(productData:BidProductByUser)=>
+    axiosInstance.put(`/products/bid`,productData),
 
   //detail api
-  getProductByCategory: (categpry: string) =>
-    axiosInstance.get(`/products/category?cat=${categpry}`),
+  getProductByCategory: (category: JSON | undefined) =>
+    axiosInstance.post("/products/category",category),
   searchProduct: (product: string) =>
     axiosInstance.get(`/products/search?product=${product}`),
 };

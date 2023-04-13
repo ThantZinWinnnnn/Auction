@@ -30,7 +30,7 @@ const SidebarLists: Array<list> = [
   {
     id: "3",
     text: "Sell Products Lists",
-    path: "/user/userProducts",
+    path: "/user/sellProducts",
   },
   {
     id: "4",

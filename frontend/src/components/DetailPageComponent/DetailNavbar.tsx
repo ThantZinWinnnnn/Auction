@@ -23,39 +23,13 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DetailSearchbar from "./DetailSearbar";
+import { PrimaryCategories,mobileLists } from "../../data/DummyData";
 
 interface DropdownProps {
   options: string[];
 }
 
-interface lists {
-  name: string;
-}
 
-const lists: Array<lists> = [
-  { name: "books" },
-  { name: "Electronics" },
-  { name: "Laptops" },
-];
-
-const mobileLists: Array<lists> = [
-  { name: "Auctions" },
-  { name: "Liquidations" },
-  { name: "High Street Goods" },
-  { name: "Children & Baby" },
-  { name: "Electronics" },
-  { name: "Art" },
-  { name: "Jewellery" },
-  { name: "Watches" },
-  { name: "Fashion" },
-  { name: "About Us" },
-  { name: "Sign Up" },
-  { name: "Account" },
-  {name:"Profile Setting"},
-  {name:"Sell Products Lists"},
-  {name:"Win Lot Products"},
-  {name:"Lost Lot Products"}
-];
 
 const DetailNavbar = () => {
   const theme = useTheme();
@@ -165,18 +139,23 @@ const DetailNavbar = () => {
                 }}
               >
                 <List sx={{ width: "200px" }}>
-                  {lists.map((option) => (
-                    <Link to={option.name} key={option.name}>
-                      <ListItem disablePadding key={option.name}>
-                        <ListItemButton key={option.name}>
+                  {PrimaryCategories.map((option) => (
+                   <Box  key={`${option.id}`}>
+                     <Link to={`${option.path}`}>
+                      <ListItem disablePadding sx={{
+                          "&:hover":{
+                            bgcolor:"warning.main",
+                          }
+                        }}>
+                        <ListItemButton>
                           <ListItemText
-                            sx={{ color: "black" }}
+                            sx={{ color: "black" ,"&:hover":{color:"white"}}}
                             primary={option.name}
-                            key={option.name}
                           />
                         </ListItemButton>
                       </ListItem>
                     </Link>
+                   </Box>
                   ))}
                 </List>
               </Popover>
@@ -208,20 +187,19 @@ const DetailNavbar = () => {
           }}
         >
           {mobileLists.map((list) => (
-            <>
+              <Box key={list.id}>
               <ListItem
-                key={list.name}
+                
                 sx={{
                   "&:hover": {
                     bgcolor: "#e0e0e0",
                   },
                 }}
               >
-                <Link to={list.name} key={list.name}>
+                <Link to={list.name}>
                   <ListItemText
-                  key={list.name}
                     primary={
-                      <Typography key={list.name} fontSize={lowSm ? 12 : 14} color="black">
+                      <Typography fontSize={lowSm ? 12 : 14} color="black">
                         {list.name}
                       </Typography>
                     }
@@ -229,7 +207,7 @@ const DetailNavbar = () => {
                 </Link>
               </ListItem>
               <Divider />
-            </>
+              </Box>
           ))}
         </List>
       </SwipeableDrawer>

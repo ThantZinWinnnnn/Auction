@@ -11,7 +11,7 @@ const Products: React.FC<prodcutsProps> = ({ products }) => {
     <>
       <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={4}>
         {products?.map((product) => (
-          <Product product={product} key={`${product.id}`} />
+          <Product product={product} key={`${product?.id}`} />
         ))}
       </Box>
     </>

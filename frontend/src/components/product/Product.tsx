@@ -40,7 +40,7 @@ const Product: React.FC<productProp> = ({ product }) => {
           width={"100%"}
           height={"150px"}
         >
-          <Link to={"/products/1"}>
+          <Link to={`/products/${product?.id}`}>
             <img
               width={"100%"}
               height={"100%"}
@@ -63,7 +63,7 @@ const Product: React.FC<productProp> = ({ product }) => {
 
       <Box width={isDesktop ? "52%" : "100%"}>
         {/*dynamic routes */}
-        <Link to={`${product?.id}`}>
+        <Link to={`/products/${product?.id}`}>
           <Typography
             color={"black"}
             fontWeight="bold"

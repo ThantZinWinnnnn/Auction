@@ -7,16 +7,49 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+
+import { useQuery } from "@tanstack/react-query";
+
 import Navbar from "../Navbar";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FeaturedLots from "./FeaturedLots3";
 import Footer from "../Footer/Footer";
 import FeaturedLots2 from "./FeaturedLots";
+import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
+import { productAPI } from "../Utils/axios";
+import moment from "moment";
 
-const ProdudctDetail = () => {
+
+
+
+const ProdudctDetail:React.FC = () => {
+  const {productId} = useParams();
   const theme = useTheme();
   const is4kScreen = useMediaQuery(theme.breakpoints.up("xl"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const {isLoading,data,isError,error} = useQuery({
+    queryKey:["detailProduct",productId],
+    queryFn:()=>productAPI.getProduct(productId),
+    refetchOnWindowFocus:false
+  });
+
+  const product:ResponseProduct = data?.data;
+
+
+  console.log("product",product)
+  // const category = product?.category?.name
+  const category = JSON.parse('{"category":"Electrical"}')
+
+  const {status,data:relatedPrdoucts} = useQuery({
+    queryKey:["relatedProductByCategory",category],
+    queryFn:()=> productAPI.getProductByCategory(category),
+    enabled:!!category,
+    refetchOnWindowFocus:false
+  })
+
+  const sameCategoryPrdoucts:Array<ResponseProduct> = relatedPrdoucts?.data;
+  console.log("related",relatedPrdoucts?.data)
 
   return (
     <>
@@ -60,7 +93,7 @@ const ProdudctDetail = () => {
               <Link to={"/detail"}>
                 <img
                   width={"100%"}
-                  src="https://portal-images.azureedge.net/auctions-2023/wi415169/images/27d95c96-e885-4da2-9521-fb82562ac93e.jpeg?w=250"
+                  src={`${product?.image}`}
                   alt="categories image"
                 />
               </Link>
@@ -77,7 +110,7 @@ const ProdudctDetail = () => {
                 },
               }}
             >
-              Thant Zin Win
+              {product?.owner}
             </Typography>
           </Box>
 
@@ -95,7 +128,7 @@ const ProdudctDetail = () => {
                 fontWeight="bold"
                 component={"div"}
                 sx={{
-                  marginBottom: 1.5,
+                  marginBottom: 4,
                   "&:hover": {
                     color: "primary.light",
                   },
@@ -105,16 +138,14 @@ const ProdudctDetail = () => {
                   },
                 }}
               >
-                No Reserve Pallets of Customer Returns I Small Domestic
-                Appliances, Fashion, Toys & Furniture - Sourced from a Major UK
-                Retailer
+                {product?.title}
               </Typography>
             </Link>
             <Typography
               component={"h5"}
               fontWeight={"bold"}
               sx={{
-                mb: 1,
+                mb: 0.5,
                 fontSize: {
                   xs: "1.1rem",
                   sm: "0.875rem",
@@ -133,7 +164,7 @@ const ProdudctDetail = () => {
               component={"h6"}
               marginBottom={"0.1rem"}
             >
-              Starts: Feb 08, 2023 12:00 PM GMT
+              Starts Date: {moment(product?.createdAt).format("MMM DD, YYYY")}
             </Typography>
             <Typography
               sx={{
@@ -144,7 +175,7 @@ const ProdudctDetail = () => {
               }}
               component={"h6"}
             >
-              Ends from: Feb 21, 2023 01:00 PM GMT
+              Ends Date: {moment(product?.updatedAt).format("MMM DD, YYYY")}
             </Typography>
             <Box display={"flex"} sx={{ gap: "30%", mt: 3, mb: 1 }}>
               <Typography
@@ -163,7 +194,7 @@ const ProdudctDetail = () => {
                 }}
                 component={"h6"}
               >
-                MMK
+                {new Intl.NumberFormat('en-Us',{style:'currency',currency:'MMK'}).format(product?.price).replace(/(\d+)\.(\d+)/, '$1,$2 MMK')}
               </Typography>
             </Box>
             <Divider />
@@ -228,7 +259,7 @@ const ProdudctDetail = () => {
               my: Mobile ? 4 : 0,
             }}
           >
-            <Link to={"/register"}>
+            <Link to={`/products/auction/bid/${productId}`}>
               <Button
                 fullWidth
                 variant="contained"
@@ -249,7 +280,7 @@ const ProdudctDetail = () => {
           </Box>
         </Box>
         <Divider />
-        <FeaturedLots2 />
+        <FeaturedLots2 products={sameCategoryPrdoucts} />
       </Container>
       <Footer />
     </>

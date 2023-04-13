@@ -258,7 +258,7 @@ const CreateProduct = () => {
                           ? jewellerySubCategories
                           : category === "Electrical"
                           ? electronicSubCategories
-                          : category === "Automotive & Vehicles"
+                          : category === "Vehicles"
                           ? vehicleSubCategories
                           : category === "Fashion"
                           ? fashionSubCategories

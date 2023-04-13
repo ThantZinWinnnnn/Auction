@@ -18,29 +18,29 @@ export const electronicCategories: Array<feature> = [
 	},
 	{
 		id: 2,
-		url: "https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6216632d29b28bab1b12d77e_Audio-Category.jpg",
-		name: "Audio",
+		url: "https://images.unsplash.com/photo-1542393545-10f5cde2c810?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bGFwdG9wc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+		name: "Laptops",
 	},
 	{
 		id: 3,
-		url: "https://s.alicdn.com/@sc04/kf/H45f4f94d92e64d02889002eea3fba5ad3.jpg_300x300.jpg",
-		name: "Gaming",
+		url: "https://images.unsplash.com/photo-1582893719336-719bbd6b329d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTg1fHxoZWFkcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+		name: "Audio",
 	},
 ];
 
 export const jewelleryCategories:Array<feature> = [
 	{
-		id: 1,
+		id: 4,
 		url: "https://s.alicdn.com/@sc04/kf/H9b74dd58c0bf46d28409aaf29da527859.jpg_720x720q50.jpg",
 		name: "Fine Jewelry",
 	},
 	{
-		id: 2,
+		id: 5,
 		url: "https://s.alicdn.com/@sc04/kf/H9acfe520526a449c846d1c20d7da852fh.jpg_720x720q50.jpg",
 		name: "Fashion Jewelry",
 	},
 	{
-		id: 3,
+		id: 6,
 		url: "https://s.alicdn.com/@sc04/kf/H4acf44cc12ee4c07990a35e32b3803a21.jpg_300x300.jpg",
 		name: "Costume Jewelry",
 	},
@@ -48,35 +48,35 @@ export const jewelleryCategories:Array<feature> = [
 
 export const vehicleCategories:Array<feature> = [
 	{
-		id: 1,
-		url: "https://s.alicdn.com/@sc04/kf/H29eaed058de84e1a882878e025702ad5n.jpg_300x300.jpg",
+		id: 7,
+		url: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
 		name: "Cars",
 	},
 	{
-		id: 2,
-		url: "https://s.alicdn.com/@sc04/kf/H3b0a194592124a819bd5d14fb777b2cak.jpg_300x300.jpg",
+		id: 8,
+		url: "https://images.unsplash.com/photo-1616432043562-3671ea2e5242?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dHJ1Y2t8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
 		name: "Trucks",
 	},
 	{
-		id: 3,
-		url: "https://s.alicdn.com/@sc04/kf/Hf56fff0d9ecf469f91a999133a389441P.jpg_300x300.jpg",
+		id: 9,
+		url: "https://images.unsplash.com/photo-1525160354320-d8e92641c563?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW90b3JiaWtlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
 		name: "Motorcycles",
 	},
 ];
 
 export const fashionCategories:Array<feature> = [
 	{
-		id: 1,
+		id: 10,
 		url: "https://s.alicdn.com/@sc04/kf/H666a5dd54260462c8921c547b35d08d9j.jpg_300x300.jpg",
 		name: "Casual Wear",
 	},
 	{
-		id: 2,
+		id: 11,
 		url: "https://s.alicdn.com/@sc04/kf/Hcc1dd2e67b0940e09e3cca32359195dcZ.jpg_300x300.jpg",
 		name: "Formal Wear",
 	},
 	{
-		id: 3,
+		id: 12,
 		url: "https://s.alicdn.com/@sc04/kf/H223a7def1aa74c90a92fd31861499342q.jpg_300x300.jpg",
 		name: "Activewear",
 	},
@@ -84,35 +84,35 @@ export const fashionCategories:Array<feature> = [
 
 export const watchesCategories:Array<feature> = [
 	{
-		id: 1,
-		url: "https://s.alicdn.com/@sc04/kf/Hfb7fd0de0de644af8fdf8acf7a042f7fL.jpg_300x300.jpg",
+		id: 13,
+		url: "https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHdhdGNoZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
 		name: "Casual Watches",
 	},
 	{
-		id: 2,
-		url: "https://s.alicdn.com/@sc04/kf/H6c39fa6eee4143c49d6231c07d284ba4f.jpg_300x300.jpg",
+		id: 14,
+		url: "https://img.freepik.com/free-psd/smartwatch-mock-up-design_1135-61.jpg?size=626&ext=jpg",
 		name: "Sports Watches",
 	},
 	{
-		id: 3,
-		url: "https://s.alicdn.com/@sc04/kf/H5919937806394eaf89a2c89cb08a5071w.jpg_300x300.jpg",
+		id: 15,
+		url: "https://img.freepik.com/free-photo/close-up-clock-with-time-change_23-2149241141.jpg?size=626&ext=jpg&ga=GA1.1.1044166412.1681362426&semt=ais",
 		name: "Luxury Watches",
 	},
 ];
 
 export const handbagCategories:Array<feature> = [
 	{
-		id: 1,
+		id: 16,
 		url: "https://s.alicdn.com/@sc04/kf/H91185f17400b4ef38ab108f6441eb6ded.jpg_300x300.jpg",
 		name: "Tote Bags",
 	},
 	{
-		id: 2,
+		id: 17,
 		url: "https://s.alicdn.com/@sc04/kf/Hc96a49d62f6640b3bf8dcba1eff20f41y.jpg_300x300.jpg",
 		name: "Crossbody Bags",
 	},
 	{
-		id: 3,
+		id: 18,
 		url: "https://s.alicdn.com/@sc04/kf/H87c0217ba9144b45866a32cff2b835f7W.jpg_300x300.jpg",
 		name: "Clutch Bags",
 	},
@@ -122,33 +122,68 @@ export const handbagCategories:Array<feature> = [
 
 interface category {
   id:Number,
-  name:String
-}
+  name:String,
+  path?:String
+};
+
+export const IntroMenu:Array<category> = [
+	{
+		id:1,
+		name:"Account Info",
+		path:"/user/profile"
+	},
+	{
+		id:2,
+		name:"Favourite Cart",
+		path:"/user/profile"
+	},
+	{
+		id:3,
+		name:"Sell Product",
+		path:"/user/create"
+	},
+	{
+		id:4,
+		name:"Win Products",
+		path:"/user/winProducts"
+	},
+	{
+		id:5,
+		name:"Lost Products",
+		path:"/user/lostProducts"
+	},
+]
 
 export const PrimaryCategories: Array<category> = [
   {
     id:1,
-    name:"Watches"
+    name:"Watches",
+	path:"/auction/watches"
   },
   {
     id:2,
-    name:"Jewellery"
+    name:"Jewellery",
+	path:"/auction/jewellery"
   },
     {
     id:3,
-    name:"Electrical"
+    name:"Electrical",
+	path:"/auction/electronic"
   },
     {
     id:4,
-    name:"Automotive & Vehicles"
+    name:"Vehicles",
+	path:"/auction/vehicle"
   },
     {
     id:5,
-    name:"Fashion"
+    name:"Fashion",
+	path:"/auction/fashion"
   },
     {
     id:6,
-    name:"Handbags"
+    name:"Handbags",
+	path:"/auction/handbag"
   },
 
 ];
@@ -235,11 +270,11 @@ export const electronicSubCategories:Array<category> = [
 	  },
 	  {
 		id:2,
-		name:"Audio"
+		name:"Laptops"
 	  },
 		{
 		id:3,
-		name:"Gaming"
+		name:"Audio"
 	  },
 ];
 
@@ -288,23 +323,23 @@ export const relatedItems: Array<feature> = [
 export const moreAuctions:Array<feature> = [
 	{
 		id:1,
-		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
-		name:"Retail Returns"
+		url:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+		name:"Electronics"
 	},
 	{
-		id:1,
-		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
-		name:"Home Improvement"
+		id:2,
+		url:"https://media.istockphoto.com/id/1356569932/photo/style-and-confidence.jpg?b=1&s=170667a&w=0&k=20&c=MvMzYpB6-WWMn2e95A2H6ICu0XERnL61PwvnQYrbr3o=",
+		name:"Fashions"
 	},
 	{
-		id:1,
-		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
-		name:"Children & Baby"
+		id:3,
+		url:"https://media.istockphoto.com/id/609094568/photo/watch-shop-window.jpg?b=1&s=170667a&w=0&k=20&c=xRqeJjcR2U-DvnTOJ0zu4nYMWfgxu9aqqPjSbbv-vJg=",
+		name:"Watches"
 	},
 	{
-		id:1,
-		url:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/62175b85827f37aebeaff95b_Toys-Category.jpg",
-		name:"High Street Goods"
+		id:4,
+		url:"https://images.unsplash.com/photo-1574582242931-e2b1d1f65d4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxyeSUyMHNob3B8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+		name:"Jewellery"
 	},
 ];
 
@@ -491,5 +526,62 @@ export const overviewData : overviewProps ={
 	 fashionUrl:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/620e654d41122f2c5e9982ba_Fashion-Hero-Image.jpg",
 	 handbagUrl:"https://uploads-ssl.webflow.com/61dc384cdd32214e08c06a78/6220db8951515a430b634155_Handbags-Hero-Image.jpg"
  }
+
+ interface lists {
+	id:string,
+	name: string;
+  }
+
+
+ export const mobileLists: Array<lists> = [
+	{ name: "Auctions",
+	  id:"1"    
+  },
+	{ name: "Liquidations",
+	  id:"2"    
+  },
+	{ name: "High Street Goods",
+	  id:"3"    
+  },
+	{ name: "Children & Baby",
+	  id:"4"    
+  },
+	{ name: "Electronics",
+	  id:"5"    
+  },
+	{ name: "Art",
+	  id:"6"    
+  },
+	{ name: "Jewellery",
+	  id:"7"    
+  },
+	{ name: "Watches",
+	  id:"8"    
+  },
+	{ name: "Fashion",
+	  id:"9"    
+  },
+	{ name: "About Us",
+	  id:"10"    
+  },
+	{ name: "Sign Up",
+	  id:"11"    
+  },
+	{ name: "Account",
+	  id:"12"    
+  },
+	{name:"Profile Setting",
+	  id:"13"
+  },
+	{name:"Sell Products Lists",
+	  id:"14"
+  },
+	{name:"Win Lot Products",
+	  id:"15"
+  },
+	{name:"Lost Lot Products",
+	  id:"16"
+  }
+  ];
   
 	

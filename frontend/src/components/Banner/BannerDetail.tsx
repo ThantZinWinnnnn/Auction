@@ -77,7 +77,7 @@ const BannerDetail = () => {
         <Typography
           color="common.white"
           fontWeight={"bold"}
-          marginBottom={Mobile ? "8%" : "4%"}
+          marginBottom={Mobile ? "20%" : "5%"}
           sx={{
             width: {
               xs: "300px",
@@ -85,7 +85,7 @@ const BannerDetail = () => {
               md: "940px",
             },
             fontSize: {
-              xs: "2.5rem",
+              xs: "2.8rem",
               sm: "4rem",
               md: "6rem",
             },
@@ -119,7 +119,7 @@ const BannerDetail = () => {
             sx={{
               textTransform: "none",
               borderRadius: 10,
-              px: 2,
+              px: 3,
               py: 1,
               "&:hover": {
                 backgroundColor: "#102343",
@@ -129,7 +129,7 @@ const BannerDetail = () => {
           >
             Explore Auctions
           </Button>
-          {!Mobile && (
+          {/* {!Mobile && (
             <Button
               disableRipple
               disableFocusRipple
@@ -149,7 +149,7 @@ const BannerDetail = () => {
             >
               Sign Up
             </Button>
-          )}
+          )} */}
         </Box>
       </Box>
       <Description />
