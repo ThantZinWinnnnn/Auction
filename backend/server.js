@@ -1,29 +1,25 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const cors = require('cors')
+const cors = require("cors");
 
-const userRouter = require('./routes/userRoutes/user.route')
-const postRouter = require('./routes/PostRoutes/product.route')
-const commentRouter = require('./routes/PostRoutes/comment.route')
-const bidProductRouter = require('./routes/BidRoutes/bidProduct.route')
+const userRouter = require("./routes/userRoutes/user.route");
+const productRouter = require("./routes/PostRoutes/product.route");
+const commentRouter = require("./routes/PostRoutes/comment.route");
+const bidProductRouter = require("./routes/BidRoutes/bidProduct.route");
 
- 
-require('dotenv').config()
+require("dotenv").config();
 const app = express();
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //cookie parser
-app.use(cookieParser())
-app.use('/api/user',userRouter)
-app.use('/api/products',postRouter)
-app.use('/api/products/comment',commentRouter)
-app.use('/api/products/auction',bidProductRouter)
-
-
-
+app.use(cookieParser());
+app.use("/api/user", userRouter);
+app.use("/api/products", productRouter);
+app.use("/api/products/comment", commentRouter);
+app.use("/api/products/auction", bidProductRouter);
 
 app.get("/", (req, res) => {
   res.send("Hi I am testing");

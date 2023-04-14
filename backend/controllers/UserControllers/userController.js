@@ -196,3 +196,24 @@ exports.getLoggedInUser = async (req, res) => {
 
   res.status(200).json(loggedInUser);
 };
+
+exports.getUserProducts = async (req,res)=> {
+  try {
+    const {id} = req.user;
+
+    const products = await prisma.user.findUnique({
+      where:{
+        id
+      },
+      select:{
+        sellerProducts:true,
+        winLotProducts:true,
+        lostLotProducts:true
+      }
+    });
+
+    res.status(200).json({products})
+  } catch (err) {
+    res.status(400).json({message:err.message})
+  }
+}

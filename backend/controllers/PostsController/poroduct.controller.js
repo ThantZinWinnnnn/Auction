@@ -3,9 +3,7 @@ const prisma = require("../../prisma/index");
 exports.getAllPosts = async (req, res) => {
   const allPosts = await prisma.product.findMany();
 
-  res.status(200).json({
-    allPosts,
-  });
+  res.status(200).json(allPosts);
 };
 
 //to combine two api to one api
@@ -157,22 +155,61 @@ exports.queryProduct = async (req, res) => {
   }
 };
 
-exports.getAllProductsByUserId = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    console.log("id", userId);
 
-    const products = await prisma.user.findUnique({
-      where: {
-        id: userId,
+exports.bidProductByUser = async (req,res)=>{
+  try {
+    const {id,name} = req.user;
+    const {price,productId} = req.body;
+
+    console.log("product444",productId)
+    console.log("price",price)
+
+    const product = await prisma.product.update({
+      where:{
+        id:productId
       },
-      select: {
-        sellerProducts: true,
-      },
+      data:{
+        currentOwner:{connect:{id}},
+        currentBidPrice:price,
+        currentOwnerName:name
+      }
+    });
+    console.log("product",product)
+
+    const winProduct = await prisma.winLotProduct.create({
+      data:{
+        bidPrice:price,
+        productId,
+        userId:id
+      }
     });
 
-    res.status(200).json(products);
+    console.log("win",winProduct)
+
+    res.status(200).json({product,winProduct})
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({message:error.message})
   }
-};
+}
+
+// exports.getAllProductsByUserId = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
+//     console.log("id", userId);
+
+//     const products = await prisma.user.findUnique({
+//       where: {
+//         id: userId,
+//       },
+//       select: {
+//         sellerProducts: true,
+//       },
+//     });
+
+//     res.status(200).json(products);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
+
+

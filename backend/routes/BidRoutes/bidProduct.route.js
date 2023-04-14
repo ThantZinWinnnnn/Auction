@@ -6,12 +6,14 @@ const {
   deleteMany,
   deleteManyLost,
   bidCurrentUser,
-  userWinProduct,
+  userWinProducts,
+  userLostProducts
 } = require("../../controllers/bid.product.controller/bid.product.controller");
 const { isAuthenticatedUser } = require("../../middleware/AuthUser");
 
-router.route("/bid/:productId").post(isAuthenticatedUser, bidProduct);
-router.route("/winProducts").get(isAuthenticatedUser, userWinProduct);
+router.route("/bid").put(isAuthenticatedUser, bidProduct);
+router.route("/winProducts").get(isAuthenticatedUser, userWinProducts);
+router.route("/lostProducts").get(isAuthenticatedUser,userLostProducts)
 router
   .route("/firstBidUser/:productId")
   .put(isAuthenticatedUser,bidCurrentUser)
