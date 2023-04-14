@@ -324,12 +324,12 @@ export const moreAuctions:Array<feature> = [
 	{
 		id:1,
 		url:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-		name:"Electronics"
+		name:"Electrical"
 	},
 	{
 		id:2,
 		url:"https://media.istockphoto.com/id/1356569932/photo/style-and-confidence.jpg?b=1&s=170667a&w=0&k=20&c=MvMzYpB6-WWMn2e95A2H6ICu0XERnL61PwvnQYrbr3o=",
-		name:"Fashions"
+		name:"Fashion"
 	},
 	{
 		id:3,

@@ -8,7 +8,7 @@ import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import { ProfileUserProps, User } from "../../Utils/apiTypes/apiTypes";
 
-import { userInfoAPI } from "../../Utils/axios";
+import { userInfoAPI } from "../../Utils/endpoins/axios";
 
 interface UpdateProps {
   handler: () => void;

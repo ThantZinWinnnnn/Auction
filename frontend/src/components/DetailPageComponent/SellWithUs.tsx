@@ -1,9 +1,10 @@
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SellWithUs = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -90,6 +91,7 @@ const SellWithUs = () => {
           is the perfect place to sell.
         </Typography>
         <Button
+          onClick={()=>navigate('/user/create')}
           color="warning"
           variant="contained"
           sx={{

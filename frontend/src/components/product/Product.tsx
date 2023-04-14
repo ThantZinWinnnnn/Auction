@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Skeleton,
   Typography,
   useMediaQuery,
   useTheme,
@@ -13,9 +14,10 @@ import moment from "moment";
 
 interface productProp {
   product: ResponseProduct;
+  loading?:boolean
 }
 
-const Product: React.FC<productProp> = ({ product }) => {
+const Product: React.FC<productProp> = ({ product ,loading}) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -29,6 +31,7 @@ const Product: React.FC<productProp> = ({ product }) => {
           sm: "3%",
           md: "2.4%",
         },
+        mb:3
       }}
       px={isDesktop ? 0 : 2}
     >
@@ -112,7 +115,7 @@ const Product: React.FC<productProp> = ({ product }) => {
         </Typography>
       </Box>
       <Box width={isDesktop ? "20%" : "100%"} mt={isDesktop ? 0 : 3}>
-        <Link to={"/detail"}>
+        <Link to={`/products/${product?.id}`}>
           <Button
             fullWidth
             variant="contained"

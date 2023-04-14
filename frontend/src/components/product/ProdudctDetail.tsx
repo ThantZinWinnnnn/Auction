@@ -16,8 +16,10 @@ import FeaturedLots from "./FeaturedLots3";
 import Footer from "../Footer/Footer";
 import FeaturedLots2 from "./FeaturedLots";
 import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
-import { productAPI } from "../Utils/axios";
+import { productAPI } from "../Utils/endpoins/axios";
 import moment from "moment";
+import { LoadingImageSkeleton } from "../Utils/LoadingIndicator/LoadingSkeleton";
+import { ProductCategoryLoading } from "../Utils/LoadingIndicator/ProductListsLoading";
 
 
 
@@ -90,13 +92,13 @@ const ProdudctDetail:React.FC = () => {
               }}
               overflow="hidden"
             >
-              <Link to={"/detail"}>
+              {isLoading ? <LoadingImageSkeleton/>:
                 <img
                   width={"100%"}
                   src={`${product?.image}`}
                   alt="categories image"
                 />
-              </Link>
+              }
             </Box>
             <Typography
               component={"div"}
@@ -280,7 +282,7 @@ const ProdudctDetail:React.FC = () => {
           </Box>
         </Box>
         <Divider />
-        <FeaturedLots2 products={sameCategoryPrdoucts} />
+        {status === "loading" ? <ProductCategoryLoading/>: <FeaturedLots2 products={sameCategoryPrdoucts} />}
       </Container>
       <Footer />
     </>

@@ -5,9 +5,10 @@ import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import ProfileInfo from "../components/ProfileInfo";
 import UpdateModel from "../components/UpdateModel";
-import {userInfoAPI} from "../../Utils/axios"
+import {userInfoAPI} from "../../Utils/endpoins/axios"
 
 import { ProfileUserProps } from "../../Utils/apiTypes/apiTypes";
+import ProductLoading from "../../Utils/LoadingIndicator/ProductLoading";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -54,6 +55,10 @@ const UserPage = () => {
     queryFn: userInfoAPI.getLoggedInUser,
     refetchOnWindowFocus:false
   });
+
+  if(userFetchLoading){
+    return <ProductLoading/>
+  }
 
   const user:ProfileUserProps = data?.data;
 

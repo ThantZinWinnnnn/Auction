@@ -13,7 +13,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 ///Import product create api
-import { productAPI } from "../../../Utils/axios";
+import { productAPI } from "../../../Utils/endpoins/axios";
 
 import moment from "moment";
 

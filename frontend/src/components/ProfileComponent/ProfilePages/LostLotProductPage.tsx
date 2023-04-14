@@ -1,8 +1,9 @@
 import React from "react";
 import { UserProductsResponse } from "../../Utils/apiTypes/apiTypes";
 import { useQuery } from "@tanstack/react-query";
-import { productAPI } from "../../Utils/axios";
+import { productAPI } from "../../Utils/endpoins/axios";
 import Products from "../components/prdoducts/components/Products";
+import { ProfileUserProductsLoading } from "../../Utils/LoadingIndicator/ProductListsLoading";
 
 export default function LostLotProductPage() {
   const {
@@ -21,7 +22,7 @@ export default function LostLotProductPage() {
   //   console.log("productsUser", products);
 
   if (isFetching || isLoading) {
-    return <h1>Loading....</h1>;
+    return <ProfileUserProductsLoading/>;
   } else {
     const responseProducts = userProducts?.data;
     const products: Array<UserProductsResponse> = [];

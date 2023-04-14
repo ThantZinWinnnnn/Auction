@@ -71,7 +71,7 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
             >
               {category.name}
             </Typography>
-            <Link to={`${category.name}`}>
+            <Link to={`/query/product/${category.name}`}>
               <Button
                 color="warning"
                 variant="contained"

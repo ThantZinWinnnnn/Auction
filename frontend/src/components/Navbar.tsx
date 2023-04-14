@@ -29,7 +29,7 @@ import { PrimaryCategories, mobileLists } from "../data/DummyData";
 
 const Navbar = () => {
   const theme = useTheme();
-  const [isLogin, setIsLogin] = useState(true);
+  const [product, setProduct] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
   const lowSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -96,7 +96,7 @@ const Navbar = () => {
             }}
             paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
-            <Link to={"/features"}>
+            <Link to={"/"}>
               <Typography color={"black"}>Auctions</Typography>
             </Link>
             <Box

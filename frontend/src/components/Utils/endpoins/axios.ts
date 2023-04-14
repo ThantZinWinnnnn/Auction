@@ -8,7 +8,7 @@ import {
   UpdateProduct,
   SignUpUser,
   BidProductByUser
-} from "./apiTypes/apiTypes";
+} from "../apiTypes/apiTypes";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -65,7 +65,7 @@ const productAPI = {
   getProductByCategory: (category: JSON | undefined) =>
     axiosInstance.post("/products/category",category),
   searchProduct: (product: string) =>
-    axiosInstance.get(`/products/search?product=${product}`),
+    axiosInstance.get(`/products/queryProduct?product=${product}`),
 };
 
 export { authAPI, productAPI, userInfoAPI };

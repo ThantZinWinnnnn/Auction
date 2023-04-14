@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   OutlinedInput,
   Box,
@@ -11,6 +11,7 @@ import {
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const   DetailSearchbar = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState<string | null>(null || "");
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
@@ -18,6 +19,8 @@ const   DetailSearchbar = () => {
   const searchHandler = () => {
     //api call
     console.log("values", values);
+    navigate(`/query/product/${values}`)
+    setValues('')
   };
   return (
     <Box

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { productAPI } from '../../../Utils/axios';
+import { productAPI } from '../../../Utils/endpoins/axios';
 import { useLocation } from 'react-router-dom';
 import Products from '../../../product/Products';
 

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 interface actionButton {
   ButtonText: string;
@@ -9,7 +9,8 @@ interface actionButton {
   bgC: string;
   hoverC: string;
   func: () => void;
-  disabled:boolean
+  disabled?:boolean,
+  loading?:boolean
 }
 
 const BidButton = (props: actionButton) => {
@@ -34,7 +35,7 @@ const BidButton = (props: actionButton) => {
       startIcon={props.icon}
       onClick={props.func}
     >
-      {props.ButtonText}
+     {props.ButtonText}
     </Button>
   );
 };

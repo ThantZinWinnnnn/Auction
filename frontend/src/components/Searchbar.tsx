@@ -19,7 +19,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useQuery } from "@tanstack/react-query";
-import { userInfoAPI } from "./Utils/axios";
+import { userInfoAPI } from "./Utils/endpoins/axios";
 import { ProfileUserProps } from "./Utils/apiTypes/apiTypes";
 import BidButton from "./BiddingComponent/Components/BidButton";
 import { IntroMenu } from "../data/DummyData";
@@ -54,6 +54,8 @@ const Searchbar = () => {
   const searchHandler = () => {
     //api call
     console.log("values", values);
+    navigate(`/search/${values}`)
+    setValues('')
   };
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {

@@ -7,12 +7,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { moreAuctions } from "../../data/DummyData";
 
 const MoreAuctions = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
 
   return (
     <Box width={"90%"} mx="auto">
@@ -51,12 +53,13 @@ const MoreAuctions = () => {
               >
                 {auction.name}
               </Typography>
-              <Link to={`${auction.name}`}>
+             
                 <Button
                   disableElevation
                   disableRipple
                   color="warning"
                   variant="contained"
+                  onClick={()=>navigate(`/query/category/${auction.name}`)}
                   sx={{
                     textTransform: "none",
                     borderRadius: 10,
@@ -81,7 +84,7 @@ const MoreAuctions = () => {
                 >
                   Discover
                 </Button>
-              </Link>
+             
             </Box>
           </Grid>
         ))}

@@ -10,7 +10,9 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Skeleton
 } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -19,7 +21,7 @@ import BidDetailTypo from "./Components/BidDetailTypo";
 import { useParams } from "react-router-dom";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { productAPI } from "../Utils/axios";
+import { productAPI } from "../Utils/endpoins/axios";
 
 import {
   ResponseProduct,
@@ -28,6 +30,7 @@ import {
 } from "../Utils/apiTypes/apiTypes";
 import moment from "moment";
 import { AxiosResponse } from "axios";
+import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 
 // interface BidProductVariable{
 //   productId:string ,
@@ -92,8 +95,8 @@ const BidProduct = () => {
           pr: isMobile ? 2 : 0,
         }}
       >
-        <Typography fontWeight={"bold"} mt={3} fontSize={18}>
-          Men's Volanthen Automatic Watch
+        <Typography fontWeight={"bold"} mb={4} mt={2} fontSize={18}>
+         {product?.title}
         </Typography>
         <Box display={"flex"} flexDirection={isMobile ? "column" : "row"}>
           <Box
@@ -110,7 +113,7 @@ const BidProduct = () => {
               },
             }}
           >
-            <Box width={"100%"} height={"100%"}>
+            {isLoading ? <Skeleton variant="rounded" width={"100%"} height={"100%"}/> : <Box width={"100%"} height={"100%"}>
               <img
                 style={{ objectFit: "contain" }}
                 width={"100%"}
@@ -118,7 +121,7 @@ const BidProduct = () => {
                 src={product?.image}
                 alt="bidProduct"
               />
-            </Box>
+            </Box>}
           </Box>
           <Box
             width={isMobile ? "100%" : "55%"}
@@ -213,10 +216,11 @@ const BidProduct = () => {
                     />
                   </Box>
                   <Box
-                    width={bidControl ? "100%" : "40%"}
+                    width={bidControl ? "100%" : "40%"}  
                     my={isMobile ? 2 : "none"}
                   >
-                    <BidButton
+                   {bidding ? <ButtonLoading text="Bidding"/> : <BidButton
+                      
                       disabled={bidding}
                       func={bidProductHandler}
                       ButtonText="Place bid"
@@ -230,7 +234,7 @@ const BidProduct = () => {
                         xs: 16,
                       }}
                       hoverC="warning.dark"
-                    />
+                    />}
                   </Box>
                   {/*place bid */}
                 </Box>
@@ -265,7 +269,6 @@ const BidProduct = () => {
               >
                 <BidButton
                   func={() => {}}
-                  disabled={isLoading}
                   ButtonText="Add to watchlist"
                   icon={<FavoriteBorderIcon />}
                   padding={{
@@ -283,7 +286,6 @@ const BidProduct = () => {
                 />
                 <BidButton
                   func={() => {}}
-                  disabled={isLoading}
                   ButtonText="Ask a question"
                   icon={<MailOutlineIcon />}
                   padding={{

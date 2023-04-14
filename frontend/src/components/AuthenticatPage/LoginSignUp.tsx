@@ -16,7 +16,7 @@ import logo from "../../assets/images/logo.svg";
 import * as yup from "yup";
 import { Link,useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { authAPI } from "../Utils/axios";
+import { authAPI } from "../Utils/endpoins/axios";
 
 interface FormValues {
   username?: string;

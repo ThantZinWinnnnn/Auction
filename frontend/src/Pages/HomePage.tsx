@@ -1,16 +1,18 @@
-import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar";
 import Product from "../components/product/Product";
 import SidebarLists from "../components/SidebarLists";
 import MobileLists from "../components/SideLists/MobileLists";
-import { productAPI } from "../components/Utils/axios";
+import { productAPI } from "../components/Utils/endpoins/axios";
 import { ResponseProduct } from "../components/Utils/apiTypes/apiTypes";
 import Products from "../components/product/Products";
 
 //React-Query
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { HomePageProductsSkeleton } from "../components/Utils/LoadingIndicator/ProductListsLoading";
+
 
 const HomePage = () => {
   const theme = useTheme();
@@ -68,7 +70,7 @@ const HomePage = () => {
           sx={{ gap: "2%", paddingTop: "2%" }}
         >
           {isDesktop ? <SidebarLists margin={0} func={checkHandler} checkValue={category}/> : <MobileLists />}
-          <Products products={allProducts} />
+          {isLoading ? <HomePageProductsSkeleton/>: <Products products={allProducts} loading={isLoading} />}
         </Box>
       </Container>
       <Footer />

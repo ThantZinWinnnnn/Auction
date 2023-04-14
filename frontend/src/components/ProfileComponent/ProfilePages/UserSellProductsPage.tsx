@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { productAPI } from "../../Utils/axios";
+import { productAPI } from "../../Utils/endpoins/axios";
 import Products from "../components/prdoducts/components/Products";
-import { Typography } from "@mui/material";
+import { Backdrop, CircularProgress, Typography } from "@mui/material";
+import ProductLoading from "../../Utils/LoadingIndicator/ProductLoading";
+import { ProfileUserProductsLoading } from "../../Utils/LoadingIndicator/ProductListsLoading";
+
 
 //to add updat price button
 
 const UserSellProductsPage = () => {
+
+
   const {
     isFetching,
     isLoading,
@@ -19,7 +24,7 @@ const UserSellProductsPage = () => {
   });
 
   if (isLoading || isFetching) {
-    return <Typography>Loading...</Typography>;
+    return <ProfileUserProductsLoading/>;
   } else {
     const products = userProducts?.data?.products?.sellerProducts;
     console.log("productsUser", products);
