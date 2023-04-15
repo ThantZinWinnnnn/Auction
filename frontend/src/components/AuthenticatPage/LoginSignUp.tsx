@@ -12,11 +12,13 @@ import {
 import { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from "../../assets/images/logo.svg";
+import logo from "/logo.svg";
 import * as yup from "yup";
 import { Link,useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { authAPI } from "../Utils/endpoins/axios";
+import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
+import ProductLoading from "../Utils/LoadingIndicator/ProductLoading";
 
 interface FormValues {
   username?: string;
@@ -48,7 +50,7 @@ const LoginSignUp = () => {
 
 
 
-  const {isLoading,mutate:Authenticate} = useMutation(loggedIn ? authAPI.signin : authAPI.signup,{
+  const {isLoading:authenticating,mutate:Authenticate} = useMutation(loggedIn ? authAPI.signin : authAPI.signup,{
     onSuccess:(data)=>{
       console.log(data.data)
       localStorage.setItem("token",data.data.token)
@@ -65,6 +67,7 @@ const LoginSignUp = () => {
 
       Authenticate(data)
   };
+
 
   return (
     <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
@@ -239,7 +242,7 @@ const LoginSignUp = () => {
               disableElevation
               disableRipple
               fullWidth
-              disabled={check || isLoading}
+              disabled={check || authenticating}
               variant="contained"
               type="submit"
               sx={{
@@ -256,10 +259,10 @@ const LoginSignUp = () => {
                 },
               }}
             >
-              {!loggedIn ? "Sign Up" : "Sign In"}
+             {!loggedIn ? "Sign Up" : "Sign In"}
             </Button>
           </form>
-
+              {authenticating && <ProductLoading/>}
           <Box
             display={"flex"}
             justifyContent="center"

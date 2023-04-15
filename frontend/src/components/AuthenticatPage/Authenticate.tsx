@@ -1,17 +1,14 @@
-import { Box, Container } from "@mui/material";
-import Carousel from "../Carousel/Carousel";
+import { Box} from "@mui/material";
 import LoginSignUp from "./LoginSignUp";
-import backgroundImage from "../../assets/images/bg.avif";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Title } from "../Utils/helmet/Title";
+
 
 const Authenticate = () => {
-  const theme = useTheme();
-  const tablet = useMediaQuery(theme.breakpoints.up("md"));
-  const Desktop = useMediaQuery(theme.breakpoints.up('xl'));
-  const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box
+   <>
+    <Title title="LogIn | SignUp Page"/>
+     <Box
       display={"flex"}
       justifyContent="center"
       alignItems={"center"}
@@ -25,6 +22,7 @@ const Authenticate = () => {
      <LoginSignUp />
      </Box>
     </Box>
+   </>
   );
 };
 

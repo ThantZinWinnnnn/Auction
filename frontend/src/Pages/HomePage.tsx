@@ -12,6 +12,8 @@ import Products from "../components/product/Products";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { HomePageProductsSkeleton } from "../components/Utils/LoadingIndicator/ProductListsLoading";
+import { Title } from "../components/Utils/helmet/Title";
+
 
 
 const HomePage = () => {
@@ -61,6 +63,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Title title="Home Page | Auction"/>
       <Navbar />
 
       <Container maxWidth={is4kScreen ? "xl" : mediumScreen ? "lg" : "md"}>

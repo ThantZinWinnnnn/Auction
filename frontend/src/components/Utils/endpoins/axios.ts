@@ -66,6 +66,8 @@ const productAPI = {
     axiosInstance.post("/products/category",category),
   searchProduct: (product: string) =>
     axiosInstance.get(`/products/queryProduct?product=${product}`),
+    getProductBySubCategory:(subCategory:JSON | undefined) => 
+    axiosInstance.post("/products/subCategory",subCategory)
 };
 
 export { authAPI, productAPI, userInfoAPI };

@@ -14,14 +14,18 @@ export default function QueryProducts({ products }: Props) {
 
   return (
     <>
-      <DetailNavbar />
+     <Box width={'100%'} height={'100vh'} display={'flex'} flexDirection={'column'}>
+     <Box>
+        <DetailNavbar />
 
-      <Container maxWidth={is4kScreen ? "lg" : "md"}>
-        <Box display={"flex"} sx={{ paddingTop: "2%" }}>
-          <Products products={products} />
-        </Box>
-      </Container>
+        <Container maxWidth={is4kScreen ? "lg" : "md"}>
+          <Box display={"flex"} sx={{ paddingTop: "2%" }}>
+            <Products products={products} />
+          </Box>
+        </Container>
+      </Box>
       <Footer />
+     </Box>
     </>
   );
 }

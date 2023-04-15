@@ -5,13 +5,15 @@ import React from "react";
 interface imageUploadProps {
   imageHandler: (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>void;
   value: string;
+  light:boolean
 }
 interface FileInputProps extends InputProps {
   accept?: string;
+
 }
 
 const ImageUpload: React.FC<imageUploadProps> = (
-  { imageHandler, value },
+  { imageHandler, value ,light},
   { accept, ...inputProps }: FileInputProps
 ) => {
   return (
@@ -21,7 +23,7 @@ const ImageUpload: React.FC<imageUploadProps> = (
           width: "100%",
           p: 2,
           color: "black",
-          border: "1px dotted black",
+          border: light ? "1px dotted black" : "1px dotted white",
           borderRadius: "10px",
         }}
       >
@@ -49,7 +51,7 @@ const ImageUpload: React.FC<imageUploadProps> = (
           }}
         /> */}
 
-        <Input name="Image Url" text={value} id="image-upload" handlerFun={imageHandler}/>
+        <Input name="Image Url" text={value} id="image-upload" handlerFun={imageHandler} />
 
         <Box
           width={"100%"}
@@ -75,6 +77,7 @@ const ImageUpload: React.FC<imageUploadProps> = (
                   lg: 20,
                   sm: 14,
                 },
+                color:light ? "black" : "white"
               }}
             >
               Please upload the product image

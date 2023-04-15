@@ -20,41 +20,44 @@ import { productAPI } from "../Utils/endpoins/axios";
 import moment from "moment";
 import { LoadingImageSkeleton } from "../Utils/LoadingIndicator/LoadingSkeleton";
 import { ProductCategoryLoading } from "../Utils/LoadingIndicator/ProductListsLoading";
+import { Title } from "../Utils/helmet/Title";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import { useContext } from "react";
 
-
-
-
-const ProdudctDetail:React.FC = () => {
-  const {productId} = useParams();
+const ProdudctDetail: React.FC = () => {
+  const { productId } = useParams();
   const theme = useTheme();
   const is4kScreen = useMediaQuery(theme.breakpoints.up("xl"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light";
 
-  const {isLoading,data,isError,error} = useQuery({
-    queryKey:["detailProduct",productId],
-    queryFn:()=>productAPI.getProduct(productId),
-    refetchOnWindowFocus:false
+  const { isLoading, data, isError, error } = useQuery({
+    queryKey: ["detailProduct", productId],
+    queryFn: () => productAPI.getProduct(productId),
+    refetchOnWindowFocus: false,
   });
 
-  const product:ResponseProduct = data?.data;
+  const product: ResponseProduct = data?.data;
 
+  console.log("product", product);
+   const relatedCategory = product?.category?.name
+  const category = JSON.parse(`{"category":"${relatedCategory}"}`);
+  console.log("caat" , category)
 
-  console.log("product",product)
-  // const category = product?.category?.name
-  const category = JSON.parse('{"category":"Electrical"}')
+  const { status, data: relatedPrdoucts } = useQuery({
+    queryKey: ["relatedProductByCategory", category],
+    queryFn: () => productAPI.getProductByCategory(category),
+    enabled: !!category,
+    refetchOnWindowFocus: false,
+  });
 
-  const {status,data:relatedPrdoucts} = useQuery({
-    queryKey:["relatedProductByCategory",category],
-    queryFn:()=> productAPI.getProductByCategory(category),
-    enabled:!!category,
-    refetchOnWindowFocus:false
-  })
-
-  const sameCategoryPrdoucts:Array<ResponseProduct> = relatedPrdoucts?.data;
-  console.log("related",relatedPrdoucts?.data)
+  const sameCategoryPrdoucts: Array<ResponseProduct> = relatedPrdoucts?.data;
+  console.log("related", relatedPrdoucts?.data);
 
   return (
     <>
+      <Title title="Product Detail Page" />
       <Navbar />
       <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{ mt: 2 }}>
         <Box
@@ -76,6 +79,7 @@ const ProdudctDetail:React.FC = () => {
                 xs: "auto",
                 sm: "0",
               },
+              color: light ? "black" : "white",
             }}
           >
             <Box
@@ -92,13 +96,15 @@ const ProdudctDetail:React.FC = () => {
               }}
               overflow="hidden"
             >
-              {isLoading ? <LoadingImageSkeleton/>:
+              {isLoading ? (
+                <LoadingImageSkeleton />
+              ) : (
                 <img
                   width={"100%"}
                   src={`${product?.image}`}
                   alt="categories image"
                 />
-              }
+              )}
             </Box>
             <Typography
               component={"div"}
@@ -124,25 +130,24 @@ const ProdudctDetail:React.FC = () => {
               },
             }}
           >
-            <Link to={"/detail"}>
-              <Typography
-                color={"black"}
-                fontWeight="bold"
-                component={"div"}
-                sx={{
-                  marginBottom: 4,
-                  "&:hover": {
-                    color: "primary.light",
-                  },
-                  fontSize: {
-                    xs: "1.4rem",
-                    sm: "1.25rem",
-                  },
-                }}
-              >
-                {product?.title}
-              </Typography>
-            </Link>
+            <Typography
+              fontWeight="bold"
+              component={"div"}
+              sx={{
+                marginBottom: 4,
+                "&:hover": {
+                  color: "primary.light",
+                },
+                fontSize: {
+                  xs: "1.4rem",
+                  sm: "1.25rem",
+                },
+                color: light ? "black" : "white",
+              }}
+            >
+              {product?.title}
+            </Typography>
+
             <Typography
               component={"h5"}
               fontWeight={"bold"}
@@ -152,6 +157,7 @@ const ProdudctDetail:React.FC = () => {
                   xs: "1.1rem",
                   sm: "0.875rem",
                 },
+                color: light ? "black" : "white",
               }}
             >
               Auction dates
@@ -162,6 +168,7 @@ const ProdudctDetail:React.FC = () => {
                   xs: "1rem",
                   xl: "0.75rem",
                 },
+                color: light ? "black" : "white",
               }}
               component={"h6"}
               marginBottom={"0.1rem"}
@@ -174,6 +181,7 @@ const ProdudctDetail:React.FC = () => {
                   xs: "1rem",
                   xl: "0.75rem",
                 },
+                color: light ? "black" : "white",
               }}
               component={"h6"}
             >
@@ -184,6 +192,7 @@ const ProdudctDetail:React.FC = () => {
                 variant="subtitle2"
                 component={"h5"}
                 fontWeight={"bold"}
+                sx={{ color: light ? "black" : "white" }}
               >
                 Auction currency
               </Typography>
@@ -193,10 +202,16 @@ const ProdudctDetail:React.FC = () => {
                     xs: "1.1rem",
                     xl: "0.75rem",
                   },
+                  color: light ? "black" : "white",
                 }}
                 component={"h6"}
               >
-                {new Intl.NumberFormat('en-Us',{style:'currency',currency:'MMK'}).format(product?.price).replace(/(\d+)\.(\d+)/, '$1,$2 MMK')}
+                {new Intl.NumberFormat("en-Us", {
+                  style: "currency",
+                  currency: "MMK",
+                })
+                  .format(product?.price)
+                  .replace(/(\d+)\.(\d+)/, "$1,$2 MMK")}
               </Typography>
             </Box>
             <Divider />
@@ -205,6 +220,7 @@ const ProdudctDetail:React.FC = () => {
                 variant="subtitle2"
                 component={"h5"}
                 fontWeight={"bold"}
+                sx={{ color: light ? "black" : "white" }}
               >
                 Buyer's premium
               </Typography>
@@ -214,6 +230,7 @@ const ProdudctDetail:React.FC = () => {
                     xs: "1.1rem",
                     xl: "0.75rem",
                   },
+                  color: light ? "black" : "white",
                 }}
                 component={"h6"}
               >
@@ -226,6 +243,7 @@ const ProdudctDetail:React.FC = () => {
                 variant="subtitle2"
                 component={"h5"}
                 fontWeight={"bold"}
+                sx={{ color: light ? "black" : "white" }}
               >
                 Accepted for payment
               </Typography>
@@ -265,14 +283,18 @@ const ProdudctDetail:React.FC = () => {
               <Button
                 fullWidth
                 variant="contained"
-                color="warning"
                 disableElevation
                 sx={{
                   textTransform: "none",
                   py: 1,
                   fontSize: {
                     xs: "0.9rem",
-                    lg:"1rem"
+                    lg: "1rem",
+                  },
+                  bgcolor: light ? "warning.main" : "warning.dark",
+                  color: "white",
+                  "&:hover": {
+                    bgcolor: light ? "warning.dark" : "warning.main",
                   },
                 }}
               >
@@ -282,7 +304,11 @@ const ProdudctDetail:React.FC = () => {
           </Box>
         </Box>
         <Divider />
-        {status === "loading" ? <ProductCategoryLoading/>: <FeaturedLots2 products={sameCategoryPrdoucts} />}
+        {status === "loading" ? (
+          <ProductCategoryLoading />
+        ) : (
+          <FeaturedLots2 products={sameCategoryPrdoucts} />
+        )}
       </Container>
       <Footer />
     </>

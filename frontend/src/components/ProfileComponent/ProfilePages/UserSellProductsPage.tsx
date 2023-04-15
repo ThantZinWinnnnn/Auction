@@ -8,7 +8,8 @@ import { ProfileUserProductsLoading } from "../../Utils/LoadingIndicator/Product
 
 //to add updat price button
 
-const UserSellProductsPage = () => {
+
+const UserSellProductsPage:React.FC = () => {
 
 
   const {

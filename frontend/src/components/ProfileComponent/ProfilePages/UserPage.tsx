@@ -9,6 +9,8 @@ import {userInfoAPI} from "../../Utils/endpoins/axios"
 
 import { ProfileUserProps } from "../../Utils/apiTypes/apiTypes";
 import ProductLoading from "../../Utils/LoadingIndicator/ProductLoading";
+import { useParams } from "react-router-dom";
+import { Title } from "../../Utils/helmet/Title";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -24,7 +26,6 @@ const style = {
     xs:600,
     xl:700
   },
-  bgcolor: 'background.paper',
   borderRadius:1,
   boxShadow: 24,
   p: {
@@ -36,9 +37,13 @@ const style = {
 
 type func = () => void;
 
+interface themeProps{
+  light:boolean
+}
 
-const UserPage = () => {
 
+const UserPage:React.FC<themeProps> = ({light}) => {
+  const {userInfo} = useParams();
 
   const [openModel, setOpenModel] = useState(false);
   const modelHandler:func = ()=> setOpenModel(!openModel);
@@ -47,6 +52,10 @@ const UserPage = () => {
 
   const token = localStorage.getItem("token");
   console.log("tok",{token: token})
+
+  const content = `${userInfo}`;
+  const title = content[0]?.toUpperCase() + content.slice(1);
+  console.log("",title)
 
   
 
@@ -65,7 +74,8 @@ const UserPage = () => {
 
   return (
     <>
-      <Box bgcolor={"#FFFFFF"} width={Mobile ? "100%" : "82%"} boxSizing={"border-box"}  position={"relative"}>
+      <Title title={`${title} Page`}/>
+      <Box bgcolor={light ? "#ffff" : "#1B2938"} sx={{color:light ? "black" : 'white'}} width={Mobile ? "100%" : "82%"} boxSizing={"border-box"}  position={"relative"}>
         {/*profile image */}
         <Box p={2}>
           <Typography fontWeight={"bold"} variant="h6">
@@ -128,13 +138,13 @@ const UserPage = () => {
               md:0.4,
               lg:1
             }}
-            bgC="#E6E6E6"
+            bgC={light ? "#E6E6E6" : "grey.700"}
             fontS={{
               xs:12,
               sm: 14,
               md:16
             }}
-            hoverC="#E1E0E0"
+            hoverC={light ? "#E1E0E0" : 'grey.800'}
             ButtonText="Cancel"
             func={()=>{}}
           />
@@ -146,13 +156,13 @@ const UserPage = () => {
               md:0.4,
               lg:1
             }}
-            bgC="warning.main"
+            bgC={light ? "warning.main" : "warning.dark"}
             fontS={{
               xs:12,
               sm: 14,
               md:16
             }}
-            hoverC="warning.dark"
+            hoverC={light ? "warning.dark" : "warning.main"}
             ButtonText="Update"
             func={modelHandler}
           />
@@ -166,8 +176,8 @@ const UserPage = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-         <UpdateModel handler={modelHandler} user={user}/>
+        <Box sx={style} bgcolor={light ? 'background.paper' : "grey.800"}>
+         <UpdateModel handler={modelHandler} user={user} light={light}/>
         </Box>
       </Modal>
       </Box>

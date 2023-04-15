@@ -15,7 +15,7 @@ const {
   getProductBySubCategory,
   getAllProductsByUserId,
   getAllUser,
-  bidProductByUser
+  bidProductByUser,
 } = require("../../controllers/PostsController/poroduct.controller");
 const {
   detailTitles,
@@ -23,20 +23,21 @@ const {
 const { isAuthenticatedUser } = require("../../middleware/AuthUser");
 
 router.route("/allProducts").get(getAllPosts);
-router.route("/overview").get(isAuthenticatedUser, getProductBySubCategory);
+
+router.route("/subCategory").post( getProductBySubCategory);
 
 router.route("/queryProduct").get(queryProduct);
 router.route("/category").post(isAuthenticatedUser, productByCategory);
 // router.route("/user").get(isAuthenticatedUser,getAllUser)
 
 router.route("/create").post(isAuthenticatedUser, createPost);
-router.route('/bid').put(isAuthenticatedUser,bidProductByUser)
+router.route("/bid").put(isAuthenticatedUser, bidProductByUser);
+router.route("/delete").delete(deletePosts);
 
 router.route("/:productId").delete(deleteById);
 
 //temporary api
 router.route("/product/title").put(detailTitles);
-router.route("/delete").delete(deletePosts);
 
 router.route("/:productId").get(isAuthenticatedUser, postById);
 

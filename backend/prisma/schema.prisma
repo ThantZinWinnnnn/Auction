@@ -13,8 +13,8 @@ model User {
   email                String             @unique
   name                 String
   password             String
-  profileUrl           String?            @default("")
-  backgroundUrl        String?            @default("")
+  profileUrl           String?            @default("") @db.VarChar(1000)
+  backgroundUrl        String?            @default("") @db.VarChar(1000)
   role                 Role               @default(USER)
   location             Location[]
   comment              Comment[]
@@ -44,8 +44,8 @@ model Location {
 
 model Product {
   id                String             @id @default(uuid())
-  title             String
-  image             String
+  title             String             @db.VarChar(400)
+  image             String             @db.VarChar(1000)
   price             Int
   currentBidPrice   Int?
   owner             String?

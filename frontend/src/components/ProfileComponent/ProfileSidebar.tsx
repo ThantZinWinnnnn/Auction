@@ -8,8 +8,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 
 interface list {
   id: string;
@@ -46,6 +47,9 @@ const SidebarLists: Array<list> = [
 
 const ProfileSidebar = () => {
   const location = useLocation();
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light"
+
 
   const [selectedIndex, setSelectedIndex] = React.useState(SidebarLists.findIndex(
     (list) => location.pathname === list.path
@@ -66,7 +70,7 @@ const ProfileSidebar = () => {
     <Box
       boxShadow={2}
       borderRadius={1}
-      bgcolor={"#FFFFFF"}
+      bgcolor={light ? "#ffff" : "#BDBDBD"}
       sx={{
         width: {
           lg:"18%",
@@ -87,7 +91,7 @@ const ProfileSidebar = () => {
         <Typography variant={belowLg? "subtitle1" : "h6"} fontWeight={"bold"}>
           Settings
         </Typography>
-        <Typography variant="caption" fontWeight={"medium"} color="#C9C9C9">
+        <Typography variant="caption" fontWeight={"medium"} color={light ? "#C9C9C9" : "black"}>
           Customer view and extra actions
         </Typography>
       </Box>
@@ -105,8 +109,8 @@ const ProfileSidebar = () => {
               sx={{
                 borderLeft:"4px solid transparent",
                 "&:hover": {
-                  borderLeft: "4px solid red",
-                  backgroundColor:"grey.100"
+                  borderLeft: light ? "4px solid red" : "4px solid white",
+                  backgroundColor:light ? "grey.100" : "grey.700"
                 },
                
                 
@@ -116,8 +120,9 @@ const ProfileSidebar = () => {
                   disableRipple
                   sx={{ color: "black" ,
                   '&.Mui-selected': {
-                    borderLeft: "4px solid red",
-                    backgroundColor:"grey.100" // change this to the color you want
+                    borderLeft: light ? "4px solid red" : "4px solid white",
+                    backgroundColor:light ? "grey.100" : "grey.700",
+                    color:light ? "black" : "white" // change this to the color you want
                   },
                   
                 }}
@@ -136,6 +141,9 @@ const ProfileSidebar = () => {
                       sm:12,
                       md:14,
                       lg:16
+                    },
+                    "&:hover":{
+                      color:light ? 'black' : "white"
                     }
                   }}>{list.text}</Typography>}
                   />

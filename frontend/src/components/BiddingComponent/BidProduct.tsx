@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import { useParams } from "react-router-dom";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { productAPI } from "../Utils/endpoins/axios";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 
 import {
   ResponseProduct,
@@ -38,6 +39,7 @@ import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 // }
 
 const BidProduct = () => {
+
   const queryClient = useQueryClient();
   const { productId } = useParams();
   const [bidPrice, setBidPrice] = useState("");
@@ -45,6 +47,8 @@ const BidProduct = () => {
   const bidControl = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light";
 
   const idforProduct = productId ?? "";
 
@@ -93,9 +97,10 @@ const BidProduct = () => {
         sx={{
           pl: 3,
           pr: isMobile ? 2 : 0,
+          color:light ? "black" : "whtie"
         }}
       >
-        <Typography fontWeight={"bold"} mb={4} mt={2} fontSize={18}>
+        <Typography fontWeight={"bold"} mb={4} mt={2} fontSize={18} color={light ? "black" : "white"}>
          {product?.title}
         </Typography>
         <Box display={"flex"} flexDirection={isMobile ? "column" : "row"}>
@@ -153,6 +158,7 @@ const BidProduct = () => {
                   fontWeight={"bold"}
                   variant="body1"
                   textAlign={"center"}
+                  color={light ? "black" : "white"}
                   sx={{
                     pl: {},
                   }}
@@ -160,10 +166,10 @@ const BidProduct = () => {
                   Reserve not met
                 </Typography>
                 <Box display={"flex"} justifyContent="space-between" my={2.5}>
-                  <Typography fontWeight={"bold"} component={"div"}>
+                  <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
                     Opening bid
                   </Typography>
-                  <Typography fontWeight={"bold"} component={"div"}>
+                  <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
                     {new Intl.NumberFormat("en-Us", {
                       style: "currency",
                       currency: "MMK",
@@ -175,10 +181,10 @@ const BidProduct = () => {
 
                 {product?.currentBidPrice ? (
                   <Box display={"flex"} justifyContent="space-between" my={2.5}>
-                    <Typography fontWeight={"bold"} component={"div"}>
+                    <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
                       Current bid
                     </Typography>
-                    <Typography fontWeight={"bold"} component={"div"}>
+                    <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
                       {new Intl.NumberFormat("en-Us", {
                         style: "currency",
                         currency: "MMK",
@@ -229,11 +235,11 @@ const BidProduct = () => {
                         sm: 1.6,
                         md: 1.7,
                       }}
-                      bgC="warning.main"
+                      bgC={light ? "warning.main" : "warning.dark"}
                       fontS={{
                         xs: 16,
                       }}
-                      hoverC="warning.dark"
+                      hoverC={light ? "warning.dark" : "warning.main"}
                     />}
                   </Box>
                   {/*place bid */}
@@ -244,6 +250,7 @@ const BidProduct = () => {
                     display={"flex"}
                     justifyContent="space-between"
                     mt={isLargeScreen ? 4 : 2.2}
+                    sx={{color:light ? "black" : "white"}}
                   >
                     <Typography fontWeight={"bold"} component={"div"}>
                       Sales tax
@@ -313,16 +320,16 @@ const BidProduct = () => {
               }}
             >
               <Box display={"flex"} justifyContent="space-between" my={2.2}>
-                <BidDetailTypo text="Timed auction" fontW="medium" />
-                <BidDetailTypo
+                <BidDetailTypo text="Timed auction" fontW="medium" light={light} />
+                <BidDetailTypo light={light}
                   text={moment(product?.updatedAt).format("MMM DD, YYYY")}
                   fontW="medium"
                 />
               </Box>
               <Divider />
               <Box display={"flex"} justifyContent="space-between" my={2.2}>
-                <BidDetailTypo text="Auction Location" fontW="medium" />
-                <BidDetailTypo text="Myanmar" fontW="medium" />
+                <BidDetailTypo text="Auction Location" fontW="medium" light={light} />
+                <BidDetailTypo text="Myanmar" fontW="medium" light={light}/>
               </Box>
             </Box>
           </Box>

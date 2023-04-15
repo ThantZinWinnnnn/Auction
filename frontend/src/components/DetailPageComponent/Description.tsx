@@ -1,6 +1,9 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+interface themeProps{
+  light : boolean
+}
 
-const Description = () => {
+const Description:React.FC<themeProps> = ({light}) => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -15,6 +18,7 @@ const Description = () => {
 		  sm:"85%",
           md: "80%",
         },
+        color:light ? "black" : "white"
       }}
     >
       <Typography

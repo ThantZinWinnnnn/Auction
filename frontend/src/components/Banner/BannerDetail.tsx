@@ -5,12 +5,11 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
 import ChooseDetailsCategory from "../DetailPageComponent/ChooseDetailsCategory";
 import Description from "../DetailPageComponent/Description";
 import MoreAuctions from "../DetailPageComponent/MoreAuctions";
 import SellWithUs from "../DetailPageComponent/SellWithUs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   overviewData,
   electronicCategories,
@@ -20,11 +19,23 @@ import {
   fashionCategories,
   handbagCategories,
 } from "../../data/DummyData";
+import { Title } from "../Utils/helmet/Title";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import { useContext } from "react";
 
 const BannerDetail = () => {
+  const {electronic} = useParams()
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const location = useLocation();
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light";
+
+  const content = `${electronic}`;
+  const title = content[0]?.toUpperCase() + content.slice(1);
+  console.log("",title)
+
+
 
   const image =
     location.pathname === "/auction/electronic"
@@ -54,6 +65,7 @@ const BannerDetail = () => {
 
   return (
     <Box>
+      <Title title={`${title} Auction Page`}/>
       <Box
         width={"100%"}
         display="flex"
@@ -115,16 +127,18 @@ const BannerDetail = () => {
             disableFocusRipple
             disableElevation
             variant="contained"
-            color="warning"
             sx={{
               textTransform: "none",
               borderRadius: 10,
               px: 3,
               py: 1,
+              bgcolor:light ? "warning.main" : "warning.dark",
+              color:"white",
               "&:hover": {
                 backgroundColor: "#102343",
               },
               fontSize: 18,
+
             }}
           >
             Explore Auctions
@@ -152,10 +166,10 @@ const BannerDetail = () => {
           )} */}
         </Box>
       </Box>
-      <Description />
-      <ChooseDetailsCategory categories={category}/>
-      <SellWithUs />
-      <MoreAuctions />
+      <Description light={light} />
+      <ChooseDetailsCategory categories={category} light={light}/>
+      <SellWithUs light={light} />
+      <MoreAuctions light={light} />
     </Box>
   );
 };

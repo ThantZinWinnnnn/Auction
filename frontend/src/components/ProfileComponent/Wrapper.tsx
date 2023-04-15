@@ -1,7 +1,8 @@
 import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import DetailNavbar from "../DetailPageComponent/DetailNavbar";
 import ProfileSidebar from "./ProfileSidebar";
+
 
 const Wrapper = ({ children }: any) => {
   const theme = useTheme();
@@ -11,12 +12,11 @@ const Wrapper = ({ children }: any) => {
 
   return (
     <>
-      <Box bgcolor={"white"} width="100vw" height={"100vh"} overflow="scroll">
+      <Box  width="100vw" height={"100vh"} overflow="scroll">
         {/*to fix key for detail navbar */}
         <DetailNavbar />
         <Container
           maxWidth={is4kScreen ? "xl" : "lg"}
-          sx={{ bgcolor: "white" }}
           disableGutters
         >
           <Box

@@ -37,8 +37,11 @@ import {
 import { PrimaryCategories } from "../../../../data/DummyData";
 
 import { Product } from "../../../Utils/apiTypes/apiTypes";
+interface themeProps {
+  light:boolean
+}
 
-const CreateProduct = () => {
+const CreateProduct:React.FC<themeProps> = ({light}) => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -136,6 +139,7 @@ const CreateProduct = () => {
         width={Mobile ? "100%" : mediumScreen ? "90%" : "80%"}
         mx={"auto"}
         p={Mobile ? 3 : 0}
+        sx={{color:light ? "black" : "white"}}
       >
         <Box mb={4}>
           <Typography
@@ -179,6 +183,7 @@ const CreateProduct = () => {
                     xs: 4,
                   },
                   width: "100%",
+                  bgcolor:light ? "white" : "#1B2938"
                 }}
               >
                 <Box>
@@ -190,17 +195,17 @@ const CreateProduct = () => {
                     label="Product Title"
                     InputLabelProps={{
                       style: {
-                        color: "black",
+                        color: light ? "black" : "white",
                       },
                     }}
                     sx={{
                       "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
                         {
-                          border: "1px solid black",
+                          border: light ? "1px solid black" : "1px solid white",
                         },
                       "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                         {
-                          border: "1px solid black",
+                          border: light ? "1px solid black" : "1px solid white",
                           color: "black",
                         },
                       mb: 2,
@@ -208,6 +213,7 @@ const CreateProduct = () => {
                   />
                 </Box>
                 <ImageUpload
+                  light={light}
                   imageHandler={(e) => setProductImage(e.target.value)}
                   value={productImage}
                 />
@@ -234,6 +240,7 @@ const CreateProduct = () => {
                       sm: 2.8,
                       xs: 2.4,
                     },
+                    bgcolor:light ? "white" : "#1B2938"
                   }}
                 >
                   <CategoryLists
@@ -287,7 +294,7 @@ const CreateProduct = () => {
                 <BidButton
                   disabled={isLoading}
                   ButtonText="Create Product"
-                  bgC="warning.main"
+                  bgC={light ? 'warning.main' : "warning.dark"}
                   padding={{
                     xl: 1.6,
                     md: 1.2,

@@ -18,7 +18,7 @@ const Footer = () => {
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box bgcolor={"#102343"} py={Mobile ? 4 : 4} color="white">
+    <Box bgcolor={"#102343"} py={Mobile ? 4 : 4} color="white" mt={"auto"}>
       <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{height:{
         xs:400,
         sm:180

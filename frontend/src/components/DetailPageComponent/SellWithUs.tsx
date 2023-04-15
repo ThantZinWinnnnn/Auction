@@ -3,7 +3,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 
-const SellWithUs = () => {
+interface themeProps{
+  light : boolean
+}
+
+const SellWithUs:React.FC<themeProps> = ({light}) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -41,7 +45,7 @@ const SellWithUs = () => {
               },
             }}
             fontWeight={"bold"}
-            color={"#102343"}
+            color={light ? "#102343" : "white"}
           >
             With
           </Typography>
@@ -71,6 +75,7 @@ const SellWithUs = () => {
             xs: "100%",
             lg:"50%"
           },
+          color:light ? "black" : "white"
         }}
       >
         <Typography
@@ -92,7 +97,6 @@ const SellWithUs = () => {
         </Typography>
         <Button
           onClick={()=>navigate('/user/create')}
-          color="warning"
           variant="contained"
           sx={{
             width:{
@@ -110,6 +114,8 @@ const SellWithUs = () => {
             },
             mt: 3,
             py: "10px",
+            bgcolor:light ? "warning.main" : "warning.dark",
+            color:"white",
             "&:hover": {
               backgroundColor: "#102343",
             },

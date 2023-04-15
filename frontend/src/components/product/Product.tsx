@@ -6,11 +6,12 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
 import moment from "moment";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 
 interface productProp {
   product: ResponseProduct;
@@ -20,6 +21,9 @@ interface productProp {
 const Product: React.FC<productProp> = ({ product ,loading}) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light"
+
 
   return (
     <Box
@@ -31,7 +35,8 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
           sm: "3%",
           md: "2.4%",
         },
-        mb:3
+        mb:3,
+        color:light ? "black" :"white"
       }}
       px={isDesktop ? 0 : 2}
     >
@@ -68,13 +73,13 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
         {/*dynamic routes */}
         <Link to={`/products/${product?.id}`}>
           <Typography
-            color={"black"}
+            color={light ? "black" : "white"}
             fontWeight="bold"
             component={"div"}
             mb={isDesktop ? 1 : 2}
             sx={{
               "&:hover": {
-                color: "primary.light",
+                color: "warning.dark",
               },
               fontSize: {
                 xs: 14,
@@ -119,7 +124,11 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
           <Button
             fullWidth
             variant="contained"
-            color="warning"
+            sx={{bgcolor:light ? "warning.main" : "warning.dark",
+            "&:hover":{
+              bgcolor:light ? "warning.dark" :"warning.main"
+            }
+          }}
             disableElevation
           >
             <Typography
@@ -135,6 +144,7 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
                   md: 0.4,
                   lg: 0.6,
                 },
+                color: 'white'
               }}
             >
               View Catalog

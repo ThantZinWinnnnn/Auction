@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {
   AppBar,
@@ -23,11 +23,15 @@ import {
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ProfileTooltip from "./Tooltip/ProfileTooltip";
 import { PrimaryCategories, mobileLists } from "../data/DummyData";
+import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
 
 const Navbar = () => {
+  const { themeMode, handleThemeToggle } = useContext(ThemeContext);
   const theme = useTheme();
   const [product, setProduct] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
@@ -48,9 +52,12 @@ const Navbar = () => {
   };
 
   const open = Boolean(anchorEl);
+  const light = themeMode === "light";
+  console.log("mode",light)
   return (
     <AppBar
-      sx={{ bgcolor: "inherit", color: "black", px: is4k ? "1%" : "" }}
+      sx={{ bgcolor: light ? "inherit" : "#0A1929", color: light ? "black" : "white", px: is4k ? "1%" : "" ,position:"sticky",top:0,
+    zIndex:50,opacity:0.9}}
       position="static"
       elevation={2}
     >
@@ -97,7 +104,7 @@ const Navbar = () => {
             paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
             <Link to={"/"}>
-              <Typography color={"black"}>Auctions</Typography>
+              <Typography color={light ? "black" : "white"}>Auctions</Typography>
             </Link>
             <Box
               aria-owns={open ? "mouse-over-popover" : undefined}
@@ -106,7 +113,7 @@ const Navbar = () => {
               onMouseLeave={handleClose}
             >
               <Button
-                sx={{ textTransform: "none", color: "black" }}
+                sx={{ textTransform: "none", color: light ? "black" : "white" }}
                 endIcon={<ExpandMoreIcon />}
               >
                 Auctions Categories
@@ -134,7 +141,7 @@ const Navbar = () => {
                             <ListItemText
                               primary={option.name}
                               sx={{
-                                color: "black",
+                                color: light ? "black" : "white",
                                 "&:hover": {
                                   color: "warning.dark",
                                 },
@@ -148,9 +155,9 @@ const Navbar = () => {
                 </List>
               </Popover>
             </Box>
-            <Link to={"/features"}>
-              <Typography color={"black"}>Dark Mode</Typography>
-            </Link>
+            <IconButton color="inherit" onClick={handleThemeToggle}>
+              {themeMode === "light" ? <DarkModeOutlinedIcon/> : <LightModeIcon/>}
+            </IconButton>
             {/* {isLogin && <ProfileTooltip />} */}
             {/* {!isLogin && (
               <Stack

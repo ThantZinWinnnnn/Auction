@@ -17,15 +17,16 @@ interface feature{
 }
 
 interface categoryProps{
-  categories:Array<feature>
+  categories:Array<feature>,
+  light:boolean
 }
 
-const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
+const ChooseDetailsCategory:React.FC<categoryProps>= ({categories,light}) => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box width={"90%"} mx="auto" my={Mobile ? 8 : 10}>
+    <Box width={"90%"} mx="auto" my={Mobile ? 8 : 10} sx={{color:light ? "black" : "white"}}>
       <Typography variant="h6" component={"div"} fontWeight="bold">
         Shop By Category
       </Typography>
@@ -71,9 +72,8 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
             >
               {category.name}
             </Typography>
-            <Link to={`/query/product/${category.name}`}>
+            <Link to={`/query/subcategory/${category.name}`}>
               <Button
-                color="warning"
                 variant="contained"
                 sx={{
                   textTransform: "none",
@@ -94,6 +94,8 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories}) => {
                     sm:"6px",
                     xl:"10px"
                   },
+                  bgcolor:light ? "warning.main" : "warning.dark",
+                  color:"white",
                   "&:hover": {
                     backgroundColor: "#102343",
                   },

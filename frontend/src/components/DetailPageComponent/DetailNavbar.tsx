@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {
   AppBar,
@@ -24,6 +24,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DetailSearchbar from "./DetailSearbar";
 import { PrimaryCategories,mobileLists } from "../../data/DummyData";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 interface DropdownProps {
   options: string[];
@@ -32,12 +35,16 @@ interface DropdownProps {
 
 
 const DetailNavbar = () => {
+  const { themeMode, handleThemeToggle } = useContext(ThemeContext);
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
   const lowSm = useMediaQuery(theme.breakpoints.down("sm"));
   const is4k = useMediaQuery(theme.breakpoints.up("xl"));
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const light = themeMode === "light"
+
   const closeDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -53,7 +60,7 @@ const DetailNavbar = () => {
   const open = Boolean(anchorEl);
   return (
     <AppBar
-      sx={{ bgcolor: "inherit", color: "black", px: is4k ? "2%" : "" }}
+      sx={{ bgcolor: "inherit", color: light ? "black" : "white", px: is4k ? "2%" : "" }}
       position="static"
       elevation={1}
     >
@@ -95,7 +102,7 @@ const DetailNavbar = () => {
             </Box>
           </Link>
         </Box>
-        {!lowSm && <DetailSearchbar />}
+        {!lowSm && <DetailSearchbar light={light} />}
         {/*Deskto Nav */}
         {isNonMobileScreen && (
           <Box
@@ -109,8 +116,8 @@ const DetailNavbar = () => {
             }}
             paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
-            <Link to={"/features"}>
-              <Typography color={"black"}>Auctions</Typography>
+            <Link to={"/"}>
+              <Typography color={light ? "black" : "white"}>Auctions</Typography>
             </Link>
             <Box
               aria-owns={open ? "mouse-over-popover" : undefined}
@@ -119,11 +126,12 @@ const DetailNavbar = () => {
               onMouseLeave={handleClose}
             >
               <Button
-                sx={{ textTransform: "none", color: "black" }}
+                sx={{ textTransform: "none", color :light ? "black" : "white"}}
                 endIcon={<ExpandMoreIcon />}
               >
                 Auctions Categories
               </Button>
+
               <Popover
                 open={open}
                 id="mouse-over-popover"
@@ -149,7 +157,7 @@ const DetailNavbar = () => {
                         }}>
                         <ListItemButton>
                           <ListItemText
-                            sx={{ color: "black" ,"&:hover":{color:"white"}}}
+                            sx={{ color: light ? "black" : "white" ,"&:hover":{color:"white"}}}
                             primary={option.name}
                           />
                         </ListItemButton>
@@ -160,6 +168,9 @@ const DetailNavbar = () => {
                 </List>
               </Popover>
             </Box>
+            <IconButton color="inherit" onClick={handleThemeToggle}>
+              {themeMode === "light" ? <DarkModeOutlinedIcon/> : <LightModeIcon sx={{color:"white"}}/>}
+            </IconButton>
           </Box>
         )}
 
@@ -171,7 +182,7 @@ const DetailNavbar = () => {
           </IconButton>
         )}
       </Toolbar>
-      {lowSm && <DetailSearchbar />}
+      {lowSm && <DetailSearchbar light={light} />}
       <SwipeableDrawer
         open={openDrawer}
         onOpen={() => {}}

@@ -6,20 +6,28 @@ import {
   CardContent,
   Typography,
   Divider,
+  Button,
+  Paper,
 } from "@mui/material";
 import { relatedItems } from "../../data/DummyData";
 import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
+import { useContext } from "react";
+import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 interface realatedProductsProps{
   products :Array<ResponseProduct>
 }
 
 const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
-
+  const navigate = useNavigate()
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light"
 
   return (
     <>
       <Typography
+        color={light ? "black" : "white"}
         fontWeight={"bold"}
         component={"div"}
         sx={{
@@ -34,17 +42,27 @@ const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
       <Grid container spacing={4}  mb={5}>
         {products?.map((product) => (
           <Grid item xs={12} sm={4} md={3} xl={2} key={`${product.id}`}>
+            <Paper  key={product?.id}
+              sx={{
+                boxShadow:
+                  "rgb(0 0 0 / 4%) 0px 5px 22px, rgb(0 0 0 / 3%) 0px 0px 0px 0.5px",
+                overflow: "hidden",
+              }}>
             <Card key={`${product.id}`} sx={{height:{
+              xs:"300px",
               sm:"260px",
               md:"290px",
             },
             }}>
+              <Button sx={{width:"100%", height: "70%",p:0 }} onClick={()=> navigate(`/products/${product?.id}`)} disableElevation disableRipple>
               <CardMedia
-                sx={{width:"100%", height: "70%" ,paddingTop: '56.25%'}}
+                sx={{width:"100%", height: "100%"}}
                 image={`${product?.image}`}
                 title={`${product?.title}`}
               />
+               </Button>
               <Divider sx={{ mb: 0.4 }} />
+             
               <CardContent sx={{
                 px:{
                     md:1,
@@ -76,6 +94,7 @@ const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
                 </Typography>
               </CardContent>
             </Card>
+            </Paper>
           </Grid>
         ))}
       </Grid>

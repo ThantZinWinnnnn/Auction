@@ -1,5 +1,5 @@
 import { Box, Modal, TextField, Typography, InputBase } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -13,9 +13,10 @@ import { userInfoAPI } from "../../Utils/endpoins/axios";
 interface UpdateProps {
   handler: () => void;
   user: ProfileUserProps;
+  light:boolean
 }
 
-const UpdateModel: React.FC<UpdateProps> = ({ handler, user }) => {
+const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
   console.log("user", user);
 
   const queryClient = useQueryClient();
@@ -45,6 +46,8 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user }) => {
   });
 
   const updateProfileHandler = () => {
+
+
     const profileData = {
       name: username,
       email,
@@ -132,7 +135,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user }) => {
         <BidButton
           disabled={isLoading}
           ButtonText="Cancel"
-          bgC="black"
+          bgC={light ? "black" : "grey.700"}
           hoverC="grey.800"
           func={handler}
           fontS={{
@@ -145,7 +148,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user }) => {
         <BidButton
           disabled={isLoading}
           ButtonText="Save"
-          bgC="black"
+          bgC={light ? "black" : "grey.700"}
           hoverC="grey.800"
           func={updateProfileHandler}
           fontS={{

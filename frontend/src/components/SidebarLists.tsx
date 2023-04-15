@@ -10,9 +10,10 @@ import {
   useTheme,
   Divider,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { PrimaryCategories } from "../data/DummyData";
+import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
 
 //to remove mb from sidebar
 
@@ -24,9 +25,11 @@ interface sidebarProps{
 }
 
 const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
+  const { themeMode } = useContext(ThemeContext);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const light = themeMode === "light"
   // const [category, setCategory] = useState<Array<string>>([]);
   // console.log( category.length );
   // const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +51,7 @@ const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
         width={isMobile ? "100%" : "18%"}
         marginTop={margin}
         marginBottom={isMobile ? 4 : 4}
-        border={isMobile ? "none" : "1px solid rgba(34,36,38,.15)"}
+        border={isMobile ? "none" : light ? "1px solid rgba(34,36,38,.15)" : "1px solid whitesmoke"}
         borderRadius={2}
         sx={{
           pl: {
@@ -65,6 +68,7 @@ const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
             sm: "22%",
           },
           height: "",
+          color:light ? "black" :"white"
         }}
       >
         {!isMobile && (
@@ -76,14 +80,14 @@ const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
           <FormLabel
             component={"h5"}
             sx={{
-              color: "black",
+              color: light ? "black" :"white",
               marginBottom: 1,
               fontWeight: "bold",
               fontSize: {
                 sm: 13,
               },
               "&.Mui-focused": {
-                color: "black", // change to your desired active/focused color
+                color: light ? "black" : "white", // change to your desired active/focused color
               },
             }}
           >
@@ -104,7 +108,7 @@ const SidebarLists:React.FC<sidebarProps> = ({margin,func,checkValue}) => {
                     sx={{
                       color: "#DBDBDE",
                       "&.Mui-checked": {
-                        color: "#EA4C89",
+                        color: light ? "#EA4C89" :"warning.dark",
                       },
                       height: {
                         xs: "3rem",

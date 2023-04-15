@@ -10,7 +10,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { moreAuctions } from "../../data/DummyData";
 
-const MoreAuctions = () => {
+interface themeProps{
+  light : boolean
+}
+
+const MoreAuctions:React.FC<themeProps> = ({light}) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -18,7 +22,7 @@ const MoreAuctions = () => {
 
   return (
     <Box width={"90%"} mx="auto">
-      <Typography variant={Mobile ? "h6" : "h5"} mb={Mobile ? 3 : 5}>
+      <Typography variant={Mobile ? "h6" : "h5"} mb={Mobile ? 3 : 5} color={light ? "black" : "white"}>
         More Auctons
       </Typography>
       <Grid container spacing={2} marginBottom={5} p="0px">
@@ -57,7 +61,6 @@ const MoreAuctions = () => {
                 <Button
                   disableElevation
                   disableRipple
-                  color="warning"
                   variant="contained"
                   onClick={()=>navigate(`/query/category/${auction.name}`)}
                   sx={{
@@ -77,6 +80,8 @@ const MoreAuctions = () => {
                     },
                     mt: 3,
                     py: "8px",
+                    bgcolor:light ? "warning.main" : "warning.dark",
+                    color:"white",
                     "&:hover": {
                       backgroundColor: "#102343",
                     },

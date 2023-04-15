@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -23,8 +23,10 @@ import { userInfoAPI } from "./Utils/endpoins/axios";
 import { ProfileUserProps } from "./Utils/apiTypes/apiTypes";
 import BidButton from "./BiddingComponent/Components/BidButton";
 import { IntroMenu } from "../data/DummyData";
+import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
 
 const Searchbar = () => {
+  const { themeMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null | undefined>(
     null || undefined
@@ -32,6 +34,7 @@ const Searchbar = () => {
   const [values, setValues] = useState<string | null>(null || "");
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+  const light = themeMode === "light"
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -54,7 +57,7 @@ const Searchbar = () => {
   const searchHandler = () => {
     //api call
     console.log("values", values);
-    navigate(`/search/${values}`)
+    navigate(`/query/product/${values}`)
     setValues('')
   };
 
@@ -129,13 +132,13 @@ const Searchbar = () => {
           disableElevation
           disableRipple
           sx={{
-            color: "white",
+            color:  "white",
             fontSize: {
               sm: 12,
               lg: 14,
             },
             fontWeight: "bold",
-            bgcolor: "warning.main",
+            bgcolor: light ? "warning.main" : "warning.dark",
             width: {
               xs: 10,
               sm: 120,
@@ -146,7 +149,7 @@ const Searchbar = () => {
               sm: "35px",
             },
             "&:hover": {
-              bgcolor: "warning.light",
+              bgcolor: "warning.dark",
             },
           }}
           onClick={searchHandler}
@@ -164,7 +167,7 @@ const Searchbar = () => {
           display={"flex"}
           justifyContent="center"
           gap={0}
-          bgcolor="#e0e0e0"
+          bgcolor={light ? "#e0e0e0" : "grey.400"} 
           marginLeft={isDesktop ? 0 : 3}
           sx={{
             marginTop: isDesktop ? 0 : 2,
@@ -188,6 +191,7 @@ const Searchbar = () => {
           >
             <Typography
               letterSpacing={"0.05rem"}
+              color={"black"}
               variant="caption"
               width={"100%"}
               sx={{
@@ -203,7 +207,7 @@ const Searchbar = () => {
          </Typography> */}
           </Box>
           <Box display={"flex"} alignItems={"center"}>
-            <ExpandMoreIcon />
+            <ExpandMoreIcon sx={{color:"black"}}/>
           </Box>
         </Box>
         <Popover
@@ -229,7 +233,7 @@ const Searchbar = () => {
                   <ListItemText
                     primary={
                       <Typography
-                        color="black"
+                        color={light ? "black" : "white"}
                         sx={{ fontSize: 12, textAlign: "left" }}
                       >
                         {menu.name}

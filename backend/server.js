@@ -21,9 +21,7 @@ app.use("/api/products", productRouter);
 app.use("/api/products/comment", commentRouter);
 app.use("/api/products/auction", bidProductRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hi I am testing");
-});
+
 
 //to change port in env file
 app.listen(3000, () => {

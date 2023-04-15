@@ -5,7 +5,9 @@ import { productAPI } from "../../Utils/endpoins/axios";
 import Products from "../components/prdoducts/components/Products";
 import { ProfileUserProductsLoading } from "../../Utils/LoadingIndicator/ProductListsLoading";
 
+
 export default function LostLotProductPage() {
+
   const {
     isFetching,
     isLoading,
@@ -17,6 +19,8 @@ export default function LostLotProductPage() {
     queryFn: productAPI.getUserLostProducts,
     refetchOnWindowFocus: false,
   });
+
+
 
   //   const products = userProducts?.data;
   //   console.log("productsUser", products);
@@ -30,6 +34,7 @@ export default function LostLotProductPage() {
     console.log("finalP", products);
    
 
-    return <Products products={products} />;
+    return <Products products={products} />
+
   }
 }

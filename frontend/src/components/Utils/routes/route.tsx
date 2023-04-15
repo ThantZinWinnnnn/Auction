@@ -8,6 +8,7 @@ import Authenticate from "../../AuthenticatPage/Authenticate";
 import ProfileComponent from "../../ProfileComponent/ProfileComponent";
 import SearchProductPage from "../../QueryProductsPages/SearchProductPage";
 import SearchCategoryPage from "../../QueryProductsPages/SearchCategoryPage";
+import { SearchSubCategory } from "../../QueryProductsPages/SearchSubCategory";
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <SearchCategoryPage/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/query/subcategory/:subCategory",
+    element: (
+      <ProtectedRoute>
+        <SearchSubCategory/>
       </ProtectedRoute>
     ),
   },

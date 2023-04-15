@@ -9,8 +9,11 @@ import {
   useTheme,
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+interface themeProps{
+  light : boolean
+}
 
-const   DetailSearchbar = () => {
+const   DetailSearchbar:React.FC<themeProps> = ({light}) => {
   const navigate = useNavigate();
   const [values, setValues] = useState<string | null>(null || "");
   const theme = useTheme();
@@ -71,10 +74,10 @@ const   DetailSearchbar = () => {
               sm: "100%",
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              border:"1px solid rgba(34,36,38,.15)"
+              border:light ? "1px solid rgba(34,36,38,.15)" : "1px solid white"
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              border:"1px solid rgba(34,36,38,.15)"
+              border:light ? "1px solid rgba(34,36,38,.15)" : "1px solid white"
             },
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
@@ -94,7 +97,7 @@ const   DetailSearchbar = () => {
               sm: 12,
             },
             fontWeight: "bold",
-            bgcolor: "warning.main",
+            bgcolor: light ? "warning.main" : "warning.dark",
             width: {
               xs: 10,
               sm: 100,
@@ -104,7 +107,7 @@ const   DetailSearchbar = () => {
               sm: "35px",
             },
             "&:hover": {
-              bgcolor: "warning.light",
+              bgcolor: light ? "warning.dark" : "warning.main",
             },
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
