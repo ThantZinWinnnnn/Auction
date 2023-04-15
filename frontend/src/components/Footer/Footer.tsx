@@ -18,7 +18,7 @@ const Footer = () => {
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box bgcolor={"#102343"} py={Mobile ? 4 : 4} color="white" mt={"auto"}>
+    <Box bgcolor={"#102343"} py={Mobile ? 4 : 4} color="white" sx={{marginTop:"auto"}}>
       <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{height:{
         xs:400,
         sm:180
@@ -146,7 +146,7 @@ const Footer = () => {
             px={ 0}
             mb={0}
           >
-            <Link to={"/facebook"}>
+            <Link to={"https://www.facebook.com/thantzin.win.75470316/"} target="_blank">
               <FacebookIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
                 fontSize={"medium"}

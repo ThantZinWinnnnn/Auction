@@ -51,13 +51,18 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
           sx={{
             textTransform: "none",
             bgcolor: "warning.dark",
-            width:"14%",
+            width:{
+              xs:"40%",
+              sm:"20%",
+              xl:"14%"
+            },
             "&:hover": { bgcolor: "warning.main" },
             p:{
-              sm: 0.4,
-              md:0.4,
+              sm: 0.6,
+              md:0.8,
               lg:1
-            }
+            },
+            color:"white"
           }}
           variant="contained"
         >
@@ -70,7 +75,7 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
 
   return (
     <>
-      <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={4}>
+      <Box display={"flex"} flexDirection={"column"} width={"100%"} height={"100%"} gap={4}>
         {products?.map((product) => (
           <Product product={product} key={`${product?.id}`} loading={loading} />
         ))}

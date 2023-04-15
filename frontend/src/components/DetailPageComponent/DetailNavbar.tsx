@@ -26,6 +26,7 @@ import DetailSearchbar from "./DetailSearbar";
 import { PrimaryCategories,mobileLists } from "../../data/DummyData";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from '@mui/icons-material/LightMode';
 
 interface DropdownProps {
@@ -208,10 +209,10 @@ const DetailNavbar = () => {
                   },
                 }}
               >
-                <Button onClick={()=> navigate(`${list.path}`)}>
+                <Button disableElevation disableRipple onClick={()=> navigate(`${list.path}`)} sx={{textTransform:"none"}}>
                   <ListItemText
                     primary={
-                      <Typography fontSize={lowSm ? 12 : 14} color="black" sx={{textTransform:"none"}}>
+                      <Typography fontSize={lowSm ? 12 : 14} color={light ? "black" : "white"} sx={{textTransform:"none"}}>
                         {list.name}
                       </Typography>
                     }
@@ -222,6 +223,13 @@ const DetailNavbar = () => {
               
               </Box>
           ))}
+          <ListItemButton sx={{display:'flex',gap:0.6,alignItems:"center"}} onClick={handleThemeToggle}>
+            {themeMode === "light" ? (
+              <DarkModeIcon fontSize="small" />
+            ) : (
+              <DarkModeOutlinedIcon />
+            )}{`${themeMode}`} Mode
+          </ListItemButton>
         </List>
       </SwipeableDrawer>
     </AppBar>

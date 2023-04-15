@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { HomePageProductsSkeleton } from "../components/Utils/LoadingIndicator/ProductListsLoading";
 import { Title } from "../components/Utils/helmet/Title";
+import { UpArrowFab } from "../components/Utils/Fab/UpArrowFab";
 
 
 
@@ -74,8 +75,13 @@ const HomePage = () => {
         >
           {isDesktop ? <SidebarLists margin={0} func={checkHandler} checkValue={category}/> : <MobileLists />}
           {isLoading ? <HomePageProductsSkeleton/>: <Products products={allProducts} loading={isLoading} />}
+         
+        </Box>
+        <Box width={"10%"} pl={'auto'} ml={"auto"}>
+        <UpArrowFab/>
         </Box>
       </Container>
+      
       <Footer />
     </>
   );
