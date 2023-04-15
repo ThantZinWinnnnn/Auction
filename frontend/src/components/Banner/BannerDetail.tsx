@@ -33,7 +33,7 @@ const BannerDetail = () => {
 
   const content = `${electronic}`;
   const title = content[0]?.toUpperCase() + content.slice(1);
-  console.log("",title)
+  // console.log("",title)
 
 
 

@@ -25,11 +25,11 @@ const HomePage = () => {
   const [category, setCategory] = useState<Array<string>>([]);
 
   const productCategory = category;
-  console.log("cat",productCategory)
+  // console.log("cat",productCategory)
   const jsonCategory = JSON.parse(`{"category":"${productCategory}"}`);
-  console.log("jsonC",jsonCategory)
+  // console.log("jsonC",jsonCategory)
 
-  console.log(category.length);
+  // console.log(category.length);
   const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const index = category.indexOf(event.target.value);
     if (index === -1) {
@@ -58,7 +58,7 @@ const HomePage = () => {
         refetchOnWindowFocus: false,
       });
 
-  console.log("products", products?.data);
+  // console.log("products", products?.data);
   const allProducts: Array<ResponseProduct> = products?.data ?? [];
 
   return (

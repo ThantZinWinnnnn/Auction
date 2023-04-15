@@ -19,7 +19,7 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DetailSearchbar from "./DetailSearbar";
@@ -35,6 +35,7 @@ interface DropdownProps {
 
 
 const DetailNavbar = () => {
+  const navigate = useNavigate()
   const { themeMode, handleThemeToggle } = useContext(ThemeContext);
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
@@ -207,17 +208,18 @@ const DetailNavbar = () => {
                   },
                 }}
               >
-                <Link to={list.name}>
+                <Button onClick={()=> navigate(`${list.path}`)}>
                   <ListItemText
                     primary={
-                      <Typography fontSize={lowSm ? 12 : 14} color="black">
+                      <Typography fontSize={lowSm ? 12 : 14} color="black" sx={{textTransform:"none"}}>
                         {list.name}
                       </Typography>
                     }
                   />
-                </Link>
+                </Button>
               </ListItem>
               <Divider />
+              
               </Box>
           ))}
         </List>

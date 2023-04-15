@@ -31,7 +31,7 @@ export default function LostLotProductPage() {
     const responseProducts = userProducts?.data;
     const products: Array<UserProductsResponse> = [];
     responseProducts.forEach((p: any) => products.push(p?.product));
-    console.log("finalP", products);
+    // console.log("finalP", products);
    
 
     return <Products products={products} />

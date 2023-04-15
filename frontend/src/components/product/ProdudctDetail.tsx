@@ -40,10 +40,10 @@ const ProdudctDetail: React.FC = () => {
 
   const product: ResponseProduct = data?.data;
 
-  console.log("product", product);
+  // console.log("product", product);
    const relatedCategory = product?.category?.name
   const category = JSON.parse(`{"category":"${relatedCategory}"}`);
-  console.log("caat" , category)
+  // console.log("caat" , category)
 
   const { status, data: relatedPrdoucts } = useQuery({
     queryKey: ["relatedProductByCategory", category],
@@ -53,7 +53,7 @@ const ProdudctDetail: React.FC = () => {
   });
 
   const sameCategoryPrdoucts: Array<ResponseProduct> = relatedPrdoucts?.data;
-  console.log("related", relatedPrdoucts?.data);
+  // console.log("related", relatedPrdoucts?.data);
 
   return (
     <>

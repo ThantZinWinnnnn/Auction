@@ -28,7 +28,7 @@ const UserSellProductsPage:React.FC = () => {
     return <ProfileUserProductsLoading/>;
   } else {
     const products = userProducts?.data?.products?.sellerProducts;
-    console.log("productsUser", products);
+    // console.log("productsUser", products);
 
     return <Products products={products} />;
   }

@@ -51,11 +51,11 @@ const UserPage:React.FC<themeProps> = ({light}) => {
   const Mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const token = localStorage.getItem("token");
-  console.log("tok",{token: token})
+  // console.log("tok",{token: token})
 
   const content = `${userInfo}`;
   const title = content[0]?.toUpperCase() + content.slice(1);
-  console.log("",title)
+  // console.log("",title)
 
   
 

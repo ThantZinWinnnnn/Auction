@@ -34,7 +34,7 @@ const Searchbar = () => {
   const [values, setValues] = useState<string | null>(null || "");
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
-  const light = themeMode === "light"
+  const light = themeMode === "light";
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -57,8 +57,8 @@ const Searchbar = () => {
   const searchHandler = () => {
     //api call
     console.log("values", values);
-    navigate(`/query/product/${values}`)
-    setValues('')
+    navigate(`/query/product/${values}`);
+    setValues("");
   };
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -132,7 +132,7 @@ const Searchbar = () => {
           disableElevation
           disableRipple
           sx={{
-            color:  "white",
+            color: "white",
             fontSize: {
               sm: 12,
               lg: 14,
@@ -167,13 +167,14 @@ const Searchbar = () => {
           display={"flex"}
           justifyContent="center"
           gap={0}
-          bgcolor={light ? "#e0e0e0" : "grey.400"} 
+          bgcolor={light ? "#e0e0e0" : "grey.400"}
           marginLeft={isDesktop ? 0 : 3}
           sx={{
             marginTop: isDesktop ? 0 : 2,
             marginBottom: isDesktop ? 0 : 1,
             width: {
-              xs: "auto",
+              xs: "50%",
+              sm:"auto"
             },
           }}
           borderRadius="0.2rem"
@@ -207,7 +208,7 @@ const Searchbar = () => {
          </Typography> */}
           </Box>
           <Box display={"flex"} alignItems={"center"}>
-            <ExpandMoreIcon sx={{color:"black"}}/>
+            <ExpandMoreIcon sx={{ color: "black" }} />
           </Box>
         </Box>
         <Popover
@@ -224,24 +225,23 @@ const Searchbar = () => {
             horizontal: "center",
           }}
         >
-          <List sx={{ width: isDesktop ? "120px" : "140px" }}>
-
-            {IntroMenu.map((menu)=>(
-              <Link to={`${menu.path}`} key={`${menu.id}`} >
+          <List sx={{ width: isDesktop ? "120px" : "160px" }}>
+            {IntroMenu.map((menu) => (
+              <Link to={`${menu.path}`} key={`${menu.id}`}>
                 <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText
-                    primary={
-                      <Typography
-                        color={light ? "black" : "white"}
-                        sx={{ fontSize: 12, textAlign: "left" }}
-                      >
-                        {menu.name}
-                      </Typography>
-                    }
-                  />
-                </ListItemButton>
-              </ListItem>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          color={light ? "black" : "white"}
+                          sx={{ fontSize: 12, textAlign: "center" }}
+                        >
+                          {menu.name}
+                        </Typography>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
               </Link>
             ))}
 
@@ -315,19 +315,18 @@ const Searchbar = () => {
               </Box>
             </Link> */}
             <Box width={"80%"} mx={"auto"}>
-
-            <BidButton
-              func={logoutHandler}
-              ButtonText="Log Out"
-              padding={{
-                xs: 0.5,
-              }}
-              fontS={{
-                xs: 14,
-              }}
-              bgC="warning.dark"
-              hoverC="warning.main"
-            />
+              <BidButton
+                func={logoutHandler}
+                ButtonText="Log Out"
+                padding={{
+                  xs: 0.5,
+                }}
+                fontS={{
+                  xs: 14,
+                }}
+                bgC="warning.dark"
+                hoverC="warning.main"
+              />
             </Box>
           </List>
         </Popover>

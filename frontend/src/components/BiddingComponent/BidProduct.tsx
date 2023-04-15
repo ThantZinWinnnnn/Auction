@@ -60,7 +60,7 @@ const BidProduct = () => {
 
   const product: ResponseProduct = data?.data;
 
-  console.log("product", product);
+  // console.log("product", product);
 
   const owner = product?.currentOwnerName;
 

@@ -23,8 +23,9 @@ import {
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ProfileTooltip from "./Tooltip/ProfileTooltip";
 import { PrimaryCategories, mobileLists } from "../data/DummyData";
@@ -33,7 +34,7 @@ import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
 const Navbar = () => {
   const { themeMode, handleThemeToggle } = useContext(ThemeContext);
   const theme = useTheme();
-  const [product, setProduct] = useState('');
+  const [product, setProduct] = useState("");
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const isNonMobileScreen = useMediaQuery(theme.breakpoints.up("md"));
   const lowSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -53,11 +54,18 @@ const Navbar = () => {
 
   const open = Boolean(anchorEl);
   const light = themeMode === "light";
-  console.log("mode",light)
+  // console.log("mode", light);
   return (
     <AppBar
-      sx={{ bgcolor: light ? "inherit" : "#0A1929", color: light ? "black" : "white", px: is4k ? "1%" : "" ,position:"sticky",top:0,
-    zIndex:50,opacity:0.9}}
+      sx={{
+        bgcolor: light ? "inherit" : "#0A1929",
+        color: light ? "black" : "white",
+        px: is4k ? "1%" : "",
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        opacity: 0.9,
+      }}
       position="static"
       elevation={2}
     >
@@ -104,7 +112,9 @@ const Navbar = () => {
             paddingRight={{ md: 3, lg: 4, xl: 6 }}
           >
             <Link to={"/"}>
-              <Typography color={light ? "black" : "white"}>Auctions</Typography>
+              <Typography color={light ? "black" : "white"}>
+                Auctions
+              </Typography>
             </Link>
             <Box
               aria-owns={open ? "mouse-over-popover" : undefined}
@@ -156,7 +166,11 @@ const Navbar = () => {
               </Popover>
             </Box>
             <IconButton color="inherit" onClick={handleThemeToggle}>
-              {themeMode === "light" ? <DarkModeOutlinedIcon/> : <LightModeIcon/>}
+              {themeMode === "light" ? (
+                <DarkModeOutlinedIcon />
+              ) : (
+                <LightModeIcon />
+              )}
             </IconButton>
             {/* {isLogin && <ProfileTooltip />} */}
             {/* {!isLogin && (
@@ -204,6 +218,8 @@ const Navbar = () => {
               xs: 150,
               sm: 250,
             },
+            bgcolor:light ? "" : "grey.700",
+            height:"100vh"
           }}
         >
           {mobileLists.map((list) => (
@@ -215,10 +231,10 @@ const Navbar = () => {
                   },
                 }}
               >
-                <Link to={list.name}>
+                <Link to={`${list.path}`}>
                   <ListItemText
                     primary={
-                      <Typography fontSize={lowSm ? 10 : 14} color="black">
+                      <Typography fontSize={lowSm ? 12 : 14} color={light ? "black" : "white"}>
                         {list.name}
                       </Typography>
                     }
@@ -228,6 +244,13 @@ const Navbar = () => {
               <Divider />
             </Box>
           ))}
+          <ListItemButton sx={{display:'flex',gap:0.6,alignItems:"center"}} onClick={handleThemeToggle}>
+            {themeMode === "light" ? (
+              <DarkModeIcon fontSize="small" />
+            ) : (
+              <DarkModeOutlinedIcon />
+            )}{`${themeMode}`} Mode
+          </ListItemButton>
         </List>
       </SwipeableDrawer>
     </AppBar>
