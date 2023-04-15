@@ -26,7 +26,7 @@ router.route("/allProducts").get(getAllPosts);
 
 router.route("/subCategory").post( getProductBySubCategory);
 
-router.route("/queryProduct").get(queryProduct);
+router.route("/queryProduct").get(isAuthenticatedUser,queryProduct);
 router.route("/category").post(isAuthenticatedUser, productByCategory);
 // router.route("/user").get(isAuthenticatedUser,getAllUser)
 
