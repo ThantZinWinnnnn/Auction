@@ -73,7 +73,7 @@ const LoginSignUp = () => {
     <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
       <Box display={"flex"} alignItems="center" gap={3} mb={2}>
         <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
-          <img width={"100%"} src={`${logo}`} alt="logo" />
+          <img width={"100%"} src={`/whiteLogo.svg`} alt="logo" />
         </Box>
         <Typography
           fontWeight={"bold"}

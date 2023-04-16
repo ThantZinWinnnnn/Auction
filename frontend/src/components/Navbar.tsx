@@ -75,24 +75,31 @@ const Navbar = () => {
             <Box
               sx={{
                 width: {
-                  xs: "130px",
+                  xs: "100px",
                   sm: "110px",
                   md: "100px",
                   lg: "90px",
                 },
                 height: {
-                  xs: "130px",
+                  xs: "100px",
                   sm: "110px",
                   md: "100px",
                   lg: "90px",
                 },
+                pr:{
+                  xs:3,
+                  sm:2
+                },
+                pt:{
+                  xs:2
+                }
               }}
               overflow="hidden"
               component="div"
             >
               <img
                 width={"100%"}
-                src="https://res.cloudinary.com/dhprtrwtd/image/upload/v1648056557/WG_2022_reskin.svg"
+                src={light ? "/whiteLogo.svg" :"/blackLogo.svg"}
                 alt="logo"
               />
             </Box>
