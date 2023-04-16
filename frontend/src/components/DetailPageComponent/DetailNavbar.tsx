@@ -62,7 +62,7 @@ const DetailNavbar = () => {
   const open = Boolean(anchorEl);
   return (
     <AppBar
-      sx={{ bgcolor: "inherit", color: light ? "black" : "white", px: is4k ? "2%" : "" }}
+      sx={{ bgcolor:light ? "inherit" : "#1B2938", color: light ? "black" : "white", px: is4k ? "2%" : "" }}
       position="static"
       elevation={1}
     >
@@ -80,25 +80,30 @@ const DetailNavbar = () => {
             <Box
               sx={{
                 width: {
-                  xs: "130px",
-                  sm: "146px",
+                  xs: "100px",
+                  sm: "110px",
                   md: "100px",
-                  lg: "120px",
-                  xl: "100px",
+                  lg: "90px",
                 },
                 height: {
-                  xs: "130px",
-                  sm: "146px",
+                  xs: "100px",
+                  sm: "110px",
                   md: "100px",
-                  lg: "120px",
-                  xl: "100px",
+                  lg: "90px",
                 },
+                pr:{
+                  xs:3,
+                  sm:2
+                },
+                pt:{
+                  xs:2
+                }
               }}
               overflow="hidden"
               component="div"
             >
               <img
-                src="https://res.cloudinary.com/dhprtrwtd/image/upload/v1648056557/WG_2022_reskin.svg"
+                src={light ? "/whiteLogo.svg" : "/Logo.svg"}
                 alt="logo"
               />
             </Box>
@@ -157,7 +162,7 @@ const DetailNavbar = () => {
                             bgcolor:"warning.main",
                           }
                         }}>
-                        <ListItemButton>
+                        <ListItemButton disableRipple>
                           <ListItemText
                             sx={{ color: light ? "black" : "white" ,"&:hover":{color:"white"}}}
                             primary={option.name}

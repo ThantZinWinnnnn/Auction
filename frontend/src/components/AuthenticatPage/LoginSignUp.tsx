@@ -14,16 +14,19 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "/logo.svg";
 import * as yup from "yup";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { authAPI } from "../Utils/endpoins/axios";
 import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import ProductLoading from "../Utils/LoadingIndicator/ProductLoading";
+import UserInput from "./UserInput";
+import { Password } from "@mui/icons-material";
 
 interface FormValues {
   username?: string;
   email: string;
   password: string;
+  newPassword?: string;
 }
 
 const schema = yup.object().shape({
@@ -32,11 +35,14 @@ const schema = yup.object().shape({
 });
 
 const LoginSignUp = () => {
-
   const navigate = useNavigate();
 
   const [loggedIn, setLoggedIn] = useState(true);
-  const [check,setCheck] = useState(true)
+  const [check, setCheck] = useState(true);
+  const [forgotPs, setForgotPS] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  console.log("ps",forgotPs)
 
   const {
     register,
@@ -46,34 +52,35 @@ const LoginSignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const checkHandler = ()=> setCheck(!check);
+  const checkHandler = () => setCheck(!check);
 
-
-
-  const {isLoading:authenticating,mutate:Authenticate} = useMutation(loggedIn ? authAPI.signin : authAPI.signup,{
-    onSuccess:(data)=>{
-      console.log(data.data)
-      localStorage.setItem("token",data.data.token)
-      navigate('/')
-    },
-    onError:()=>{
-      navigate('/auth')
+  const { isLoading: authenticating, mutate: Authenticate } = useMutation(
+    loggedIn ? authAPI.signin : authAPI.signup,
+    {
+      onSuccess: (data) => {
+        console.log(data.data);
+        localStorage.setItem("token", data.data.token);
+        navigate("/");
+      },
+      onError: () => {
+        navigate("/auth");
+      },
     }
-  });
+  );
 
-
-  const onSubmitHandler = (data:FormValues) => {
-      console.log("data" , data)
-
-      Authenticate(data)
+  const onSubmitHandler = (data: FormValues) => {
+    console.log("data", data);
+    if(forgotPs && data.password === data.newPassword) {
+      setErrorMessage("Password do not match")
+    }
+    Authenticate(data);
   };
-
 
   return (
     <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
       <Box display={"flex"} alignItems="center" gap={3} mb={2}>
         <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
-          <img width={"100%"} src={`/whiteLogo.svg`} alt="logo" />
+          <img width={"100%"} src={`/Logo.svg`} alt="logo" />
         </Box>
         <Typography
           fontWeight={"bold"}
@@ -128,32 +135,72 @@ const LoginSignUp = () => {
                 gap: 3,
               }}
             >
-              {!loggedIn && (
-                <Box>
-                  <Typography
-                    id="userName"
-                    sx={{
-                      mb: 1,
-                      fontSize: {
-                        xs: 18,
-                        sm: 20,
-                      },
-                    }}
-                  >
-                    Username
-                  </Typography>
-                  <TextField
-                    aria-labelledby="userName"
-                    type="text"
-                    variant="outlined"
-                    error={!!errors.username}
-                    helperText={errors?.username ? errors?.username?.message : ""}
-                    fullWidth
-                    {...register("username", { required: true })}
-                  />
-                </Box>
+              {(!loggedIn && !forgotPs) && (
+                <UserInput
+                  link="userName"
+                  text="Username"
+                  type="text"
+                  fieldError={!!errors.username}
+                  helperTitile={errors?.username ? errors?.username?.message : ""}
+                  register={register}
+                  check={"username"}
+                />
+                // <Box>
+                //   <Typography
+                //     id="userName"
+                //     sx={{
+                //       mb: 1,
+                //       fontSize: {
+                //         xs: 18,
+                //         sm: 20,
+                //       },
+                //     }}
+                //   >
+                //     Username
+                //   </Typography>
+                //   <TextField
+                //     aria-labelledby="userName"
+                //     type="text"
+                //     variant="outlined"
+                //     error={!!errors.username}
+                //     helperText={
+                //       errors?.username ? errors?.username?.message : ""
+                //     }
+                //     fullWidth
+                //     {...register("username", { required: true })}
+                //   />
+                // </Box>
               )}
-              <Box>
+               <UserInput
+                link="email"
+                text="Email"
+                type="email"
+                fieldError={!!errors.email}
+                helperTitile={errors?.email ? errors?.email?.message : ""}
+                register={register}
+                check={"email"}
+              />
+
+              <UserInput
+                link="password"
+                text={forgotPs ? "New Password" :"Password" }
+                type="password"
+                fieldError={!!errors.password}
+                helperTitile={errors?.password ? errors?.password?.message : ""}
+                register={register}
+                check={"password"}
+              />
+
+              {forgotPs && <UserInput
+                link="newPassword"
+                text="Confirm New Password"
+                type="password"
+                fieldError={errors.newPassword !== errors.password}
+                helperTitile={errors?.password ? errors?.password?.message : ''}
+                register={register}
+                check={"newPassword"}
+              />}
+              {/* <Box>
                 <Typography
                   id="email"
                   sx={{
@@ -199,23 +246,34 @@ const LoginSignUp = () => {
                   fullWidth
                   {...register("password", { required: true })}
                 />
-              </Box>
+              </Box> */}
             </Box>
-            <Link to={"/forgotpassword"}>
+            <Button
+              onClick={() => setForgotPS(!forgotPs)}
+              variant="text"
+              disableElevation
+              disableRipple
+              sx={{
+                mt: 2,
+                mb: 4,
+                "&:hover": {
+                  bgcolor: "white",
+                },
+              }}
+            >
               <Typography
                 sx={{
                   color: "black",
                   textDecoration: "underline",
-                  mb: 6,
-                  mt: 2,
                   "&:hover": {
                     color: "blue",
                   },
+                  textTransform: "none",
                 }}
               >
-                Forgot your password?
+              {forgotPs ?   "Back to Sign In" : "Forgot your password?(temporary unavailable)"}
               </Typography>
-            </Link>
+            </Button>
             <FormGroup>
               <FormControlLabel
                 value={check}
@@ -259,10 +317,10 @@ const LoginSignUp = () => {
                 },
               }}
             >
-             {!loggedIn ? "Sign Up" : "Sign In"}
+              {!loggedIn ? "Sign Up" : "Sign In"}
             </Button>
           </form>
-              {authenticating && <ProductLoading/>}
+          {authenticating && <ProductLoading />}
           <Box
             display={"flex"}
             justifyContent="center"
@@ -272,7 +330,9 @@ const LoginSignUp = () => {
             }}
           >
             <Typography color={"#D1D0CC"}>
-              {!loggedIn ? "Already have an account?" : "Don't have an account?"}
+              {!loggedIn
+                ? "Already have an account?"
+                : "Don't have an account?"}
             </Typography>
             <Button
               disableRipple

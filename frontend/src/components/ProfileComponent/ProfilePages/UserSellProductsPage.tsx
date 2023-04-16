@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { productAPI } from "../../Utils/endpoins/axios";
 import Products from "../components/prdoducts/components/Products";
-import { Backdrop, CircularProgress, Typography } from "@mui/material";
-import ProductLoading from "../../Utils/LoadingIndicator/ProductLoading";
 import { ProfileUserProductsLoading } from "../../Utils/LoadingIndicator/ProductListsLoading";
 
 
-//to add updat price button
 
 
-const UserSellProductsPage:React.FC = () => {
+
+
+const UserSellProductsPage:React.FC= () => {
 
 
   const {
@@ -19,12 +18,12 @@ const UserSellProductsPage:React.FC = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["userSellProducts"],
     queryFn: productAPI.getProductsByUserId,
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading || isFetching) {
+  if (isFetching || isLoading) {
     return <ProfileUserProductsLoading/>;
   } else {
     const products = userProducts?.data?.products?.sellerProducts;

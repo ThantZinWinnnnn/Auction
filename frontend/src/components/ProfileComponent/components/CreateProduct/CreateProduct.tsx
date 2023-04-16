@@ -38,10 +38,10 @@ import { PrimaryCategories } from "../../../../data/DummyData";
 
 import { Product } from "../../../Utils/apiTypes/apiTypes";
 interface themeProps {
-  light:boolean
+  light: boolean;
 }
 
-const CreateProduct:React.FC<themeProps> = ({light}) => {
+const CreateProduct: React.FC<themeProps> = ({ light }) => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -53,8 +53,8 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
   const [subCategory, setSubCategory] = useState("");
   const [price, setPrice] = useState("");
   const [date, setDate] = useState<DateRange<Dayjs>>([
-    dayjs("2022-04-17"),
-    dayjs("2022-04-21"),
+    dayjs("2023-04-17"),
+    dayjs("2023-04-21"),
   ]);
 
   // const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,9 +95,15 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
   } = useMutation(productAPI.createProduct, {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["products", "allProducts"]);
-      console.log("product", data?.data);
-      const date = data?.data?.post?.createdAt;
-      console.log("date", date);
+      SetProductTitle("");
+      setProductImage("");
+      setCategory("");
+      setSubCategory("");
+      setPrice("");
+      setDate([dayjs("2023-04-17"), dayjs("2023-04-21")]);
+      // console.log("product", data?.data);
+      // const date = data?.data?.post?.createdAt;
+      // console.log("date", date);
     },
     onError: (error) => {
       console.log("error", error);
@@ -105,19 +111,19 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
   });
 
   const submitHandler = () => {
-    console.log(
-      "image",
-      productImage,
-      "title",
-      productTitle,
-      "category",
-      category,
-      "price",
-      price,
-      "date",
-      moment(date[0]?.$d).toISOString(),
-      moment(date[1]?.$d).toISOString()
-    );
+    // console.log(
+    //   "image",
+    //   productImage,
+    //   "title",
+    //   productTitle,
+    //   "category",
+    //   category,
+    //   "price",
+    //   price,
+    //   "date",
+    //   moment(date[0]?.$d).toISOString(),
+    //   moment(date[1]?.$d).toISOString()
+    // );
     const productPrice = Number(price);
 
     const product: Product = {
@@ -139,7 +145,7 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
         width={Mobile ? "100%" : mediumScreen ? "90%" : "80%"}
         mx={"auto"}
         p={Mobile ? 3 : 0}
-        sx={{color:light ? "black" : "white"}}
+        sx={{ color: light ? "black" : "white" }}
       >
         <Box mb={4}>
           <Typography
@@ -183,7 +189,7 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
                     xs: 4,
                   },
                   width: "100%",
-                  bgcolor:light ? "white" : "#1B2938"
+                  bgcolor: light ? "white" : "#1B2938",
                 }}
               >
                 <Box>
@@ -235,12 +241,13 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
                     flexDirection: "column",
                     justifyContent: "space-between",
                     gap: {
-                      xl: 3.2,
-                      lg: 2.6,
+                      xl: 3.8,
+                      lg: 3.3,
+                      md: 3.6,
                       sm: 2.8,
                       xs: 2.4,
                     },
-                    bgcolor:light ? "white" : "#1B2938"
+                    bgcolor: light ? "white" : "#1B2938",
                   }}
                 >
                   <CategoryLists
@@ -288,13 +295,14 @@ const CreateProduct:React.FC<themeProps> = ({light}) => {
                   mb: {
                     md: 0,
                     sm: 2,
+                    lg: 6,
                   },
                 }}
               >
                 <BidButton
                   disabled={isLoading}
                   ButtonText="Create Product"
-                  bgC={light ? 'warning.main' : "warning.dark"}
+                  bgC={light ? "warning.main" : "warning.dark"}
                   padding={{
                     xl: 1.6,
                     md: 1.2,

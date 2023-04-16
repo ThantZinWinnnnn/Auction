@@ -15,7 +15,7 @@ export default function LostLotProductPage() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["userLostProducts"],
     queryFn: productAPI.getUserLostProducts,
     refetchOnWindowFocus: false,
   });

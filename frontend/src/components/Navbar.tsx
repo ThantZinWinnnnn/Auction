@@ -99,7 +99,7 @@ const Navbar = () => {
             >
               <img
                 width={"100%"}
-                src={light ? "/whiteLogo.svg" :"/blackLogo.svg"}
+                src={"/Logo.svg"}
                 alt="logo"
               />
             </Box>
@@ -154,7 +154,7 @@ const Navbar = () => {
                     <Box key={`${option.id}`}>
                       <Link to={`${option.path}`}>
                         <ListItem disablePadding>
-                          <ListItemButton>
+                          <ListItemButton disableRipple>
                             <ListItemText
                               primary={option.name}
                               sx={{

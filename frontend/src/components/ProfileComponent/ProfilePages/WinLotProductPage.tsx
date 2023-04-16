@@ -12,7 +12,7 @@ export default function WinLotProductPage() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["userWinProducts"],
     queryFn: productAPI.getUserWinProducts,
     refetchOnWindowFocus: false,
   });

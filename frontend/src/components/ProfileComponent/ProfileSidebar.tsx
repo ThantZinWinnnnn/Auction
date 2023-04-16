@@ -9,8 +9,10 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import { useQuery } from "@tanstack/react-query";
+import { productAPI } from "../Utils/endpoins/axios";
 
 interface list {
   id: string;
@@ -45,10 +47,13 @@ const SidebarLists: Array<list> = [
   },
 ];
 
-const ProfileSidebar = () => {
+
+const ProfileSidebar:React.FC = () => {
+
   const location = useLocation();
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light"
+
 
 
   const [selectedIndex, setSelectedIndex] = React.useState(SidebarLists.findIndex(
@@ -65,6 +70,7 @@ const ProfileSidebar = () => {
   ) => {
     setSelectedIndex(index);
   };
+
   
   return (
     <Box

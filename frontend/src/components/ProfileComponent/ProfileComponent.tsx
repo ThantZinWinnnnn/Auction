@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import UserPage from "./ProfilePages/UserPage";
 
 import Wrapper from "./Wrapper";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import UserSellProductsPage from "./ProfilePages/UserSellProductsPage";
@@ -15,6 +15,8 @@ import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 type Props = {};
 
 const ProfileComponent = (props: Props) => {
+  const {userInfo} = useParams();
+  console.log("info2",userInfo)
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light"
   const location = useLocation();

@@ -135,8 +135,8 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
         <BidButton
           disabled={isLoading}
           ButtonText="Cancel"
-          bgC={light ? "black" : "grey.700"}
-          hoverC="grey.800"
+          bgC={light ? "black" : "grey.600"}
+          hoverC="grey.700"
           func={handler}
           fontS={{
             sm: 14,
@@ -148,8 +148,8 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
         <BidButton
           disabled={isLoading}
           ButtonText="Save"
-          bgC={light ? "black" : "grey.700"}
-          hoverC="grey.800"
+          bgC={light ? "black" : "grey.600"}
+          hoverC="grey.700"
           func={updateProfileHandler}
           fontS={{
             sm: 14,
