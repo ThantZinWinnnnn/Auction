@@ -10,7 +10,7 @@ router.route('/getUser').get(isAuthenticatedUser,getLoggedInUser)
 router.route('/product').get(isAuthenticatedUser,getUserProducts)
 router.route('/signup').post(singUp)
 router.route('/signin').post(loginUser)
-router.route('/forgotpss').post(forgotPassword)
+router.route('/forgot').put(forgotPassword)
 router.route('/updatepass').post(updatePassword)
 router.route('/updateProfile').put(isAuthenticatedUser,updateProfile)
 

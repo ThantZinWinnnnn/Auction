@@ -87,11 +87,7 @@ exports.forgotPassword = async (req, res) => {
     }
 
     //to omit password later
-    res.status(200).json({
-      success: true,
-      message: "Successfully changed the password",
-      updatedUser,
-    });
+    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -130,11 +126,7 @@ exports.updatePassword = async (req, res) => {
       },
     });
 
-    res.status(200).json({
-      success: true,
-      message: "Great! Successfully Update Password",
-      updatedUserPass,
-    });
+    res.status(200).json(updatedUserPass);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
