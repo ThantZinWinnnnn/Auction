@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
   AppBar,
@@ -18,6 +18,7 @@ import {
   SwipeableDrawer,
   Container,
   Button,
+  Slide,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -44,6 +45,7 @@ const DetailNavbar = () => {
   const lowSm = useMediaQuery(theme.breakpoints.down("sm"));
   const is4k = useMediaQuery(theme.breakpoints.up("xl"));
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [showAppBar, setShowAppBar] = useState(true);
 
   const light = themeMode === "light"
 
@@ -59,9 +61,21 @@ const DetailNavbar = () => {
     setAnchorEl(null);
   };
 
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    const show = currentScrollPos < 100;
+    setShowAppBar(show);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const open = Boolean(anchorEl);
   return (
-    <AppBar
+   <Slide direction="down" in={showAppBar}>
+     <AppBar
       sx={{ bgcolor:light ? "inherit" : "#1B2938", color: light ? "black" : "white", px: is4k ? "2%" : "" }}
       position="static"
       elevation={1}
@@ -238,6 +252,7 @@ const DetailNavbar = () => {
         </List>
       </SwipeableDrawer>
     </AppBar>
+   </Slide>
   );
 };
 

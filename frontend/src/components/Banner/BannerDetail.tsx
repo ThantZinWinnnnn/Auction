@@ -22,11 +22,18 @@ import {
 import { Title } from "../Utils/helmet/Title";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 import { useContext } from "react";
+import { UpArrowFab } from "../Utils/Fab/UpArrowFab";
+
+
+
 
 const BannerDetail = () => {
   const {electronic} = useParams()
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const Large = useMediaQuery(theme.breakpoints.up("lg"))
+  const Medium = useMediaQuery(theme.breakpoints.up("md"))
+  const Laptop = useMediaQuery(theme.breakpoints.up('sm'))
   const location = useLocation();
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light";
@@ -64,7 +71,7 @@ const BannerDetail = () => {
       : handbagCategories;
 
   return (
-    <Box>
+    <Box position={'relative'}>
       <Title title={`${title} Auction Page`}/>
       <Box
         width={"100%"}
@@ -170,6 +177,9 @@ const BannerDetail = () => {
       <ChooseDetailsCategory categories={category} light={light}/>
       <SellWithUs light={light} />
       <MoreAuctions light={light} />
+      <Box position={'absolute'} width={Mobile ? "20%" : "10%"} bottom={-60} right={Large ? -100 : Medium ? -20 : Laptop ? -10 : 0 }>
+        <UpArrowFab/>
+        </Box>
     </Box>
   );
 };

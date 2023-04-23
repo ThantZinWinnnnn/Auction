@@ -36,7 +36,7 @@ export const UpArrowFab = () => {
   const FabArrow = isBottom ? (
     <Fab
       disableRipple
-      size="small"
+      size="large"
       color="primary"
       aria-label="scroll-to-top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

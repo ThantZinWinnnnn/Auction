@@ -65,7 +65,9 @@ const HomePage = () => {
   return (
     <>
       <Title title="Home Page | Auction"/>
-      <Navbar />
+
+     <Navbar />
+
 
       <Container maxWidth={is4kScreen ? "xl" : mediumScreen ? "lg" : "md"}>
         <Box

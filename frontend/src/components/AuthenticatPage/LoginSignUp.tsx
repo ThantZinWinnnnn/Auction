@@ -2,17 +2,13 @@ import {
   Typography,
   Button,
   Box,
-  useTheme,
-  useMediaQuery,
-  TextField,
   FormGroup,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
 import { useState } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from "/logo.svg";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -20,7 +16,9 @@ import { authAPI } from "../Utils/endpoins/axios";
 import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import ProductLoading from "../Utils/LoadingIndicator/ProductLoading";
 import UserInput from "./UserInput";
-import { Password } from "@mui/icons-material";
+import { ForgotPassword } from "../Utils/apiTypes/apiTypes";
+import { useAuthentication } from "../../Hooks/user.customhook";
+import Toast from "../ProfileComponent/components/CreateProduct/Toast";
 
 interface FormValues {
   username?: string;
@@ -41,43 +39,73 @@ const LoginSignUp = () => {
   const [check, setCheck] = useState(true);
   const [forgotPs, setForgotPS] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [open,setOpen] = useState<boolean>(true);
+
 
   console.log("ps",forgotPs)
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
   const checkHandler = () => setCheck(!check);
+  const authenticateSuccessHandler = (data:any) => {
+    console.log(data.data);
+    localStorage.setItem("token", data.data.token);
+    navigate("/");
+    setErrorMessage('')
+    reset();
+  };
 
-  const { isLoading: authenticating, mutate: Authenticate } = useMutation(
-    loggedIn ? authAPI.signin : authAPI.signup,
-    {
-      onSuccess: (data) => {
-        console.log(data.data);
-        localStorage.setItem("token", data.data.token);
-        navigate("/");
-      },
-      onError: () => {
-        navigate("/auth");
-      },
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
     }
-  );
+
+    setOpen(!open);
+  };
+
+  const forgotPassSuccessHandler = (data:any) => {
+    console.log(data.data);
+    localStorage.setItem("token", data.data.token);
+    navigate("/auth");
+    setForgotPS(false);
+    setErrorMessage('')
+    reset();
+  }
+
+
+  const { isLoading: authenticating, mutate: Authenticate } = useAuthentication(loggedIn ? authAPI.signin : authAPI.signup,authenticateSuccessHandler);
+
+  const { isLoading: updating, mutate: UpdatePassword,isSuccess:updateSuccess,isError:updateError} = useAuthentication(authAPI.forgotPassword,forgotPassSuccessHandler)
+
 
   const onSubmitHandler = (data: FormValues) => {
     console.log("data", data);
-    if(forgotPs && data.password === data.newPassword) {
-      setErrorMessage("Password do not match")
-    }
-    Authenticate(data);
-  };
 
+   if(!forgotPs) {
+    Authenticate(data);
+   }else{
+    if(forgotPs && data.password !== data.newPassword) {
+      setErrorMessage("Password does not match")
+    }else{
+        const { email,password}  = data;
+        const forgotData:ForgotPassword = {email,newPass:password}
+        console.log("datattt",forgotData)
+        UpdatePassword(forgotData)
+        
+    }
+   } 
+  };
+  
   return (
-    <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
+    <>
+      <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
       <Box display={"flex"} alignItems="center" gap={3} mb={2}>
         <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
           <img width={"100%"} src={`/Logo.svg`} alt="logo" />
@@ -185,8 +213,8 @@ const LoginSignUp = () => {
                 link="password"
                 text={forgotPs ? "New Password" :"Password" }
                 type="password"
-                fieldError={!!errors.password}
-                helperTitile={errors?.password ? errors?.password?.message : ""}
+                fieldError={forgotPs ?  errors.newPassword !== errors.password: !!errors.password}
+                helperTitile={forgotPs ? <Typography color={'red'}>{errorMessage}</Typography> : errors?.password ? errors?.password?.message : ''}
                 register={register}
                 check={"password"}
               />
@@ -196,57 +224,10 @@ const LoginSignUp = () => {
                 text="Confirm New Password"
                 type="password"
                 fieldError={errors.newPassword !== errors.password}
-                helperTitile={errors?.password ? errors?.password?.message : ''}
+                helperTitile={forgotPs ? <Typography color={'red'}>{errorMessage}</Typography> : errors?.password ? errors?.password?.message : ''}
                 register={register}
                 check={"newPassword"}
               />}
-              {/* <Box>
-                <Typography
-                  id="email"
-                  sx={{
-                    mb: 1,
-                    fontSize: {
-                      xs: 18,
-                      sm: 20,
-                    },
-                  }}
-                >
-                  Email
-                </Typography>
-                <TextField
-                  aria-labelledby="email"
-                  type="email"
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors?.email ? errors?.email?.message : ""}
-                  fullWidth
-                  {...register("email", { required: true })}
-                />
-              </Box>
-
-              <Box>
-                <Typography
-                  id="password"
-                  fontWeight={"medium"}
-                  sx={{
-                    fontSize: {
-                      xs: 18,
-                      sm: 20,
-                    },
-                  }}
-                >
-                  Password
-                </Typography>
-                <TextField
-                  aria-labelledby="password"
-                  type="password"
-                  variant="outlined"
-                  error={!!errors.password}
-                  helperText={errors?.password ? errors?.password?.message : ""}
-                  fullWidth
-                  {...register("password", { required: true })}
-                />
-              </Box> */}
             </Box>
             <Button
               onClick={() => setForgotPS(!forgotPs)}
@@ -271,7 +252,7 @@ const LoginSignUp = () => {
                   textTransform: "none",
                 }}
               >
-              {forgotPs ?   "Back to Sign In" : "Forgot your password?(temporary unavailable)"}
+              {forgotPs ?   "Back to Sign In" : "Forgot your password?"}
               </Typography>
             </Button>
             <FormGroup>
@@ -296,7 +277,8 @@ const LoginSignUp = () => {
                 }
               />
             </FormGroup>
-            <Button
+            {updating ? <Box mt={4}><ButtonLoading text="Updating..."/></Box> : (
+              <Button
               disableElevation
               disableRipple
               fullWidth
@@ -317,8 +299,9 @@ const LoginSignUp = () => {
                 },
               }}
             >
-              {!loggedIn ? "Sign Up" : "Sign In"}
+              {forgotPs ? "Change Password" : !loggedIn ? "Sign Up" : "Sign In"}
             </Button>
+            )}
           </form>
           {authenticating && <ProductLoading />}
           <Box
@@ -351,6 +334,10 @@ const LoginSignUp = () => {
         </Box>
       </Box>
     </Box>
+    
+    {updateSuccess ? <Toast open={open} handleClose={handleClose} info="success" message="Successfully updated Password" Xaxis="center" Yaxis="top"/> : null}
+    {updateError ? <Toast open={open} handleClose={handleClose} info="error" message={"Unsuccessful update Password.Please Try Again"} Xaxis="center" Yaxis="top"/> : null}
+    </>
   );
 };
 

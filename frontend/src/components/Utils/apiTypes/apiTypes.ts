@@ -93,3 +93,8 @@ export interface UserProductsResponse{
     currentOwnerId:string,
     sellerId:string
 }
+
+export interface ForgotPassword {
+    email:string,
+    newPass:string
+}

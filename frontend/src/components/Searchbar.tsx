@@ -174,7 +174,7 @@ const Searchbar = () => {
             marginBottom: isDesktop ? 0 : 1,
             width: {
               xs: "50%",
-              sm:"auto"
+              sm: "auto",
             },
           }}
           borderRadius="0.2rem"
@@ -229,7 +229,7 @@ const Searchbar = () => {
             {IntroMenu.map((menu) => (
               <Link to={`${menu.path}`} key={`${menu.id}`}>
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton disableRipple>
                     <ListItemText
                       primary={
                         <Typography

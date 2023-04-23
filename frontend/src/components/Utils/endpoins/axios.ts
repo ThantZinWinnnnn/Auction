@@ -7,7 +7,8 @@ import {
   Product,
   UpdateProduct,
   SignUpUser,
-  BidProductByUser
+  BidProductByUser,
+  ForgotPassword
 } from "../apiTypes/apiTypes";
 
 const BASE_URL = "https://auction-backend-nb7b.onrender.com/api";
@@ -36,6 +37,7 @@ const authAPI = {
   signup: (userData: SignUpUser) =>
     axiosInstance.post("/user/signup", userData),
   signin: (userData: LoginUser) => axiosInstance.post("/user/signin", userData),
+  forgotPassword:(data:ForgotPassword)=> axiosInstance.put("/user/forgot",data)
 };
 
 const userInfoAPI = {

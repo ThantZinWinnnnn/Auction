@@ -7,6 +7,9 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Snackbar,
+  SnackbarOrigin,
+  Alert
 } from "@mui/material";
 
 //Import tanstackquery
@@ -37,9 +40,12 @@ import {
 import { PrimaryCategories } from "../../../../data/DummyData";
 
 import { Product } from "../../../Utils/apiTypes/apiTypes";
+import Toast from "./Toast";
+import ButtonLoading from "../../../Utils/LoadingIndicator/ButtonLoading";
 interface themeProps {
   light: boolean;
 }
+
 
 const CreateProduct: React.FC<themeProps> = ({ light }) => {
   const queryClient = useQueryClient();
@@ -56,6 +62,14 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
     dayjs("2023-04-17"),
     dayjs("2023-04-21"),
   ]);
+  const [open,setOpen] = useState<boolean>(true);
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(!open);
+  };
 
   // const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
@@ -92,6 +106,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
     data: product,
     isError,
     error,
+    isSuccess,
   } = useMutation(productAPI.createProduct, {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["products", "allProducts"]);
@@ -101,6 +116,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
       setSubCategory("");
       setPrice("");
       setDate([dayjs("2023-04-17"), dayjs("2023-04-21")]);
+
       // console.log("product", data?.data);
       // const date = data?.data?.post?.createdAt;
       // console.log("date", date);
@@ -111,19 +127,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
   });
 
   const submitHandler = () => {
-    // console.log(
-    //   "image",
-    //   productImage,
-    //   "title",
-    //   productTitle,
-    //   "category",
-    //   category,
-    //   "price",
-    //   price,
-    //   "date",
-    //   moment(date[0]?.$d).toISOString(),
-    //   moment(date[1]?.$d).toISOString()
-    // );
+
     const productPrice = Number(price);
 
     const product: Product = {
@@ -136,7 +140,13 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
       updatedAt: moment(date[1]?.$d).toISOString(),
     };
 
-    createProduct(product);
+    if(productTitle.length > 10 && productImage.length > 0 && productPrice > 0 && category.length>0 && subCategory.length > 0 ){
+      createProduct(product);
+    }
+
+    return null;
+
+    
   };
 
   return (
@@ -216,6 +226,8 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
                         },
                       mb: 2,
                     }}
+                    // error={!!(productTitle.length < 10)}
+                    // helperText={"Proudct title should not be less than 10 characters for searching your product."}
                   />
                 </Box>
                 <ImageUpload
@@ -299,7 +311,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
                   },
                 }}
               >
-                <BidButton
+                {isLoading ? <ButtonLoading text="Loading"/> : <BidButton
                   disabled={isLoading}
                   ButtonText="Create Product"
                   bgC={light ? "warning.main" : "warning.dark"}
@@ -314,12 +326,15 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
                     md: 13,
                   }}
                   func={submitHandler}
-                />
+                />}
               </Box>
             </Grid>
           </Grid>
         </Box>
       </Box>
+
+      {isSuccess && <Toast open={true} handleClose={handleClose} info="success" message="Successfully created Product" Xaxis="right" Yaxis="bottom"/>  }
+      {isError && <Toast open={open} handleClose={handleClose} info="error" message="Please Enter the full Information" Xaxis="right" Yaxis="bottom"/>}
     </>
   );
 };
