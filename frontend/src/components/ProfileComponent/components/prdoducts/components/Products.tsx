@@ -89,6 +89,7 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
                   </Typography>
 
                   <ProductInfo name="Your Price" price={+p?.price} />
+                  {p?.currentBidPrice ? (<ProductInfo name="Current Price" price={+p?.currentBidPrice}/>) : <ProductInfo name="Current Price" price={0}/>}
                   <ProductInfo name="Category" value={p?.category?.name} />
                 </CardContent>
               </Card>

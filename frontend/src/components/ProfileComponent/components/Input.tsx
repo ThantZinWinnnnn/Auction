@@ -18,7 +18,7 @@ const Input:React.FC<input> = ({name,text,handlerFun,id}) => {
 
   return (
    <>
-    <Box mb={Mobile ? 1 : 2} id={id}>
+    <Box mb={Mobile ? 1 : 2} key={id}>
     <Typography textTransform={"capitalize"} fontWeight={'bold'} fontSize={Mobile ? 14 : 16} color={light ? "black" : "white"}  mb={1}>{name}</Typography>
     <InputBase value={text}  onChange={handlerFun} sx={{
         border :light ? "1px solid rgba(34,36,38,.15)" : "1px solid white",

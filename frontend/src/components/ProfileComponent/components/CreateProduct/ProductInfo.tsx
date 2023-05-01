@@ -12,6 +12,7 @@ const ProductInfo: React.FC<detail> = ({ name, value, price }) => {
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down('md'))
   const largeScreen = useMediaQuery(theme.breakpoints.up('xl'))
+  const formatPrice = price?.toLocaleString('en-US')
 
   return (
     <>
@@ -22,7 +23,7 @@ const ProductInfo: React.FC<detail> = ({ name, value, price }) => {
       }}}>
       <Typography fontWeight={"medium"} fontSize={largeScreen ? "14px" : mediumScreen ? "12px" : "11px"}>{name}</Typography>
       <Typography fontSize={largeScreen ? "14px" : mediumScreen ? "12px" : "11px"} fontWeight={'bold'}>
-        {price === undefined ? `${value}` : `${price} MMKS`}
+        {price === undefined ? `${value}` : `${formatPrice} MMKS`}
       </Typography>
     </Box>
     </>

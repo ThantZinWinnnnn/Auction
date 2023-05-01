@@ -83,30 +83,45 @@ const Navbar = () => {
         position="static"
         elevation={2}
       >
-        <Toolbar>
+        <Toolbar sx={{height:{
+           xs: "80px",
+           sm: "75px",
+           md: "65px",
+           lg: "65px",
+        },
+        overflow:"hidden"}}>
           <Box sx={{ flexGrow: 1 }}>
             <Link to={"/"}>
               <Box
                 sx={{
                   width: {
-                    xs: "100px",
-                    sm: "110px",
-                    md: "100px",
+                    xs: "90px",
+                    md: "75px",
                     lg: "90px",
                   },
                   height: {
-                    xs: "100px",
-                    sm: "110px",
-                    md: "100px",
-                    lg: "90px",
+                    xs: "80px",
+                    sm: "75px",
+                    md: "65px",
+                    lg: "65px",
                   },
                   pr: {
                     xs: 3,
-                    sm: 2,
+                    sm: 3,
+                    md:2
                   },
                   pt: {
                     xs: 2,
                   },
+                  pb:{
+                    xs:2,
+                    sm:2,
+                    md:0
+                  },
+                  mb:{
+                    sm:"0px",
+                    md:2
+                  },display:"flex",alignItems:"center",justifyContent:"center"
                 }}
                 overflow="hidden"
                 component="div"
@@ -220,8 +235,8 @@ const Navbar = () => {
           {/*Mobile Navigation */}
 
           {!isNonMobileScreen && (
-            <IconButton onClick={closeDrawer}>
-              <MenuIcon fontSize={lowSm ? "medium" : "large"} />
+            <IconButton onClick={closeDrawer} sx={{padding:0}}>
+              <MenuIcon fontSize={lowSm ? "large" : "large"} />
             </IconButton>
           )}
         </Toolbar>

@@ -1,19 +1,14 @@
 import React, { useContext, useState } from "react";
 import {
   Box,
-  Button,
-  ButtonGroup,
   Divider,
   InputAdornment,
   OutlinedInput,
-  Paper,
   Typography,
   useMediaQuery,
   useTheme,
   Skeleton
 } from "@mui/material";
-import { LoadingButton } from '@mui/lab';
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import BidButton from "./Components/BidButton";
@@ -27,30 +22,36 @@ import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 import {
   ResponseProduct,
   BidProductByUser,
-  UpdateProduct,
 } from "../Utils/apiTypes/apiTypes";
 import moment from "moment";
-import { AxiosResponse } from "axios";
-import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 
-// interface BidProductVariable{
-//   productId:string ,
-//   bidPrice: string
-// }
+import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
+import Toast from "../ProfileComponent/components/CreateProduct/Toast";
+
+
 
 const BidProduct = () => {
 
   const queryClient = useQueryClient();
   const { productId } = useParams();
   const [bidPrice, setBidPrice] = useState("");
+  const [open,setOpen] = useState<boolean>(true);
   const theme = useTheme();
   const bidControl = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light";
-
   const idforProduct = productId ?? "";
+
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(!open);
+  };
 
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ["bidProduct", productId],
@@ -60,7 +61,7 @@ const BidProduct = () => {
 
   const product: ResponseProduct = data?.data;
 
-  // console.log("product", product);
+   console.log("product", product?.currentBidPrice);
 
   const owner = product?.currentOwnerName;
 
@@ -80,17 +81,26 @@ const BidProduct = () => {
   });
 
   const bidProductHandler = () => {
+
     const priceNumber = Number(bidPrice);
-    const data: BidProductByUser = {
-      productId: idforProduct,
-      price: priceNumber,
-    };
-    bidProduct(data);
+    if(product?.currentBidPrice === null && priceNumber < product?.price){
+      setOpen(true);
+    }else{
+      const data: BidProductByUser = {
+        productId: idforProduct,
+        price: priceNumber,
+      };
+      bidProduct(data);
+    }
+
+   
+    
   };
 
   return (
     <>
       {/*to add shadow */}
+      <Toast open={open} handleClose={handleClose} info="error" message="Your Price must be more than product price" Xaxis="center" Yaxis="top"/> 
       <Box
         width={isLargeScreen ? "60%" : "100%"}
         marginX="auto"
@@ -341,12 +351,12 @@ const BidProduct = () => {
 };
 
 export default BidProduct;
-function useMutationuseMutation<T, U, V>(
-  firstBidProduct: (
-    productId: string | undefined,
-    productData: Partial<import("../Utils/apiTypes/apiTypes").Product>
-  ) => Promise<import("axios").AxiosResponse<any, any>>,
-  arg1: { onSuccess: () => void }
-): { isLoading: any; mutate: any; isError: any; error: any } {
-  throw new Error("Function not implemented.");
-}
+// function useMutationuseMutation<T, U, V>(
+//   firstBidProduct: (
+//     productId: string | undefined,
+//     productData: Partial<import("../Utils/apiTypes/apiTypes").Product>
+//   ) => Promise<import("axios").AxiosResponse<any, any>>,
+//   arg1: { onSuccess: () => void }
+// ): { isLoading: any; mutate: any; isError: any; error: any } {
+//   throw new Error("Function not implemented.");
+// }

@@ -333,7 +333,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
         </Box>
       </Box>
 
-      {isSuccess && <Toast open={true} handleClose={handleClose} info="success" message="Successfully created Product" Xaxis="right" Yaxis="bottom"/>  }
+      {isSuccess && <Toast open={open} handleClose={handleClose} info="success" message="Successfully created Product" Xaxis="right" Yaxis="bottom"/>  }
       {isError && <Toast open={open} handleClose={handleClose} info="error" message="Please Enter the full Information" Xaxis="right" Yaxis="bottom"/>}
     </>
   );

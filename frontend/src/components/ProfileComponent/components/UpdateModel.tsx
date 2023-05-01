@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import Input from "./Input";
-import { profileDetails } from "../../../data/DummyData";
 import BidButton from "../../BiddingComponent/Components/BidButton";
 import { ProfileUserProps, User } from "../../Utils/apiTypes/apiTypes";
 
@@ -21,14 +20,14 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
 
   const queryClient = useQueryClient();
 
-  const [username, setUsername] = useState("");
-  const [bgUrl, setbgUrl] = useState("");
-  const [profile, setProfile] = useState("");
-  const [email, setEmail] = useState("");
-  const [street, setStreet] = useState("");
-  const [town, setTown] = useState("");
-  const [region, setRegion] = useState("");
-  const [country, setCountry] = useState("");
+  const [username, setUsername] = useState(`${user?.name}`);
+  const [bgUrl, setbgUrl] = useState(`${user?.backgroundUrl}`);
+  const [profile, setProfile] = useState(`${user?.profileUrl}`);
+  const [email, setEmail] = useState(`${user?.email}`);
+  const [street, setStreet] = useState(`${user?.location[0]?.street}`);
+  const [town, setTown] = useState(`${user?.location[0]?.town}`);
+  const [region, setRegion] = useState(`${user?.location[0]?.region}`);
+  const [country, setCountry] = useState(`${user?.location[0]?.country}`);
 
   const {
     isLoading,
@@ -68,49 +67,49 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
   return (
     <>
       <Input
-        text={`${user?.backgroundUrl}`}
+        text={bgUrl}
         name="backImageGroundUrl"
         id="keep-mounted-modal-bgimage"
         handlerFun={(e) => setbgUrl(e.target.value)}
       />
       <Input
-        text={`${user?.profileUrl}`}
+        text={profile}
         name="profileImageUrl"
         id="keep-mounted-modal-profileUrl"
         handlerFun={(e) => setProfile(e.target.value)}
       />
       <Input
-        text={`${user?.name}`}
+        text={username}
         name="username"
         id="keep-mounted-modal-username"
         handlerFun={(e) => setUsername(e.target.value)}
       />
       <Input
-        text={`${user?.email}`}
+        text={email}
         name="email"
         id="keep-mounted-modal-email"
         handlerFun={(e) => setEmail(e.target.value)}
       />
       <Input
-        text={`${user?.location[0]?.street}`}
+        text={street}
         name="street"
         id="keep-mounted-modal-street"
         handlerFun={(e) => setStreet(e.target.value)}
       />
       <Input
-        text={`${user?.location[0]?.town}`}
+        text={town}
         name="town"
         id="keep-mounted-modal-town"
         handlerFun={(e) => setTown(e.target.value)}
       />
       <Input
-        text={`${user?.location[0]?.region}`}
+        text={region}
         name="region"
         id="keep-mounted-modal-region"
         handlerFun={(e) => setRegion(e.target.value)}
       />
       <Input
-        text={`${user?.location[0]?.country}`}
+        text={country}
         name="country"
         id="keep-mounted-modal-country"
         handlerFun={(e) => setCountry(e.target.value)}

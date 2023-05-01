@@ -5,11 +5,9 @@ import ProdudctDetail from "../../product/ProdudctDetail";
 import BidProductPage from "../../../Pages/BidProductPage";
 import CategoryOverview from "../../../Pages/CategoryOverview";
 import Authenticate from "../../AuthenticatPage/Authenticate";
-// import ProfileComponent from "../../ProfileComponent/ProfileComponent";
 import SearchProductPage from "../../QueryProductsPages/SearchProductPage";
 import SearchCategoryPage from "../../QueryProductsPages/SearchCategoryPage";
 import { SearchSubCategory } from "../../QueryProductsPages/SearchSubCategory";
-import Wrapper from "../../ProfileComponent/Wrapper";
 import ProfileComponent from "../../ProfileComponent/ProfileComponent";
 
 

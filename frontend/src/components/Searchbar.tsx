@@ -14,7 +14,6 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
-  IconButton,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -94,7 +93,7 @@ const Searchbar = () => {
     >
       <Box
         width={"100%"}
-        paddingX={isDesktop ? "0" : 3}
+        paddingX={isDesktop ? "0" : 2}
         bgcolor="inherit"
         sx={{
           display: "flex",
@@ -168,7 +167,7 @@ const Searchbar = () => {
           justifyContent="center"
           gap={0}
           bgcolor={light ? "#e0e0e0" : "grey.400"}
-          marginLeft={isDesktop ? 0 : 3}
+          marginLeft={isDesktop ? 0 : 2}
           sx={{
             marginTop: isDesktop ? 0 : 2,
             marginBottom: isDesktop ? 0 : 1,
@@ -187,7 +186,10 @@ const Searchbar = () => {
               },
               display: "flex",
               alignItems: "center",
-              paddingX: 1,
+              paddingRight: {
+                sm:1,
+              },
+              
             }}
           >
             <Typography
@@ -199,6 +201,9 @@ const Searchbar = () => {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
+                pl:{
+                  xs:1
+                }
               }}
             >
               Hello,{user?.name}
@@ -207,8 +212,8 @@ const Searchbar = () => {
            Your account
          </Typography> */}
           </Box>
-          <Box display={"flex"} alignItems={"center"}>
-            <ExpandMoreIcon sx={{ color: "black" }} />
+          <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
+            <ExpandMoreIcon sx={{ color: "black" }} fontSize={isDesktop ? "inherit" :"small"}/>
           </Box>
         </Box>
         <Popover
@@ -224,8 +229,10 @@ const Searchbar = () => {
             vertical: "top",
             horizontal: "center",
           }}
+
+
         >
-          <List sx={{ width: isDesktop ? "120px" : "160px" }}>
+          <List sx={{ width: isDesktop ? "160px" : "160px" }}>
             {IntroMenu.map((menu) => (
               <Link to={`${menu.path}`} key={`${menu.id}`}>
                 <ListItem disablePadding>
