@@ -19,7 +19,7 @@ router
   .put(isAuthenticatedUser,bidCurrentUser)
 
 //temporary
-router.route("/deletewin").delete(deleteMany);
-router.route("/deletelost").delete(deleteManyLost);
+// router.route("/deletewin").delete(deleteMany);
+// router.route("/deletelost").delete(deleteManyLost);
 
 module.exports = router;
