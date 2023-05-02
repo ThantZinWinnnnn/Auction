@@ -6,34 +6,25 @@ const {
   createPost,
   deleteById,
   postById,
-  postByCategory,
   productByCategory,
   getAllPosts,
   queryProduct,
-  userCreateProduct,
-  deletePosts,
   getProductBySubCategory,
-  getAllProductsByUserId,
-  getAllUser,
   bidProductByUser,
-} = require("../../controllers/PostsController/poroduct.controller");
+  addWatchListProduct
+} = require("../../controllers/ProductControllers/poroduct.controller");
 const {
   detailTitles,
 } = require("../../controllers/detail.component.title.api/detail.title");
 const { isAuthenticatedUser } = require("../../middleware/AuthUser");
 
 router.route("/allProducts").get(getAllPosts);
-
-router.route("/subCategory").post( getProductBySubCategory);
-
 router.route("/queryProduct").get(isAuthenticatedUser,queryProduct);
+router.route("/subCategory").post( getProductBySubCategory);
 router.route("/category").post(isAuthenticatedUser, productByCategory);
-// router.route("/user").get(isAuthenticatedUser,getAllUser)
-
 router.route("/create").post(isAuthenticatedUser, createPost);
 router.route("/bid").put(isAuthenticatedUser, bidProductByUser);
-router.route("/delete").delete(deletePosts);
-
+router.route("/watchlist").post(isAuthenticatedUser, addWatchListProduct);
 router.route("/:productId").delete(deleteById);
 
 //temporary api

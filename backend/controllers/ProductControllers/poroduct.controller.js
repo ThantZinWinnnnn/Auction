@@ -9,7 +9,7 @@ exports.getAllPosts = async (req, res) => {
 //to combine two api to one api
 exports.getProductBySubCategory = async (req, res) => {
   try {
-    const {subCategory} = req.body;
+    const { subCategory } = req.body;
 
     const products = await prisma.product.findMany({
       where: {
@@ -49,27 +49,6 @@ exports.createPost = async (req, res) => {
 
   res.status(201).json(post);
 };
-
-// exports.userCreateProduct = async (req, res) => {
-//   try {
-//     const name = req.user.name;
-//     const { title, image, price, proCat } = req.body;
-
-//     const sellProduct = await prisma.product.create({
-//       data: {
-//         title,
-//         image,
-//         price,
-//         owner:name,
-//         category: proCat,
-//       },
-//     });
-
-//     res.status(201).json({ success: true, sellProduct });
-//   } catch (er) {
-//     res.status(400).json({ message: er.message });
-//   }
-// };
 
 exports.deletePosts = async (req, res) => {
   const post = await prisma.product.deleteMany();
@@ -190,22 +169,59 @@ exports.bidProductByUser = async (req, res) => {
   }
 };
 
-// exports.getAllProductsByUserId = async (req, res) => {
-//   try {
-//     const userId = req.user.id;
-//     console.log("id", userId);
+exports.addWatchListProduct = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { productId } = req.body;
 
-//     const products = await prisma.user.findUnique({
-//       where: {
-//         id: userId,
-//       },
-//       select: {
-//         sellerProducts: true,
-//       },
-//     });
+    const product = await prisma.watchListProduct.create({
+      data: {
+        userId: id,
+        productId,
+      },
+    });
 
-//     res.status(200).json(products);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+exports.getAllWatchListProducts = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const products = await prisma.watchListProduct.findMany({
+      where: {
+        userId: id,
+      },
+      select: {
+        product: true,
+      },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+
+  exports.getAllProductsByUserId = async (req, res) => {
+    try {
+      const userId = req.user.id;
+      console.log("id", userId);
+
+      const products = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          sellerProducts: true,
+        },
+      });
+
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+};
