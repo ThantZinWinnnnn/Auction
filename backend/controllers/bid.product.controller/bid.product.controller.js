@@ -202,3 +202,24 @@ exports.userLostProducts = async (req, res) => {
 
   res.status(200).json(products);
 };
+
+exports.userWatchListProducts = async(req,res)=>{
+
+  //change try catch
+  try {
+    const userId = req.user.id;
+
+    const products = await prisma.watchListProduct.findMany({
+      where:{
+        userId
+      },
+      select:{
+        product:true
+      }
+    })
+  
+    res.status(200).json(products)
+  } catch (error) {
+    res.status(400).json({message:error.message})
+  }
+}

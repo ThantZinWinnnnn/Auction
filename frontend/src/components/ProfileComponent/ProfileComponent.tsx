@@ -10,6 +10,7 @@ import WinLotProductPage from "./ProfilePages/WinLotProductPage";
 import LostLotProductPage from "./ProfilePages/LostLotProductPage";
 import { Title } from "../Utils/helmet/Title";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import WatchListProductsPage from "./ProfilePages/WatchListProductsPage";
 
 
 type Props = {};
@@ -31,6 +32,7 @@ const ProfileComponent = (props: Props) => {
          {location.pathname === '/user/create' && <CreateProduct light={light} />}
          {location.pathname === '/user/winProducts' && <WinLotProductPage/>}
          {location.pathname === '/user/lostProducts' && <LostLotProductPage/>}
+         {location.pathname === '/user/watchList' && <WatchListProductsPage/>}
           
       </Wrapper>  
     </>

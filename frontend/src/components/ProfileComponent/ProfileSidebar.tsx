@@ -45,6 +45,11 @@ const SidebarLists: Array<list> = [
     text: "Lost Lot Products",
     path: "/user/lostProducts",
   },
+  {
+    id:"6",
+    text:"Watch-List Products",
+    path:"/user/watchList"
+  }
 ];
 
 
@@ -84,7 +89,7 @@ const ProfileSidebar:React.FC = () => {
           sm:"30%"
         },
         height: {
-          lg:"340px",
+          lg:"380px",
           sm:"340px"
         },
       }}

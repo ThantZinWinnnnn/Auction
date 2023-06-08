@@ -5,7 +5,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SidebarLists from "../SidebarLists";
 
-const MobileLists = () => {
+const MobileLists:React.FC<sidebarProps> = ({func,checkValue}) => {
   const [open, setOpen] = useState(false)
   const categoryHandler = ()=>{
     setOpen(!open)
@@ -29,10 +29,16 @@ const MobileLists = () => {
         Refine results
       </Button>
       {open && (
-        <SidebarLists margin={-4}/>
+        <SidebarLists margin={-4} func={func} checkValue={checkValue}/>
       )}
     </>
   );
 };
 
 export default MobileLists;
+
+
+interface sidebarProps{
+  func:(event: React.ChangeEvent<HTMLInputElement>) => void,
+  checkValue:Array<string>
+}

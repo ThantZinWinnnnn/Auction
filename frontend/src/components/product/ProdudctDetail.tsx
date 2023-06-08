@@ -58,6 +58,8 @@ const ProdudctDetail: React.FC = () => {
   return (
     <>
       <Title title="Product Detail Page" />
+      <Box sx={{display:"flex",flexDirection:"column",minHeight:"100vh",justifyContent:"space-between"}}>
+      <Box>
       <Navbar />
       <Container maxWidth={is4kScreen ? "xl" : "lg"} sx={{ mt: 2 }}>
         <Box
@@ -310,7 +312,9 @@ const ProdudctDetail: React.FC = () => {
           <FeaturedLots2 products={sameCategoryPrdoucts} />
         )}
       </Container>
+      </Box>
       <Footer />
+      </Box>
     </>
   );
 };

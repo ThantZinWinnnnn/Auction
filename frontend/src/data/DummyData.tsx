@@ -148,6 +148,11 @@ export const IntroMenu: Array<category> = [
     name: "Lost Products",
     path: "/user/lostProducts",
   },
+  {
+    id:6,
+    name:"WatchList Products",
+    path:"/user/watchList"
+  }
 ];
 
 export const PrimaryCategories: Array<category> = [

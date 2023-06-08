@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { productAPI } from "../Utils/endpoins/axios";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import toast, { Toaster } from 'react-hot-toast';
 
 import {
   ResponseProduct,
@@ -27,6 +28,19 @@ import moment from "moment";
 
 import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import Toast from "../ProfileComponent/components/CreateProduct/Toast";
+import { AxiosError } from "axios";
+
+
+const notifyForFirstBid =()=> toast.error("OOPS! Your Price must be more than original Price",{style: {
+  borderRadius: '10px',
+  background: '#333',
+  color: '#fff',
+},})
+const notifyForAddWatchList =()=> toast.success("Successfully added to Watch List",{icon: "👏",style: {
+  borderRadius: '10px',
+  background: '#333',
+  color: '#fff',
+},})
 
 
 
@@ -35,7 +49,7 @@ const BidProduct = () => {
   const queryClient = useQueryClient();
   const { productId } = useParams();
   const [bidPrice, setBidPrice] = useState("");
-  const [open,setOpen] = useState<boolean>(true);
+  const [open,setOpen] = useState<boolean>(false);
   const theme = useTheme();
   const bidControl = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -43,7 +57,9 @@ const BidProduct = () => {
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light";
   const idforProduct = productId ?? "";
+  const [bidErrorMessage,setBidErrorMessage] = useState("");
 
+  const notify = () => toast.error(`${bidErrorMessage}`);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -76,15 +92,41 @@ const BidProduct = () => {
       console.log("bid", data?.data);
     },
     onError: (error) => {
-      console.log("error", error);
+      const errorMessage = error as AxiosError;
+      //console.log("error", errorMessage?.response?.data?.message);
+      setBidErrorMessage(errorMessage?.response?.data?.message);
+      notify();
+      setBidPrice("")
     },
   });
+
+  const {isLoading:loadingForAdding,mutate:addingWatchList} = useMutation(productAPI.addWatchListProduct,{
+    onSuccess:(data)=>{
+      notifyForAddWatchList();
+      console.log("data",data?.data)
+    },
+    onError:(error)=>{
+      const errorMessage = error as AxiosError;
+      //console.log("error", errorMessage?.response?.data?.message);
+      setBidErrorMessage(errorMessage?.response?.data?.message);
+      notify();
+      setBidPrice("")
+    }
+  })
+
+  const watchlistHandler = ()=>{
+    const data = {
+      productId:idforProduct
+    };
+    addingWatchList(data);
+  }
 
   const bidProductHandler = () => {
 
     const priceNumber = Number(bidPrice);
     if(product?.currentBidPrice === null && priceNumber < product?.price){
-      setOpen(true);
+      //setOpen(true);
+      notifyForFirstBid();
     }else{
       const data: BidProductByUser = {
         productId: idforProduct,
@@ -284,8 +326,8 @@ const BidProduct = () => {
                   },
                 }}
               >
-                <BidButton
-                  func={() => {}}
+                {loadingForAdding ? <ButtonLoading text="Adding to watchlist"/>: <BidButton
+                  func={watchlistHandler}
                   ButtonText="Add to watchlist"
                   icon={<FavoriteBorderIcon />}
                   padding={{
@@ -300,7 +342,7 @@ const BidProduct = () => {
                   }}
                   bgC={"#181818"}
                   hoverC={"grey.700"}
-                />
+                />}
                 <BidButton
                   func={() => {}}
                   ButtonText="Ask a question"
@@ -344,6 +386,7 @@ const BidProduct = () => {
             </Box>
           </Box>
         </Box>
+        <Toaster position="top-center" reverseOrder={true} />
         {/*time auction */}
       </Box>
     </>

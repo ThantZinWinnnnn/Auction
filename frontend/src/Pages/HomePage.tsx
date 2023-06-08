@@ -1,4 +1,10 @@
-import { Box, Container, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar";
 import Product from "../components/product/Product";
@@ -14,7 +20,8 @@ import { useState } from "react";
 import { HomePageProductsSkeleton } from "../components/Utils/LoadingIndicator/ProductListsLoading";
 import { Title } from "../components/Utils/helmet/Title";
 import { UpArrowFab } from "../components/Utils/Fab/UpArrowFab";
-
+import Scroll from "../components/Utils/Fab/UpArrow";
+import ScrollToTopFab from "../components/Utils/Fab/UpArrow";
 
 
 const HomePage = () => {
@@ -64,29 +71,50 @@ const HomePage = () => {
 
   return (
     <>
-      <Title title="Home Page | Auction"/>
+      <Title title="Home Page | Auction" />
 
-     <Navbar />
+      <Box sx={{display:"flex",flexDirection:"column",minHeight:"100vh",justifyContent:"space-between",}}>
+        <Box>
+          <Navbar />
 
-
-      <Container maxWidth={is4kScreen ? "xl" : mediumScreen ? "lg" : "md"}>
-        <Box
-          display={"flex"}
-          flexDirection={isDesktop ? "row" : "column"}
-          sx={{ gap: "2%", paddingTop: "2%" }}
-        >
-          {isDesktop ? <SidebarLists margin={0} func={checkHandler} checkValue={category}/> : <MobileLists />}
-          {isLoading ? <HomePageProductsSkeleton/>: <Products products={allProducts} loading={isLoading} />}
-         
+          <Container
+            maxWidth={is4kScreen ? "xl" : mediumScreen ? "lg" : "md"}
+            sx={{ mb: "auto" }}
+          >
+            <Box
+              display={"flex"}
+              flexDirection={isDesktop ? "row" : "column"}
+              sx={{ gap: "2%", paddingTop: "2%" }}
+            >
+              {isDesktop ? (
+                <SidebarLists
+                  margin={0}
+                  func={checkHandler}
+                  checkValue={category}
+                />
+              ) : (
+                <MobileLists func={checkHandler} checkValue={category}/>
+              )}
+              {isLoading ? (
+                <HomePageProductsSkeleton />
+              ) : (
+                <Products products={allProducts} loading={isLoading} />
+              )}
+            </Box>
+            <Box width={"10%"} pl={"auto"} ml={"auto"}>
+             <ScrollToTopFab/>
+              {/* <UpArrowFab /> */}
+              
+            </Box>
+            
+          </Container>
         </Box>
-        <Box width={"10%"} pl={'auto'} ml={"auto"}>
-        <UpArrowFab/>
-        </Box>
-      </Container>
-      
-      <Footer />
+        <Footer />
+      </Box>
     </>
   );
 };
 
 export default HomePage;
+
+

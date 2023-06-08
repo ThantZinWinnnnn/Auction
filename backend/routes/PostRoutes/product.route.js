@@ -21,7 +21,7 @@ const { isAuthenticatedUser } = require("../../middleware/AuthUser");
 router.route("/allProducts").get(getAllPosts);
 router.route("/queryProduct").get(isAuthenticatedUser,queryProduct);
 router.route("/subCategory").post( getProductBySubCategory);
-router.route("/category").post(isAuthenticatedUser, productByCategory);
+router.route("/category").post( productByCategory);
 router.route("/create").post(isAuthenticatedUser, createPost);
 router.route("/bid").put(isAuthenticatedUser, bidProductByUser);
 router.route("/watchlist").post(isAuthenticatedUser, addWatchListProduct);
