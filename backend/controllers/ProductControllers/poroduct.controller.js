@@ -73,12 +73,15 @@ exports.deleteById = async (req, res) => {
 exports.postById = async (req, res) => {
   const { productId } = req.params;
 
-  const post = await prisma.product.findUnique({
+  const product = await prisma.product.findUnique({
     where: {
       id: productId,
     },
+    include: {
+      watchListProducts: true,
+    },
   });
-  res.status(200).json(post);
+  res.status(200).json(product);
 };
 
 // exports.postByCategory = async (req, res) => {
@@ -181,7 +184,53 @@ exports.addWatchListProduct = async (req, res) => {
       },
     });
 
-    res.status(200).json(product);
+    console.log("addP",product)
+
+    res.status(200).json({ success: true, product });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+exports.removeWatchListProduct = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { productId } = req.body;
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        WatchListProduct: true,
+      },
+    });
+
+
+    console.log("user",user)
+    const removeWatchListProduct = user?.WatchListProduct?.find((p)=>p?.productId === productId)
+
+    console.log("RRR",removeWatchListProduct)
+
+    // const removedProduct = await prisma.user.update({
+    //   where:{
+    //     id,
+    //   },
+    //   data:{
+    //     WatchListProduct:{
+    //       disconnect:{
+    //         id:removeWatchListProduct?.id
+    //       }
+    //     }
+    //   }
+    // })
+
+    const removedProduct = await prisma.watchListProduct.delete({
+      where:{
+        id:removeWatchListProduct?.id
+      }
+    })
+
+    res.status(200).json({ success: false,removedProduct });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

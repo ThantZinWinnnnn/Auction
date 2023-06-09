@@ -11,7 +11,8 @@ const {
   queryProduct,
   getProductBySubCategory,
   bidProductByUser,
-  addWatchListProduct
+  addWatchListProduct,
+  removeWatchListProduct
 } = require("../../controllers/ProductControllers/poroduct.controller");
 const {
   detailTitles,
@@ -25,6 +26,7 @@ router.route("/category").post( productByCategory);
 router.route("/create").post(isAuthenticatedUser, createPost);
 router.route("/bid").put(isAuthenticatedUser, bidProductByUser);
 router.route("/watchlist").post(isAuthenticatedUser, addWatchListProduct);
+router.route("/removeWatchList").put(isAuthenticatedUser,removeWatchListProduct)
 router.route("/:productId").delete(deleteById);
 
 //temporary api
