@@ -59,6 +59,21 @@ interface category{
     name:string
 }
 
+export interface ProductWatchList {
+    id:string | undefined,
+    image:string,
+    owner:string,
+    price:number,
+    title:string,
+    createdAt:string,
+    updatedAt:string,
+    category:category,
+    subCategory:category,
+    currentBidPrice:string | null,
+    currentOwnerName:string | null,
+    productId?:string
+}
+
 export interface ResponseProduct {
     id:string | undefined,
     image:string,
@@ -71,6 +86,7 @@ export interface ResponseProduct {
     subCategory:category,
     currentBidPrice:string | null,
     currentOwnerName:string | null,
+    watchListProducts?:Array<ProductWatchList>
 }
 
 export interface BidProductByUser{
@@ -97,4 +113,9 @@ export interface UserProductsResponse{
 export interface ForgotPassword {
     email:string,
     newPass:string
+}
+
+export interface WatchListNotiType{
+    text:string,
+    bgC:string
 }

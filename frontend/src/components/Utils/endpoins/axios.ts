@@ -11,8 +11,8 @@ import {
   ForgotPassword
 } from "../apiTypes/apiTypes";
 
-const BASE_URL = "https://auction-backend-nb7b.onrender.com/api";
-// const BASE_URL = "http://localhost:3000/api"
+//const BASE_URL = "https://auction-backend-nb7b.onrender.com/api";
+ const BASE_URL = "http://localhost:3000/api"
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -65,6 +65,7 @@ const productAPI = {
   firstBidProduct:(productData:BidProductByUser)=>
     axiosInstance.put(`/products/bid`,productData),
   addWatchListProduct:(data:any)=>axiosInstance.post(`/products/watchList`,data),
+  removeWatchListProduct:(data:any)=> axiosInstance.put('/products/removeWatchList',data),
 
   //detail api
   getProductByCategory: (category: JSON | undefined) =>

@@ -10,6 +10,7 @@ import {
   Skeleton
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import BidButton from "./Components/BidButton";
 import BidDetailTypo from "./Components/BidDetailTypo";
@@ -23,6 +24,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import {
   ResponseProduct,
   BidProductByUser,
+  WatchListNotiType,
 } from "../Utils/apiTypes/apiTypes";
 import moment from "moment";
 
@@ -36,11 +38,14 @@ const notifyForFirstBid =()=> toast.error("OOPS! Your Price must be more than or
   background: '#333',
   color: '#fff',
 },})
-const notifyForAddWatchList =()=> toast.success("Successfully added to Watch List",{icon: "👏",style: {
+
+const notifyForAddWatchList =({text,bgC}:WatchListNotiType)=> toast.success(`${text}`,{icon: "👏",style: {
   borderRadius: '10px',
-  background: '#333',
+  background: `${bgC}`,
   color: '#fff',
 },})
+
+
 
 
 
@@ -76,10 +81,17 @@ const BidProduct = () => {
   });
 
   const product: ResponseProduct = data?.data;
+  const watchList = product?.watchListProducts?.find((p)=> p?.productId === productId)
+
+  console.log("Watcfff",watchList)
+
+  console.log("watchlist",watchList?.productId);
+  let checkWatchLIst = watchList?.productId === productId  ? true : false
+  console.log("check",checkWatchLIst)
 
    console.log("product", product?.currentBidPrice);
 
-  const owner = product?.currentOwnerName;
+  const owner = product?.currentOwnerName; 
 
   const {
     isLoading: bidding,
@@ -100,10 +112,14 @@ const BidProduct = () => {
     },
   });
 
-  const {isLoading:loadingForAdding,mutate:addingWatchList} = useMutation(productAPI.addWatchListProduct,{
+  const {isLoading:loadingForAdding,mutate:WatchList} = useMutation(!checkWatchLIst ? productAPI.addWatchListProduct: productAPI.removeWatchListProduct,{
     onSuccess:(data)=>{
-      notifyForAddWatchList();
-      console.log("data",data?.data)
+      
+      console.log("listData",data?.data?.success)
+      let success = data?.data?.success;
+      notifyForAddWatchList({text:success ? "Successfully added to Watch List" : "Successfully removed from Watch List",bgC:success ? "#388e3c" : "#d32f2f"});
+      queryClient.invalidateQueries(["bidProduct"]);
+      
     },
     onError:(error)=>{
       const errorMessage = error as AxiosError;
@@ -118,7 +134,7 @@ const BidProduct = () => {
     const data = {
       productId:idforProduct
     };
-    addingWatchList(data);
+    WatchList(data);
   }
 
   const bidProductHandler = () => {
@@ -326,10 +342,10 @@ const BidProduct = () => {
                   },
                 }}
               >
-                {loadingForAdding ? <ButtonLoading text="Adding to watchlist"/>: <BidButton
+                {loadingForAdding ? <ButtonLoading text={checkWatchLIst ? "Removing from watchlist" : "Adding to watchlist"}/>: <BidButton
                   func={watchlistHandler}
                   ButtonText="Add to watchlist"
-                  icon={<FavoriteBorderIcon />}
+                  icon={checkWatchLIst ? <FavoriteIcon/>:<FavoriteBorderIcon />}
                   padding={{
                     xs: 1.8,
                     sm: 1.5,

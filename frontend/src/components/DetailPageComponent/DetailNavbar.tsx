@@ -231,7 +231,7 @@ const DetailNavbar = () => {
                 <Button disableElevation disableRipple onClick={()=> navigate(`${list.path}`)} sx={{textTransform:"none"}}>
                   <ListItemText
                     primary={
-                      <Typography fontSize={lowSm ? 12 : 14} color={light ? "black" : "white"} sx={{textTransform:"none"}}>
+                      <Typography fontSize={lowSm ? 10 : 14} color={light ? "black" : "white"} sx={{textTransform:"none"}}>
                         {list.name}
                       </Typography>
                     }

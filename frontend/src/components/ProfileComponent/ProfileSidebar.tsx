@@ -89,8 +89,9 @@ const ProfileSidebar:React.FC = () => {
           sm:"30%"
         },
         height: {
-          lg:"380px",
-          sm:"340px"
+          xl:"380px",
+          lg:"400px",
+          sm:"380px"
         },
       }}
     >

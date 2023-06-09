@@ -580,5 +580,9 @@ export const mobileLists: Array<lists> = [
     id:"13",
     name:"Seller Products",
     path:"/user/sellProducts"
+  },{
+    id:"14",
+    name:"WatchList Products",
+    path:"/user/watchList"
   }
 ];
