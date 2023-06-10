@@ -15,10 +15,42 @@ import { UserProductsResponse } from "../../../../Utils/apiTypes/apiTypes";
 import ProductInfo from "../../CreateProduct/ProductInfo";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../Utils/ThemeContext/ThemeContext";
+import { motion } from "framer-motion";
 
 interface userProductsProps {
   products: Array<UserProductsResponse>;
 }
+
+const productContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.4,
+      type:"spring",
+      ease: "easeInOut",
+    },
+  },
+};
+
+
+const productItem = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.4,
+      type: "spring",
+      ease: "easeInOut",
+    },
+  },
+};
 
 const Products: React.FC<userProductsProps> = ({ products }) => {
   const navigate = useNavigate();
@@ -37,6 +69,10 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
 
   return (
     <Box
+      component={motion.div}
+      initial="hidden"
+      animate="visible"
+      variants={productContainer}
       width={Mobile ? "100%" : mediumScreen ? "90%" : "80%"}
       p={Mobile ? 2 : 0}
       mx={"auto"}
@@ -48,6 +84,8 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
         {products?.map((p: UserProductsResponse) => (
           <Grid item lg={3} md={4} sm={6} xs={12} key={p?.id}>
             <Paper
+              component={motion.div}
+              variants={productItem}
               key={p?.id}
               sx={{
                 boxShadow:

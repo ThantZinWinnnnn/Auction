@@ -306,7 +306,7 @@ const ProdudctDetail: React.FC = () => {
           </Box>
         </Box>
         <Divider />
-        {status === "loading" ? (
+        {isLoading || status === "loading" ? (
           <ProductCategoryLoading />
         ) : (
           <FeaturedLots2 products={sameCategoryPrdoucts} />

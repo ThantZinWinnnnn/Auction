@@ -11,6 +11,35 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { motion } from "framer-motion";
+
+const navContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const navItem = {
+  hidden: { opacity: 0, y: -20 },
+  visible:{
+    opacity: 1,
+    y: 0,
+    transition:{
+      type:"spring",
+      duration:1.2
+    }
+  }
+};
+
+const icon={
+  hidden:{opacity:0},
+  visible:{opacity:1,transition:{duration:1.2}}
+}
 
 const Footer = () => {
   const theme = useTheme();
@@ -36,8 +65,9 @@ const Footer = () => {
             flexDirection={Mobile ? "column" : "row"}
             mb={Mobile ? 1 : 0}
           >
-            <Box>
-              <Link to={"/singup"}>
+            <Box component={motion.div} variants={navContainer} initial="hidden" whileInView="visible"
+     viewport={{ once: true }}>
+              <Link to={"/user/profile"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -48,12 +78,13 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 1 : 3}
-                  component={"p"}
+                  component={motion.p}
+                  variants={navItem}
                 >
                   Account Setting
                 </Typography>
               </Link>
-              <Link to={"/bid"}>
+              <Link to={"/user/sellProducts"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -64,14 +95,16 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 1 : 0}
-                  component={"p"}
+                  component={motion.p}
+                  variants={navItem}
                 >
-                  Bidding
+                  Selling Products
                 </Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to={"/selling"}>
+            <Box component={motion.div} variants={navContainer} initial="hidden" whileInView="visible"
+      viewport={{ once: true }}>
+              <Link to={"/user/create"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -82,12 +115,13 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 1 : 3}
-                  component={"p"}
+                  component={motion.p} 
+                  variants={navItem}
                 >
                   Selling
                 </Typography>
               </Link>
-              <Link to={"/auctions"}>
+              {/* <Link to={"/"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -98,14 +132,16 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 1 : 0}
-                  component={"p"}
+                  component={motion.p}
+                  variants={navItem}
                 >
                   Online Auctions
                 </Typography>
-              </Link>
+              </Link> */}
             </Box>
-            <Box>
-              <Link to={"/order"}>
+            <Box component={motion.div} variants={navContainer} initial="hidden" whileInView="visible"
+      viewport={{ once: true }}>
+              <Link to={"/user/watchList"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -116,12 +152,13 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 1 : 3}
-                  component={"p"}
+                  component={motion.p}
+                  variants={navItem}
                 >
                   Favourite Products
                 </Typography>
               </Link>
-              <Link to={"/contact"}>
+              {/* <Link to={"/contact"}>
                 <Typography
                   sx={{
                     "&:hover": {
@@ -132,14 +169,17 @@ const Footer = () => {
                   variant={"caption"}
                   fontWeight={"bold"}
                   mb={Mobile ? 4 : 0}
-                  component={"p"}
+                  component={motion.p}
+                  variants={navItem}
                 >
                   Contact Us
                 </Typography>
-              </Link>
+              </Link> */}
             </Box>
           </Box>
           <Box
+          component={motion.div} variants={navContainer} initial="hidden" whileInView="visible"
+          viewport={{ once: true }}
             width={Mobile ? "70%" : "30%"}
             display="flex"
             justifyContent={Mobile ? "space-between" : "space-evenly"}
@@ -177,6 +217,8 @@ const Footer = () => {
         </Box>
         <Divider sx={{ bgcolor: "white" }} variant="fullWidth" light={true} />
         <Box
+        component={motion.div} variants={icon} initial="hidden" whileInView="visible"
+        viewport={{ once: true }}
           width={Mobile ? "60%" : "70%"}
           mx="auto"
           display={"flex"}
@@ -187,8 +229,8 @@ const Footer = () => {
           mb={Mobile ? 4 : 4}
           textAlign={'center'}
         >
-          <Typography variant="body2">Terms & Conditions</Typography>
-          <Typography variant="body2">Privacy & Cookie Policy</Typography>
+          <Typography variant="body2" component={motion.p} variants={navItem}>Terms & Conditions</Typography>
+          <Typography variant="body2" component={motion.p} variants={navItem}>Privacy & Cookie Policy</Typography>
         </Box>
         <Typography variant="caption" fontWeight={"medium"}>@Thant Zin Win 2023</Typography>
       </Container>

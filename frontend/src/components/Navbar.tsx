@@ -31,6 +31,36 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ProfileTooltip from "./Tooltip/ProfileTooltip";
 import { PrimaryCategories, mobileLists } from "../data/DummyData";
 import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
+import { motion } from "framer-motion";
+
+const listContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const list = {
+  hidden:{
+    opacity:0,
+    y:5
+  },
+  visible:{
+    opacity:1,
+    y:0,
+    transition:{
+      duration:0.5,
+      type:"spring",
+      ease:"easeInOut"
+    }
+  }
+}
 
 const Navbar = () => {
   const { themeMode, handleThemeToggle } = useContext(ThemeContext);
@@ -177,14 +207,15 @@ const Navbar = () => {
                     horizontal: "center",
                   }}
                 >
-                  <List sx={{ width: "200px" }}>
+                  <List sx={{ width: "200px" }} component={motion.li} variants={listContainer} initial="hidden" whileInView="visible">
                     {PrimaryCategories.map((option) => (
                       <Box key={`${option.id}`}>
                         <Link to={`${option.path}`}>
                           <ListItem disablePadding>
                             <ListItemButton disableRipple>
                               <ListItemText
-                                primary={option.name}
+                                primary={<Typography component={motion.p} 
+                                variants={list}>{option.name}</Typography>}
                                 sx={{
                                   color: light ? "black" : "white",
                                   "&:hover": {

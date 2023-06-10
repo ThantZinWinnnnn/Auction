@@ -14,15 +14,48 @@ import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
 import { useContext } from "react";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { motion ,AnimatePresence} from "framer-motion";
 
-interface realatedProductsProps{
-  products :Array<ResponseProduct>
+const productContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.4,
+      type:"spring",
+      ease: "easeInOut",
+    },
+  },
+};
+
+
+const productItem = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.4,
+      type: "spring",
+      ease: "easeInOut",
+    },
+  },
+};
+
+
+interface realatedProductsProps {
+  products: Array<ResponseProduct>;
 }
 
-const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
-  const navigate = useNavigate()
+const FeaturedLots2: React.FC<realatedProductsProps> = ({ products }) => {
+  const navigate = useNavigate();
   const { themeMode } = useContext(ThemeContext);
-  const light = themeMode === "light"
+  const light = themeMode === "light";
 
   return (
     <>
@@ -31,70 +64,103 @@ const FeaturedLots2:React.FC<realatedProductsProps> = ({products}) => {
         fontWeight={"bold"}
         component={"div"}
         sx={{
-          fontSize:{
-            xs:"1.2rem"
-          }
+          fontSize: {
+            xs: "1.2rem",
+          },
         }}
         my={5}
       >
         Featured Lots
       </Typography>
-      <Grid container spacing={4}  mb={5}>
+      <Grid container spacing={4} mb={5} component={motion.div}
+            variants={productContainer}
+            initial="hidden"
+            animate="visible">
         {products?.map((product) => (
-          <Grid item xs={12} sm={4} md={3} xl={2} key={`${product.id}`}>
-            <Paper  key={product?.id}
+          <Grid item xs={12} sm={4} md={3} xl={2} key={`${product.id}`}
+            
+          >
+            <AnimatePresence>
+            <Paper
+              key={product?.id}
+              component={motion.div}
+              variants={productItem}
+              exit={{opacity:0,y:60}}
               sx={{
                 boxShadow:
                   "rgb(0 0 0 / 4%) 0px 5px 22px, rgb(0 0 0 / 3%) 0px 0px 0px 0.5px",
                 overflow: "hidden",
-              }}>
-            <Card key={`${product.id}`} sx={{height:{
-              xs:"300px",
-              sm:"260px",
-              md:"290px",
-            },
-            }}>
-              <Button sx={{width:"100%", height: "70%",p:0 }} onClick={()=> navigate(`/products/${product?.id}`)} disableElevation disableRipple>
-              <CardMedia
-                sx={{width:"100%", height: "100%"}}
-                image={`${product?.image}`}
-                title={`${product?.title}`}
-              />
-               </Button>
-              <Divider sx={{ mb: 0.4 }} />
-             
-              <CardContent sx={{
-                px:{
-                    md:1,
-                    lg:3
-                }
-              }}>
-                <Typography
-                  variant="body2"
-                  component={"div"}
-                  mb={1}
-                  color="primary.light"
-                  sx={{fontSize:{
-                    xs:"0.8rem",
-                    xl:"0.875rem",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}}
+              }}
+            >
+              <Card
+                key={`${product.id}`}
+                sx={{
+                  height: {
+                    xs: "300px",
+                    sm: "260px",
+                    md: "290px",
+                  },
+                }}
+              >
+                <Button
+                  sx={{ width: "100%", height: "70%", p: 0 }}
+                  onClick={() => navigate(`/products/${product?.id}`)}
+                  disableElevation
+                  disableRipple
                 >
-                  {product?.title}
-                </Typography>
-                <Typography  component={"div"} sx={{
-                  fontSize:{
-                    xs:"0.8rem",
-                    xl:"0.75rem"
-                  }
-                }}>
-                  {new Intl.NumberFormat('en-Us',{style:'currency',currency:'MMK'}).format(product?.price).replace(/(\d+)\.(\d+)/, '$1,$2 MMK')}
-                </Typography>
-              </CardContent>
-            </Card>
+                  <CardMedia
+                    sx={{ width: "100%", height: "100%" }}
+                    image={`${product?.image}`}
+                    title={`${product?.title}`}
+                  />
+                </Button>
+                <Divider sx={{ mb: 0.4 }} />
+
+                <CardContent
+                  sx={{
+                    px: {
+                      md: 1,
+                      lg: 3,
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    component={"div"}
+                    mb={1}
+                    color="primary.light"
+                    sx={{
+                      fontSize: {
+                        xs: "0.8rem",
+                        xl: "0.875rem",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      },
+                    }}
+                  >
+                    {product?.title}
+                  </Typography>
+                  <Typography
+                    component={"div"}
+                    sx={{
+                      fontSize: {
+                        xs: "0.8rem",
+                        xl: "0.75rem",
+                      },
+                    }}
+                  >
+                    {new Intl.NumberFormat("en-Us", {
+                      style: "currency",
+                      currency: "MMK",
+                    })
+                      .format(product?.price)
+                      .replace(/(\d+)\.(\d+)/, "$1,$2 MMK")}
+                  </Typography>
+                </CardContent>
+              </Card>
             </Paper>
+            </AnimatePresence>
           </Grid>
         ))}
       </Grid>

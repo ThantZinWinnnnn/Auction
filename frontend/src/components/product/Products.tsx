@@ -3,14 +3,26 @@ import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
 import Product from "./Product";
 import BidButton from "../BiddingComponent/Components/BidButton";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
-interface prodcutsProps {
-  products: Array<ResponseProduct>;
-  loading?: boolean;
-}
+const productContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.4,
+      type:"spring",
+      ease: "easeInOut",
+    },
+  },
+};
+
+
 
 const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   if (products.length == 0) {
     return (
       <Box
@@ -30,39 +42,25 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
         >
           No Product Found Related From Searching
         </Typography>
-        {/* <BidButton disabled={loading}  padding={{
-              sm: 0.4,
-              md:0.4,
-              lg:1
-            }}
-            bgC={ "warning.dark"}
-            fontS={{
-              xs:12,
-              sm: 14,
-              md:16
-            }}
-            hoverC={"warning.main"}
-            ButtonText="Go Back"
-            func={()=>{}}/> */}
         <Button
-        disableElevation
-        disableRipple
-        onClick={()=> navigate(-1)}
+          disableElevation
+          disableRipple
+          onClick={() => navigate(-1)}
           sx={{
             textTransform: "none",
             bgcolor: "warning.dark",
-            width:{
-              xs:"40%",
-              sm:"20%",
-              xl:"14%"
+            width: {
+              xs: "40%",
+              sm: "20%",
+              xl: "14%",
             },
             "&:hover": { bgcolor: "warning.main" },
-            p:{
+            p: {
               sm: 0.6,
-              md:0.8,
-              lg:1
+              md: 0.8,
+              lg: 1,
             },
-            color:"white"
+            color: "white",
           }}
           variant="contained"
         >
@@ -75,9 +73,26 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
 
   return (
     <>
-      <Box display={"flex"} flexDirection={"column"} width={"100%"} height={"100%"} gap={4}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        width={"100%"}
+        height={"100%"}
+        gap={4}
+        component={motion.div} 
+        initial="hidden"
+        animate="visible"
+        variants={productContainer}
+      >
         {products?.map((product) => (
-          <Product product={product} key={`${product?.id}`} loading={loading} />
+          <AnimatePresence>
+            <Product
+              
+              product={product}
+              key={`${product?.id}`}
+              loading={loading}
+            />
+          </AnimatePresence>
         ))}
       </Box>
     </>
@@ -85,3 +100,8 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
 };
 
 export default Products;
+
+interface prodcutsProps {
+  products: Array<ResponseProduct>;
+  loading?: boolean;
+}

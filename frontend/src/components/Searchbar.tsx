@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion} from "framer-motion"
 import {
   OutlinedInput,
   Box,
@@ -23,6 +24,35 @@ import { ProfileUserProps } from "./Utils/apiTypes/apiTypes";
 import BidButton from "./BiddingComponent/Components/BidButton";
 import { IntroMenu } from "../data/DummyData";
 import { ThemeContext } from "./Utils/ThemeContext/ThemeContext";
+
+const listContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const list = {
+  hidden:{
+    opacity:0,
+    y:5
+  },
+  visible:{
+    opacity:1,
+    y:0,
+    transition:{
+      duration:0.5,
+      type:"spring",
+      ease:"easeInOut"
+    }
+  }
+}
 
 const Searchbar = () => {
   const { themeMode } = useContext(ThemeContext);
@@ -232,7 +262,7 @@ const Searchbar = () => {
 
 
         >
-          <List sx={{ width: isDesktop ? "160px" : "160px" }}>
+          <List sx={{ width: isDesktop ? "160px" : "160px" }} component={motion.li} variants={listContainer} initial="hidden" whileInView="visible">
             {IntroMenu.map((menu) => (
               <Link to={`${menu.path}`} key={`${menu.id}`}>
                 <ListItem disablePadding>
@@ -240,6 +270,8 @@ const Searchbar = () => {
                     <ListItemText
                       primary={
                         <Typography
+                          component={motion.p} 
+                          variants={list}
                           color={light ? "black" : "white"}
                           sx={{ fontSize: 12, textAlign: "center" }}
                         >

@@ -12,11 +12,25 @@ import { Link } from "react-router-dom";
 import { ResponseProduct } from "../Utils/apiTypes/apiTypes";
 import moment from "moment";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
+import { motion } from "framer-motion";
 
-interface productProp {
-  product: ResponseProduct;
-  loading?:boolean
-}
+
+
+const productItem = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.4,
+      type: "spring",
+      ease: "easeInOut",
+    },
+  },
+};
 
 const Product: React.FC<productProp> = ({ product ,loading}) => {
   const theme = useTheme();
@@ -27,6 +41,10 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
 
   return (
     <Box
+      key={product?.id}
+      component={motion.div}
+      variants={productItem}
+      exit={{opacity:0}}
       display={"flex"}
       flexDirection={isDesktop ? "row" : "column"}
       width={"100%"}
@@ -157,3 +175,8 @@ const Product: React.FC<productProp> = ({ product ,loading}) => {
 };
 
 export default Product;
+
+interface productProp {
+  product: ResponseProduct;
+  loading?:boolean
+}

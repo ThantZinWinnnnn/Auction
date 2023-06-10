@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import {motion} from "framer-motion"
+
 import { useState } from "react";
 import {
   AppBar,
@@ -25,11 +25,11 @@ import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DetailSearchbar from "./DetailSearbar";
-import { PrimaryCategories,mobileLists } from "../../data/DummyData";
+import { PrimaryCategories, mobileLists } from "../../data/DummyData";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 interface DropdownProps {
   options: string[];
@@ -38,7 +38,7 @@ interface DropdownProps {
 
 
 const DetailNavbar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { themeMode, handleThemeToggle } = useContext(ThemeContext);
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
@@ -48,7 +48,7 @@ const DetailNavbar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [showAppBar, setShowAppBar] = useState(true);
 
-  const light = themeMode === "light"
+  const light = themeMode === "light";
 
   const closeDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -75,185 +75,212 @@ const DetailNavbar = () => {
 
   const open = Boolean(anchorEl);
   return (
-   <Slide direction="down" in={showAppBar}>
-     <AppBar
-      sx={{ bgcolor:light ? "inherit" : "#1B2938", color: light ? "black" : "white", px: is4k ? "2%" : "" }}
-      position="static"
-      elevation={1}
-    >
-      <Toolbar
-        disableGutters
+    <Slide direction="down" in={showAppBar}>
+      <AppBar
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          px: lowSm ? 3 : "",
+          bgcolor: light ? "inherit" : "#1B2938",
+          color: light ? "black" : "white",
+          px: is4k ? "2%" : "",
         }}
+        position="static"
+        elevation={1}
       >
-        <Box>
-          <Link to={"/"}>
-            <Box
-              sx={{
-                width: {
-                  xs: "100px",
-                  sm: "110px",
-                  md: "100px",
-                  lg: "90px",
-                },
-                height: {
-                  xs: "100px",
-                  sm: "110px",
-                  md: "100px",
-                  lg: "90px",
-                },
-                pr:{
-                  xs:3,
-                  sm:2
-                },
-                pt:{
-                  xs:2
-                }
-              }}
-              overflow="hidden"
-              component="div"
-            >
-              <img
-                src={light ? "/whiteLogo.svg" : "/Logo.svg"}
-                alt="logo"
-              />
-            </Box>
-          </Link>
-        </Box>
-        {!lowSm && <DetailSearchbar light={light} />}
-        {/*Deskto Nav */}
-        {isNonMobileScreen && (
-          <Box
-            display={"flex"}
-            alignItems="center"
-            justifyContent={"center"}
-            gap={{
-              md: 1,
-              lg: 6,
-              xl: 8,
-            }}
-            paddingRight={{ md: 3, lg: 4, xl: 6 }}
-          >
-            <Link to={"/"}>
-              <Typography color={light ? "black" : "white"}>Auctions</Typography>
-            </Link>
-            <Box
-              aria-owns={open ? "mouse-over-popover" : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handleOpen}
-              onMouseLeave={handleClose}
-            >
-              <Button
-                sx={{ textTransform: "none", color :light ? "black" : "white"}}
-                endIcon={<ExpandMoreIcon />}
-              >
-                Auctions Categories
-              </Button>
-
-              <Popover
-                open={open}
-                id="mouse-over-popover"
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-              >
-                <List sx={{ width: "200px" }}>
-                  {PrimaryCategories.map((option) => (
-                   <Box  key={`${option.id}`}>
-                     <Link to={`${option.path}`}>
-                      <ListItem disablePadding sx={{
-                          "&:hover":{
-                            bgcolor:"warning.main",
-                          }
-                        }}>
-                        <ListItemButton disableRipple>
-                          <ListItemText
-                            sx={{ color: light ? "black" : "white" ,"&:hover":{color:"white"}}}
-                            primary={option.name}
-                          />
-                        </ListItemButton>
-                      </ListItem>
-                    </Link>
-                   </Box>
-                  ))}
-                </List>
-              </Popover>
-            </Box>
-            <IconButton color="inherit" onClick={handleThemeToggle}>
-              {themeMode === "light" ? <DarkModeOutlinedIcon/> : <LightModeIcon sx={{color:"white"}}/>}
-            </IconButton>
-          </Box>
-        )}
-
-        {/*Mobile Navigation */}
-
-        {!isNonMobileScreen && (
-          <IconButton onClick={closeDrawer} sx={{ mb: 1.2 }}>
-            <MenuIcon fontSize={"large"} />
-          </IconButton>
-        )}
-      </Toolbar>
-      {lowSm && <DetailSearchbar light={light} />}
-      <SwipeableDrawer
-        open={openDrawer}
-        onOpen={() => {}}
-        onClose={closeDrawer}
-      >
-        <List
-          disablePadding
+        <Toolbar
+          disableGutters
           sx={{
-            width: {
-              xs: 150,
-              sm: 250,
-            },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            px: lowSm ? 3 : "",
           }}
         >
-          {mobileLists.map((list) => (
-              <Box key={list.id}>
-              <ListItem
-                
+          <Box>
+            <Link to={"/"}>
+              <Box
                 sx={{
-                  "&:hover": {
-                    bgcolor: "#e0e0e0",
+                  width: {
+                    xs: "100px",
+                    sm: "110px",
+                    md: "100px",
+                    lg: "90px",
+                  },
+                  height: {
+                    xs: "100px",
+                    sm: "110px",
+                    md: "100px",
+                    lg: "90px",
+                  },
+                  pr: {
+                    xs: 3,
+                    sm: 2,
+                  },
+                  pt: {
+                    xs: 2,
                   },
                 }}
+                overflow="hidden"
+                component="div"
               >
-                <Button disableElevation disableRipple onClick={()=> navigate(`${list.path}`)} sx={{textTransform:"none"}}>
-                  <ListItemText
-                    primary={
-                      <Typography fontSize={lowSm ? 10 : 14} color={light ? "black" : "white"} sx={{textTransform:"none"}}>
-                        {list.name}
-                      </Typography>
-                    }
-                  />
-                </Button>
-              </ListItem>
-              <Divider />
-              
+                <img src={light ? "/whiteLogo.svg" : "/Logo.svg"} alt="logo" />
               </Box>
-          ))}
-          <ListItemButton sx={{display:'flex',gap:0.6,alignItems:"center"}} onClick={handleThemeToggle}>
-            {themeMode === "light" ? (
-              <DarkModeIcon fontSize="small" />
-            ) : (
-              <DarkModeOutlinedIcon />
-            )}{`${themeMode}`} Mode
-          </ListItemButton>
-        </List>
-      </SwipeableDrawer>
-    </AppBar>
-   </Slide>
+            </Link>
+          </Box>
+          {!lowSm && <DetailSearchbar light={light} />}
+          {/*Deskto Nav */}
+          {isNonMobileScreen && (
+            <Box
+              display={"flex"}
+              alignItems="center"
+              justifyContent={"center"}
+              gap={{
+                md: 1,
+                lg: 6,
+                xl: 8,
+              }}
+              paddingRight={{ md: 3, lg: 4, xl: 6 }}
+            >
+              <Link to={"/"}>
+                <Typography color={light ? "black" : "white"}>
+                  Auctions
+                </Typography>
+              </Link>
+              <Box
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"
+                onMouseEnter={handleOpen}
+                onMouseLeave={handleClose}
+              >
+                <Button
+                  sx={{
+                    textTransform: "none",
+                    color: light ? "black" : "white",
+                  }}
+                  endIcon={<ExpandMoreIcon />}
+                >
+                  Auctions Categories
+                </Button>
+
+                <Popover
+                  open={open}
+                  id="mouse-over-popover"
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <List sx={{ width: "200px" }}>
+                    {PrimaryCategories.map((option) => (
+                      <Box key={`${option.id}`}>
+                        <Link to={`${option.path}`}>
+                          <ListItem
+                            disablePadding
+                            sx={{
+                              "&:hover": {
+                                bgcolor: "warning.main",
+                              },
+                            }}
+                          >
+                            <ListItemButton disableRipple>
+                              <ListItemText
+                                sx={{
+                                  color: light ? "black" : "white",
+                                  "&:hover": { color: "white" },
+                                }}
+                                primary={option.name}
+                              />
+                            </ListItemButton>
+                          </ListItem>
+                        </Link>
+                      </Box>
+                    ))}
+                  </List>
+                </Popover>
+              </Box>
+              <IconButton color="inherit" onClick={handleThemeToggle}>
+                {themeMode === "light" ? (
+                  <DarkModeOutlinedIcon />
+                ) : (
+                  <LightModeIcon sx={{ color: "white" }} />
+                )}
+              </IconButton>
+            </Box>
+          )}
+
+          {/*Mobile Navigation */}
+
+          {!isNonMobileScreen && (
+            <IconButton onClick={closeDrawer} sx={{ mb: 1.2 }}>
+              <MenuIcon fontSize={"large"} />
+            </IconButton>
+          )}
+        </Toolbar>
+        {lowSm && <DetailSearchbar light={light} />}
+        <SwipeableDrawer
+          open={openDrawer}
+          onOpen={() => {}}
+          onClose={closeDrawer}
+        >
+          <List
+            disablePadding
+            sx={{
+              width: {
+                xs: 150,
+                sm: 250,
+              },
+            }}
+          >
+            {mobileLists.map((list) => (
+              <Box key={list.id}>
+                <ListItem
+                  sx={{
+                    "&:hover": {
+                      bgcolor: "#e0e0e0",
+                    },
+                  }}
+                >
+                  <Button
+                    disableElevation
+                    disableRipple
+                    onClick={() => navigate(`${list.path}`)}
+                    sx={{ textTransform: "none" }}
+                  >
+                    <ListItemText
+                      primary={
+                        <Typography
+                          fontSize={lowSm ? 10 : 14}
+                          color={light ? "black" : "white"}
+                          sx={{ textTransform: "none" }}
+                        >
+                          {list.name}
+                        </Typography>
+                      }
+                    />
+                  </Button>
+                </ListItem>
+                <Divider />
+              </Box>
+            ))}
+            <ListItemButton
+              sx={{ display: "flex", gap: 0.6, alignItems: "center" }}
+              onClick={handleThemeToggle}
+            >
+              {themeMode === "light" ? (
+                <DarkModeIcon fontSize="small" />
+              ) : (
+                <DarkModeOutlinedIcon />
+              )}
+              {`${themeMode}`} Mode
+            </ListItemButton>
+          </List>
+        </SwipeableDrawer>
+      </AppBar>
+    </Slide>
   );
 };
 

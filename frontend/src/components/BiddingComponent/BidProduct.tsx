@@ -7,10 +7,10 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-  Skeleton
+  Skeleton,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import BidButton from "./Components/BidButton";
 import BidDetailTypo from "./Components/BidDetailTypo";
@@ -19,7 +19,8 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { productAPI } from "../Utils/endpoins/axios";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 import {
   ResponseProduct,
@@ -32,29 +33,30 @@ import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import Toast from "../ProfileComponent/components/CreateProduct/Toast";
 import { AxiosError } from "axios";
 
+const notifyForFirstBid = () =>
+  toast.error("OOPS! Your Price must be more than original Price", {
+    style: {
+      borderRadius: "10px",
+      background: "#333",
+      color: "#fff",
+    },
+  });
 
-const notifyForFirstBid =()=> toast.error("OOPS! Your Price must be more than original Price",{style: {
-  borderRadius: '10px',
-  background: '#333',
-  color: '#fff',
-},})
-
-const notifyForAddWatchList =({text,bgC}:WatchListNotiType)=> toast.success(`${text}`,{icon: "👏",style: {
-  borderRadius: '10px',
-  background: `${bgC}`,
-  color: '#fff',
-},})
-
-
-
-
+const notifyForAddWatchList = ({ text, bgC }: WatchListNotiType) =>
+  toast.success(`${text}`, {
+    icon: "👏",
+    style: {
+      borderRadius: "10px",
+      background: `${bgC}`,
+      color: "#fff",
+    },
+  });
 
 const BidProduct = () => {
-
   const queryClient = useQueryClient();
   const { productId } = useParams();
   const [bidPrice, setBidPrice] = useState("");
-  const [open,setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const theme = useTheme();
   const bidControl = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -62,12 +64,15 @@ const BidProduct = () => {
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light";
   const idforProduct = productId ?? "";
-  const [bidErrorMessage,setBidErrorMessage] = useState("");
+  const [bidErrorMessage, setBidErrorMessage] = useState("");
 
   const notify = () => toast.error(`${bidErrorMessage}`);
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -81,17 +86,19 @@ const BidProduct = () => {
   });
 
   const product: ResponseProduct = data?.data;
-  const watchList = product?.watchListProducts?.find((p)=> p?.productId === productId)
+  const watchList = product?.watchListProducts?.find(
+    (p) => p?.productId === productId
+  );
 
-  console.log("Watcfff",watchList)
+  console.log("Watcfff", watchList);
 
-  console.log("watchlist",watchList?.productId);
-  let checkWatchLIst = watchList?.productId === productId  ? true : false
-  console.log("check",checkWatchLIst)
+  console.log("watchlist", watchList?.productId);
+  let checkWatchLIst = watchList?.productId === productId ? true : false;
+  console.log("check", checkWatchLIst);
 
-   console.log("product", product?.currentBidPrice);
+  console.log("product", product?.currentBidPrice);
 
-  const owner = product?.currentOwnerName; 
+  const owner = product?.currentOwnerName;
 
   const {
     isLoading: bidding,
@@ -108,68 +115,85 @@ const BidProduct = () => {
       //console.log("error", errorMessage?.response?.data?.message);
       setBidErrorMessage(errorMessage?.response?.data?.message);
       notify();
-      setBidPrice("")
+      setBidPrice("");
     },
   });
 
-  const {isLoading:loadingForAdding,mutate:WatchList} = useMutation(!checkWatchLIst ? productAPI.addWatchListProduct: productAPI.removeWatchListProduct,{
-    onSuccess:(data)=>{
-      
-      console.log("listData",data?.data?.success)
-      let success = data?.data?.success;
-      notifyForAddWatchList({text:success ? "Successfully added to Watch List" : "Successfully removed from Watch List",bgC:success ? "#388e3c" : "#d32f2f"});
-      queryClient.invalidateQueries(["bidProduct"]);
-      
-    },
-    onError:(error)=>{
-      const errorMessage = error as AxiosError;
-      //console.log("error", errorMessage?.response?.data?.message);
-      setBidErrorMessage(errorMessage?.response?.data?.message);
-      notify();
-      setBidPrice("")
+  const { isLoading: loadingForAdding, mutate: WatchList } = useMutation(
+    !checkWatchLIst
+      ? productAPI.addWatchListProduct
+      : productAPI.removeWatchListProduct,
+    {
+      onSuccess: (data) => {
+        console.log("listData", data?.data?.success);
+        let success = data?.data?.success;
+        notifyForAddWatchList({
+          text: success
+            ? "Successfully added to Watch List"
+            : "Successfully removed from Watch List",
+          bgC: success ? "#388e3c" : "#d32f2f",
+        });
+        queryClient.invalidateQueries(["bidProduct"]);
+      },
+      onError: (error) => {
+        const errorMessage = error as AxiosError;
+        //console.log("error", errorMessage?.response?.data?.message);
+        setBidErrorMessage(errorMessage?.response?.data?.message);
+        notify();
+        setBidPrice("");
+      },
     }
-  })
+  );
 
-  const watchlistHandler = ()=>{
+  const watchlistHandler = () => {
     const data = {
-      productId:idforProduct
+      productId: idforProduct,
     };
     WatchList(data);
-  }
+  };
 
   const bidProductHandler = () => {
-
     const priceNumber = Number(bidPrice);
-    if(product?.currentBidPrice === null && priceNumber < product?.price){
+    if (product?.currentBidPrice === null && priceNumber < product?.price) {
       //setOpen(true);
       notifyForFirstBid();
-    }else{
+    } else {
       const data: BidProductByUser = {
         productId: idforProduct,
         price: priceNumber,
       };
       bidProduct(data);
     }
-
-   
-    
   };
 
   return (
     <>
       {/*to add shadow */}
-      <Toast open={open} handleClose={handleClose} info="error" message="Your Price must be more than product price" Xaxis="center" Yaxis="top"/> 
+      <Toast
+        open={open}
+        handleClose={handleClose}
+        info="error"
+        message="Your Price must be more than product price"
+        Xaxis="center"
+        Yaxis="top"
+      />
       <Box
         width={isLargeScreen ? "60%" : "100%"}
         marginX="auto"
         sx={{
           pl: 3,
           pr: isMobile ? 2 : 0,
-          color:light ? "black" : "whtie"
+          color: light ? "black" : "whtie",
         }}
       >
-        <Typography fontWeight={"bold"} mb={4} mt={2} fontSize={18} color={light ? "black" : "white"}>
-         {product?.title}
+        <Typography
+          fontWeight={"bold"}
+          mb={4}
+          mt={2}
+          fontSize={18}
+          color={light ? "black" : "white"}
+        >
+          {product?.title}
         </Typography>
         <Box display={"flex"} flexDirection={isMobile ? "column" : "row"}>
           <Box
@@ -186,17 +210,31 @@ const BidProduct = () => {
               },
             }}
           >
-            {isLoading ? <Skeleton variant="rounded" width={"100%"} height={"100%"}/> : <Box width={"100%"} height={"100%"}>
-              <img
-                style={{ objectFit: "contain" }}
-                width={"100%"}
-                height="100%"
-                src={product?.image}
-                alt="bidProduct"
-              />
-            </Box>}
+            {isLoading ? (
+              <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+            ) : (
+              <Box width={"100%"} height={"100%"}>
+                <img
+                  style={{ objectFit: "contain" }}
+                  width={"100%"}
+                  height="100%"
+                  src={product?.image}
+                  alt="bidProduct"
+                />
+              </Box>
+            )}
           </Box>
           <Box
+            component={motion.div}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition:{
+                duration:2.5,
+                type:"spring"
+              }
+            }}
             width={isMobile ? "100%" : "55%"}
             sx={{
               mr: {
@@ -234,10 +272,18 @@ const BidProduct = () => {
                   Reserve not met
                 </Typography>
                 <Box display={"flex"} justifyContent="space-between" my={2.5}>
-                  <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
+                  <Typography
+                    fontWeight={"bold"}
+                    component={"div"}
+                    color={light ? "black" : "white"}
+                  >
                     Opening bid
                   </Typography>
-                  <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
+                  <Typography
+                    fontWeight={"bold"}
+                    component={"div"}
+                    color={light ? "black" : "white"}
+                  >
                     {new Intl.NumberFormat("en-Us", {
                       style: "currency",
                       currency: "MMK",
@@ -249,10 +295,18 @@ const BidProduct = () => {
 
                 {product?.currentBidPrice ? (
                   <Box display={"flex"} justifyContent="space-between" my={2.5}>
-                    <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
+                    <Typography
+                      fontWeight={"bold"}
+                      component={"div"}
+                      color={light ? "black" : "white"}
+                    >
                       Current bid
                     </Typography>
-                    <Typography fontWeight={"bold"} component={"div"} color={light ? "black" : "white"}>
+                    <Typography
+                      fontWeight={"bold"}
+                      component={"div"}
+                      color={light ? "black" : "white"}
+                    >
                       {new Intl.NumberFormat("en-Us", {
                         style: "currency",
                         currency: "MMK",
@@ -290,26 +344,29 @@ const BidProduct = () => {
                     />
                   </Box>
                   <Box
-                    width={bidControl ? "100%" : "40%"}  
+                    width={bidControl ? "100%" : "40%"}
                     my={isMobile ? 2 : "none"}
                   >
-                   {bidding ? <ButtonLoading text="Bidding"/> : <BidButton
-                   color="white"
-                      
-                      disabled={bidding}
-                      func={bidProductHandler}
-                      ButtonText="Place bid"
-                      padding={{
-                        xs: 1.4,
-                        sm: 1.6,
-                        md: 1.7,
-                      }}
-                      bgC={light ? "warning.main" : "warning.dark"}
-                      fontS={{
-                        xs: 16,
-                      }}
-                      hoverC={light ? "warning.dark" : "warning.main"}
-                    />}
+                    {bidding ? (
+                      <ButtonLoading text="Bidding" />
+                    ) : (
+                      <BidButton
+                        color="white"
+                        disabled={bidding}
+                        func={bidProductHandler}
+                        ButtonText="Place bid"
+                        padding={{
+                          xs: 1.4,
+                          sm: 1.6,
+                          md: 1.7,
+                        }}
+                        bgC={light ? "warning.main" : "warning.dark"}
+                        fontS={{
+                          xs: 16,
+                        }}
+                        hoverC={light ? "warning.dark" : "warning.main"}
+                      />
+                    )}
                   </Box>
                   {/*place bid */}
                 </Box>
@@ -319,7 +376,7 @@ const BidProduct = () => {
                     display={"flex"}
                     justifyContent="space-between"
                     mt={isLargeScreen ? 4 : 2.2}
-                    sx={{color:light ? "black" : "white"}}
+                    sx={{ color: light ? "black" : "white" }}
                   >
                     <Typography fontWeight={"bold"} component={"div"}>
                       Sales tax
@@ -343,25 +400,41 @@ const BidProduct = () => {
                   },
                 }}
               >
-                {loadingForAdding ? <ButtonLoading text={checkWatchLIst ? "Removing from watchlist" : "Adding to watchlist"}/>: <BidButton
-                  func={watchlistHandler}
-                  border="1px solid black"
-                  ButtonText={checkWatchLIst ? "Remove from watchlist" : "Add to watchlist"}
-                  icon={checkWatchLIst ? <FavoriteIcon/>:<FavoriteBorderIcon />}
-                  padding={{
-                    xs: 1.8,
-                    sm: 1.5,
-                    md: 1.7,
-                    lg: 1.9,
-                  }}
-                  fontS={{
-                    xs: 14,
-                    sm: 16,
-                  }}
-                  bgC={checkWatchLIst ? "white" : "#181818"}
-                  hoverC={"grey.200"}
-                  color={checkWatchLIst ? "black" : "white"}
-                />}
+                {loadingForAdding ? (
+                  <ButtonLoading
+                    text={
+                      checkWatchLIst
+                        ? "Removing from watchlist"
+                        : "Adding to watchlist"
+                    }
+                  />
+                ) : (
+                  <BidButton
+                    func={watchlistHandler}
+                    border="1px solid black"
+                    ButtonText={
+                      checkWatchLIst
+                        ? "Remove from watchlist"
+                        : "Add to watchlist"
+                    }
+                    icon={
+                      checkWatchLIst ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                    padding={{
+                      xs: 1.8,
+                      sm: 1.5,
+                      md: 1.7,
+                      lg: 1.9,
+                    }}
+                    fontS={{
+                      xs: 14,
+                      sm: 16,
+                    }}
+                    bgC={checkWatchLIst ? "white" : "#181818"}
+                    hoverC={"grey.200"}
+                    color={checkWatchLIst ? "black" : "white"}
+                  />
+                )}
                 <BidButton
                   color="white"
                   func={() => {}}
@@ -392,16 +465,25 @@ const BidProduct = () => {
               }}
             >
               <Box display={"flex"} justifyContent="space-between" my={2.2}>
-                <BidDetailTypo text="Timed auction" fontW="medium" light={light} />
-                <BidDetailTypo light={light}
+                <BidDetailTypo
+                  text="Timed auction"
+                  fontW="medium"
+                  light={light}
+                />
+                <BidDetailTypo
+                  light={light}
                   text={moment(product?.updatedAt).format("MMM DD, YYYY")}
                   fontW="medium"
                 />
               </Box>
               <Divider />
               <Box display={"flex"} justifyContent="space-between" my={2.2}>
-                <BidDetailTypo text="Auction Location" fontW="medium" light={light} />
-                <BidDetailTypo text="Myanmar" fontW="medium" light={light}/>
+                <BidDetailTypo
+                  text="Auction Location"
+                  fontW="medium"
+                  light={light}
+                />
+                <BidDetailTypo text="Myanmar" fontW="medium" light={light} />
               </Box>
             </Box>
           </Box>
