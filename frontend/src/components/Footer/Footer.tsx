@@ -193,21 +193,21 @@ const Footer = () => {
               />
             </Link>
 
-            <Link to={"/twitter"}>
+            <Link to={"https://twitter.com/thantzi28886007"}>
               <TwitterIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
                 fontSize={"medium"}
               />
             </Link>
 
-            <Link to={"/instagram"}>
+            <Link to={"https://www.instagram.com/than.zaw.winnn/"}>
               <InstagramIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
                 fontSize={"medium"}
               />
             </Link>
 
-            <Link to={"/linkedIn"}>
+            <Link to={"https://www.linkedin.com/in/thantzinwin/"}>
               <LinkedInIcon
                 sx={{ color: "white", "&:hover": { color: "warning.main" } }}
                 fontSize={"medium"}
