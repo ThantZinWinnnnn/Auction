@@ -6,39 +6,74 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
+const imageContainer = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
 
-interface feature{
-	id:Number,
-	name:String,
-	url?:String | React.Component,
-	info ?: String,
-	currentlot ?:String
-}
+const imageItem = {
+  hidden: {
+    opacity: 0,
+    y: 100,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      duration: 1.4,
+    },
+  },
+};
 
-interface categoryProps{
-  categories:Array<feature>,
-  light:boolean
-}
-
-const ChooseDetailsCategory:React.FC<categoryProps>= ({categories,light}) => {
+const ChooseDetailsCategory: React.FC<categoryProps> = ({
+  categories,
+  light,
+}) => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box width={"90%"} mx="auto" my={Mobile ? 8 : 10} sx={{color:light ? "black" : "white"}}>
+    <Box
+      width={"90%"}
+      mx="auto"
+      my={Mobile ? 8 : 10}
+      sx={{ color: light ? "black" : "white" }}
+    >
       <Typography variant="h6" component={"div"} fontWeight="bold">
-        Shop By Category
+        <motion.span
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, type: "spring", delay: 0.2 }}
+        >
+          Shop By Category
+        </motion.span>
       </Typography>
       <Box
+        component={motion.div}
+        variants={imageContainer}
+        initial="hidden"
+        whileInView={"visible"}
         display={"flex"}
         gap={Mobile ? 0 : 4}
         width="100%"
         flexDirection={Mobile ? "column" : "row"}
       >
-        {categories.map((category,index) => (
+        {categories.map((category, index) => (
           <Box
             key={index}
+            component={motion.div}
+            variants={imageItem}
             textAlign={"center"}
             sx={{
               height: {
@@ -61,7 +96,6 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories,light}) => {
             }}
           >
             <Typography
-
               sx={{
                 fontSize: {
                   xs: "2rem",
@@ -91,11 +125,11 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories,light}) => {
                   },
                   mt: 3,
                   py: {
-                    sm:"6px",
-                    xl:"10px"
+                    sm: "6px",
+                    xl: "10px",
                   },
-                  bgcolor:light ? "warning.main" : "warning.dark",
-                  color:"white",
+                  bgcolor: light ? "warning.main" : "warning.dark",
+                  color: "white",
                   "&:hover": {
                     backgroundColor: "#102343",
                   },
@@ -112,3 +146,16 @@ const ChooseDetailsCategory:React.FC<categoryProps>= ({categories,light}) => {
 };
 
 export default ChooseDetailsCategory;
+
+interface feature {
+  id: Number;
+  name: String;
+  url?: String | React.Component;
+  info?: String;
+  currentlot?: String;
+}
+
+interface categoryProps {
+  categories: Array<feature>;
+  light: boolean;
+}

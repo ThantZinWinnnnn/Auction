@@ -139,6 +139,7 @@ const ProfileTooltip = () => {
           }}
         >
           <BidButton
+            color="white"
             func={logoutHandler}
             ButtonText="Log Out"
             padding={{

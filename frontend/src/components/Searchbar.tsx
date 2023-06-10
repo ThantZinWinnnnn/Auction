@@ -323,6 +323,7 @@ const Searchbar = () => {
             </Link> */}
             <Box width={"80%"} mx={"auto"}>
               <BidButton
+                color={"white"}
                 func={logoutHandler}
                 ButtonText="Log Out"
                 padding={{

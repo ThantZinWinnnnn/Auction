@@ -23,7 +23,7 @@ import { Title } from "../Utils/helmet/Title";
 import { ThemeContext } from "../Utils/ThemeContext/ThemeContext";
 import { useContext } from "react";
 import { UpArrowFab } from "../Utils/Fab/UpArrowFab";
-
+import {motion} from "framer-motion"
 
 
 
@@ -110,6 +110,7 @@ const BannerDetail = () => {
             },
           }}
         >
+          <motion.span style={{overflow:"hidden"}} initial={{opacity:0,x:-30}} animate={{opacity:1,x:0}} transition={{duration:2,delay:0.4,type:"spring"}}>
           Online{" "}
           {location.pathname === "/auction/electronic"
             ? "Electronic"
@@ -123,6 +124,7 @@ const BannerDetail = () => {
             ? "Clothing"
             : "Handbag"}{" "}
           Auctions
+          </motion.span>
         </Typography>
         <Box
           display={"flex"}

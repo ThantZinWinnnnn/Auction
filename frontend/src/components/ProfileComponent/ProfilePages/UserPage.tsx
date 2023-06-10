@@ -132,6 +132,7 @@ const UserPage:React.FC<themeProps> = ({light}) => {
             }
         }}>
           <BidButton
+            color="white"
             disabled={false}
             padding={{
               sm: 0.4,
@@ -150,6 +151,7 @@ const UserPage:React.FC<themeProps> = ({light}) => {
           />
 
           <BidButton
+            color="white"
             disabled={false}
             padding={{
               sm: 0.4,

@@ -132,6 +132,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
         id="keep-mounted-modal-btn"
       >
         <BidButton
+          color="white"
           disabled={isLoading}
           ButtonText="Cancel"
           bgC={light ? "black" : "grey.600"}
@@ -145,6 +146,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
           }}
         />
         <BidButton
+          color="white"
           disabled={isLoading}
           ButtonText="Save"
           bgC={light ? "black" : "grey.600"}

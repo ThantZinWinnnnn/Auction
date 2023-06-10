@@ -10,7 +10,9 @@ interface actionButton {
   hoverC: string;
   func: () => void;
   disabled?:boolean,
-  loading?:boolean
+  loading?:boolean,
+  color:string,
+  border?:string
 }
 
 const BidButton = (props: actionButton) => {
@@ -24,10 +26,11 @@ const BidButton = (props: actionButton) => {
       sx={{
         textTransform: "none",
         py: props.padding,
-        color: "white",
+        color: props.color,
         bgcolor: props.bgC,
         fontSize: props.fontS,
         fontWeight: "bold",
+        border:props.border,
         "&:hover": {
           backgroundColor: props.hoverC,
         },

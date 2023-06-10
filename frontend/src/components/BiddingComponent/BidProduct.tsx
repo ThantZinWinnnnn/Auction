@@ -294,6 +294,7 @@ const BidProduct = () => {
                     my={isMobile ? 2 : "none"}
                   >
                    {bidding ? <ButtonLoading text="Bidding"/> : <BidButton
+                   color="white"
                       
                       disabled={bidding}
                       func={bidProductHandler}
@@ -344,7 +345,8 @@ const BidProduct = () => {
               >
                 {loadingForAdding ? <ButtonLoading text={checkWatchLIst ? "Removing from watchlist" : "Adding to watchlist"}/>: <BidButton
                   func={watchlistHandler}
-                  ButtonText="Add to watchlist"
+                  border="1px solid black"
+                  ButtonText={checkWatchLIst ? "Remove from watchlist" : "Add to watchlist"}
                   icon={checkWatchLIst ? <FavoriteIcon/>:<FavoriteBorderIcon />}
                   padding={{
                     xs: 1.8,
@@ -356,10 +358,12 @@ const BidProduct = () => {
                     xs: 14,
                     sm: 16,
                   }}
-                  bgC={"#181818"}
-                  hoverC={"grey.700"}
+                  bgC={checkWatchLIst ? "white" : "#181818"}
+                  hoverC={"grey.200"}
+                  color={checkWatchLIst ? "black" : "white"}
                 />}
                 <BidButton
+                  color="white"
                   func={() => {}}
                   ButtonText="Ask a question"
                   icon={<MailOutlineIcon />}

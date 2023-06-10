@@ -2,9 +2,43 @@ import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
+import SellWithUsText from "./SellWithUsText";
+import { motion } from "framer-motion";
 
 interface themeProps{
   light : boolean
+}
+
+const textContainer = {
+  hidden:{
+    opacity:0
+  },
+  visible:{
+    opacity:1,
+    transition:{
+      staggerChildren:0.4,
+      ease:"easeInOut"
+    }
+  }
+};
+
+const text= {
+  hidden:{
+    opacity:0,
+    x:-50,
+    y:-10
+  },
+  visible:{
+    opacity:1,
+    x:0,
+    y:0,
+    transition:{
+      type:"spring",
+      duration:1.2,
+      ease:"easeInOut"
+      
+    }
+  }
 }
 
 const SellWithUs:React.FC<themeProps> = ({light}) => {
@@ -12,10 +46,15 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
   const theme = useTheme();
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+
   return (
     <Box width={"90%"} mx="auto" mb={Mobile ? 10 : 10}>
       <Box width={"100%"} display="flex" p={1}>
         <Box
+          component={motion.div}
+          variants={textContainer}
+          initial="hidden"
+          whileInView={"visible"}
           display="flex"
           gap={Mobile ? 3 : 5}
           justifyContent="center"
@@ -23,7 +62,8 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
           width={"90%"}
           mx="auto"
         >
-          <Typography
+          <SellWithUsText text="Sell" color={"#28589B"} variant={text}/>
+          {/* <Typography
             sx={{
               fontSize: {
                 xs: "2.5rem",
@@ -35,8 +75,9 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
             color={"#28589B"}
           >
             Sell
-          </Typography>
-          <Typography
+          </Typography> */}
+          <SellWithUsText text="With" color={light ? "#102343" : "white"} variant={text}/>
+          {/* <Typography
             sx={{
               fontSize: {
                 xs: "2.5rem",
@@ -48,26 +89,19 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
             color={light ? "#102343" : "white"}
           >
             With
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: "2.5rem",
-                sm: "4rem",
-                md: "6rem",
-              },
-            }}
-            fontWeight={"bold"}
-            color={"#F65A03"}
-          >
-            Us
-          </Typography>
+          </Typography> */}
+          <SellWithUsText text="Us" color="#F65A03" variant={text}/>
+          
         </Box>
       </Box>
 
       {/* Change One component with Description */}
       <Box
         textAlign={"center"}
+        component={motion.div}
+        variants={textContainer}
+        initial="hidden"
+        whileInView={"visible"}
         mx={"auto"}
         marginTop="1%"
         sx={{
@@ -79,6 +113,8 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
         }}
       >
         <Typography
+          component={motion.div}
+          variants={text}
           variant={Mobile ? "h6" : "h4"}
           fontWeight={"bold"}
           marginBottom="4%"
@@ -86,6 +122,8 @@ const SellWithUs:React.FC<themeProps> = ({light}) => {
           Got something to sell?
         </Typography>
         <Typography
+          component={motion.div}
+          variants={text}
           variant={Mobile ? "body2" : "body1"}
           fontWeight={"light"}
           lineHeight={Mobile ? 2 : 2.5}
