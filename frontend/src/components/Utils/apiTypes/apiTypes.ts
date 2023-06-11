@@ -1,5 +1,6 @@
 
 export interface UserLocation{
+    id?:string,
     street:string,
     town:string,
     region:string,
@@ -27,7 +28,7 @@ export interface User{
     town:string,
     region:string,
     country:string,
-    
+    locationId?:string,
 }
 
 export type LoginUser = Partial<User>;

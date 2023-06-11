@@ -8,45 +8,84 @@ import BidButton from "../../BiddingComponent/Components/BidButton";
 import { ProfileUserProps, User } from "../../Utils/apiTypes/apiTypes";
 
 import { userInfoAPI } from "../../Utils/endpoins/axios";
+import toast, { Toaster } from "react-hot-toast";
+import ButtonLoading from "../../Utils/LoadingIndicator/ButtonLoading";
+import UpdatingButton from "../../Utils/LoadingIndicator/UpdatingButton";
+
+const notifyForInputError = () =>
+  toast.error("OOPS! Please fill all the fields", {
+    style: {
+      borderRadius: "10px",
+      background: "#333",
+      color: "#fff",
+    },
+  });
 
 interface UpdateProps {
   handler: () => void;
   user: ProfileUserProps;
-  light:boolean
+  light: boolean;
 }
 
-const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
-  console.log("user", user);
+const UpdateModel: React.FC<UpdateProps> = ({ handler, user, light }) => {
+  console.log("usergyi", user?.location?.[0]?.id);
+  const LocationInfo = user?.location?.[0]?.id;
 
   const queryClient = useQueryClient();
 
+  // const [firstUpate,setFirstUpdate] = useState(true);
   const [username, setUsername] = useState(`${user?.name}`);
-  const [bgUrl, setbgUrl] = useState(`${user?.backgroundUrl}`);
-  const [profile, setProfile] = useState(`${user?.profileUrl}`);
+  const [bgUrl, setbgUrl] = useState(
+    `${user?.backgroundUrl}` === "undefined"
+      ? "Enter your background Image Url"
+      : `${user?.backgroundUrl}`
+  );
+  const [profile, setProfile] = useState(
+    `${user?.profileUrl}` === "undefined" ? "" : `${user?.profileUrl}`
+  );
   const [email, setEmail] = useState(`${user?.email}`);
-  const [street, setStreet] = useState(`${user?.location[0]?.street}`);
-  const [town, setTown] = useState(`${user?.location[0]?.town}`);
-  const [region, setRegion] = useState(`${user?.location[0]?.region}`);
-  const [country, setCountry] = useState(`${user?.location[0]?.country}`);
+  const [street, setStreet] = useState(
+    `${user?.location[0]?.street}` === "undefined"
+      ? ""
+      : `${user?.location[0]?.street}`
+  );
+  const [town, setTown] = useState(
+    `${user?.location[0]?.town}` === "undefined"
+      ? ""
+      : `${user?.location[0]?.town}`
+  );
+  const [region, setRegion] = useState(
+    `${user?.location[0]?.region}` === "undefined"
+      ? ""
+      : `${user?.location[0]?.region}`
+  );
+  const [country, setCountry] = useState(
+    `${user?.location[0]?.country}` === "undefined"
+      ? ""
+      : `${user?.location[0]?.country}`
+  );
 
   const {
     isLoading,
     mutate: updateApi,
     data: updatedUser,
-  } = useMutation(userInfoAPI.updateProfiel, {
-    onSuccess: (data) => {
-      console.log("updat", data.data);
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      handler();
-    },
-    onError: (error) => {
-      console.log("err", error);
-    },
-  });
+  } = useMutation(
+    LocationInfo === undefined
+      ? userInfoAPI.updateProfile
+      : userInfoAPI.reUpdateProfile,
+    {
+      onSuccess: (data) => {
+        console.log("updat", data.data);
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+        handler();
+      },
+      onError: (error) => {
+        console.log("err", error);
+      },
+    }
+  );
 
   const updateProfileHandler = () => {
-
-
     const profileData = {
       name: username,
       email,
@@ -58,11 +97,37 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
       country,
     };
 
-    updateApi(profileData);
+    const reUpdateData = {
+      name: username,
+      email,
+      profileUrl: profile,
+      backgroundUrl: bgUrl,
+      street,
+      town,
+      region,
+      country,
+      locationId:LocationInfo
+    }
+
+    if (
+      username === "" ||
+      email === "" ||
+      profile === "" ||
+      bgUrl === "" ||
+      street === "" ||
+      town === "" ||
+      region === "" ||
+      country === ""
+    ) {
+      notifyForInputError();
+    } else {
+      updateApi(LocationInfo === undefined ? profileData : reUpdateData)
+    }
+
+    console.log("profileData", profileData);
   };
 
   console.log("update", updatedUser);
-  console.log("user", user);
 
   return (
     <>
@@ -131,7 +196,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
         mt={4}
         id="keep-mounted-modal-btn"
       >
-        <BidButton
+         <BidButton
           color="white"
           disabled={isLoading}
           ButtonText="Cancel"
@@ -145,7 +210,10 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
             sm: 1,
           }}
         />
-        <BidButton
+        
+        {
+          isLoading ? <UpdatingButton text="Updating" />: 
+          <BidButton
           color="white"
           disabled={isLoading}
           ButtonText="Save"
@@ -159,7 +227,10 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user,light }) => {
             sm: 1,
           }}
         />
+        }
+      
       </Box>
+      <Toaster position="bottom-center" reverseOrder={true} />
     </>
   );
 };

@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   useTheme,
   Skeleton,
+  Modal,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -32,6 +33,7 @@ import moment from "moment";
 import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import Toast from "../ProfileComponent/components/CreateProduct/Toast";
 import { AxiosError } from "axios";
+import RequestMailForm from "./Components/RequestMailForm";
 
 const notifyForFirstBid = () =>
   toast.error("OOPS! Your Price must be more than original Price", {
@@ -41,6 +43,20 @@ const notifyForFirstBid = () =>
       color: "#fff",
     },
   });
+
+  const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: 'none',
+  boxShadow: 24,
+  borderRadius: "8px",
+  p: 4,
+};
+
 
 const notifyForAddWatchList = ({ text, bgC }: WatchListNotiType) =>
   toast.success(`${text}`, {
@@ -65,6 +81,8 @@ const BidProduct = () => {
   const light = themeMode === "light";
   const idforProduct = productId ?? "";
   const [bidErrorMessage, setBidErrorMessage] = useState("");
+  const [openModel, setOpenModel] = useState(false);
+  const modelHandler = () => setOpenModel(!openModel);
 
   const notify = () => toast.error(`${bidErrorMessage}`);
 
@@ -437,7 +455,7 @@ const BidProduct = () => {
                 )}
                 <BidButton
                   color="white"
-                  func={() => {}}
+                  func={modelHandler}
                   ButtonText="Ask a question"
                   icon={<MailOutlineIcon />}
                   padding={{
@@ -490,6 +508,17 @@ const BidProduct = () => {
         </Box>
         <Toaster position="top-center" reverseOrder={true} />
         {/*time auction */}
+        <Modal
+          keepMounted
+          open={Boolean(openModel)}
+          onClose={modelHandler}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={style}>
+            <RequestMailForm modalHanler={modelHandler}/>
+          </Box>
+        </Modal>
       </Box>
     </>
   );

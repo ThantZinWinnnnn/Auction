@@ -9,7 +9,7 @@ import ChooseDetailsCategory from "../DetailPageComponent/ChooseDetailsCategory"
 import Description from "../DetailPageComponent/Description";
 import MoreAuctions from "../DetailPageComponent/MoreAuctions";
 import SellWithUs from "../DetailPageComponent/SellWithUs";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   overviewData,
   electronicCategories,
@@ -131,6 +131,7 @@ const BannerDetail = () => {
           gap={Mobile ? 0 : 4}
           flexDirection={Mobile ? "column" : "row"}
         >
+          <Link to={`/query/subcategory/${category[0].name}`}>
           <Button
             disableRipple
             disableFocusRipple
@@ -152,6 +153,7 @@ const BannerDetail = () => {
           >
             Explore Auctions
           </Button>
+          </Link>
           {/* {!Mobile && (
             <Button
               disableRipple
