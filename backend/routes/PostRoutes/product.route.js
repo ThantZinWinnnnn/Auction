@@ -12,7 +12,7 @@ const {
   getProductBySubCategory,
   bidProductByUser,
   addWatchListProduct,
-  removeWatchListProduct
+  removeWatchListProduct,
 } = require("../../controllers/ProductControllers/poroduct.controller");
 const {
   detailTitles,
@@ -20,13 +20,15 @@ const {
 const { isAuthenticatedUser } = require("../../middleware/AuthUser");
 
 router.route("/allProducts").get(getAllPosts);
-router.route("/queryProduct").get(isAuthenticatedUser,queryProduct);
-router.route("/subCategory").post( getProductBySubCategory);
-router.route("/category").post( productByCategory);
+router.route("/queryProduct").get(isAuthenticatedUser, queryProduct);
+router.route("/subCategory").post(getProductBySubCategory);
+router.route("/category").post(productByCategory);
 router.route("/create").post(isAuthenticatedUser, createPost);
 router.route("/bid").put(isAuthenticatedUser, bidProductByUser);
 router.route("/watchlist").post(isAuthenticatedUser, addWatchListProduct);
-router.route("/removeWatchList").put(isAuthenticatedUser,removeWatchListProduct)
+router
+  .route("/removeWatchList")
+  .put(isAuthenticatedUser, removeWatchListProduct);
 router.route("/:productId").delete(deleteById);
 
 //temporary api

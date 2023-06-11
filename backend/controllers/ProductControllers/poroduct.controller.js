@@ -184,7 +184,7 @@ exports.addWatchListProduct = async (req, res) => {
       },
     });
 
-    console.log("addP",product)
+    console.log("addP", product);
 
     res.status(200).json({ success: true, product });
   } catch (error) {
@@ -204,33 +204,17 @@ exports.removeWatchListProduct = async (req, res) => {
         WatchListProduct: true,
       },
     });
-
-
-    console.log("user",user)
-    const removeWatchListProduct = user?.WatchListProduct?.find((p)=>p?.productId === productId)
-
-    console.log("RRR",removeWatchListProduct)
-
-    // const removedProduct = await prisma.user.update({
-    //   where:{
-    //     id,
-    //   },
-    //   data:{
-    //     WatchListProduct:{
-    //       disconnect:{
-    //         id:removeWatchListProduct?.id
-    //       }
-    //     }
-    //   }
-    // })
+    const removeWatchListProduct = user?.WatchListProduct?.find(
+      (p) => p?.productId === productId
+    );
 
     const removedProduct = await prisma.watchListProduct.delete({
-      where:{
-        id:removeWatchListProduct?.id
-      }
-    })
+      where: {
+        id: removeWatchListProduct?.id,
+      },
+    });
 
-    res.status(200).json({ success: false,removedProduct });
+    res.status(200).json({ success: false, removedProduct });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
