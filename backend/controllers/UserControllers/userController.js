@@ -139,73 +139,81 @@ exports.getAllUser = async (req, res, next) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  const userId = req.user.id;
+  try {
+    const userId = req.user.id;
 
-  const {
-    name,
-    email,
-    profileUrl,
-    backgroundUrl,
-    street,
-    town,
-    region,
-    country,
-  } = req.body;
-
-  const updatedUser = await prisma.user.update({
-    where: {
-      id: userId,
-    },
-    data: {
-      email,
+    const {
       name,
+      email,
       profileUrl,
       backgroundUrl,
-      location: {
-        create: {
-          street,
-          town,
-          region,
-          country,
+      street,
+      town,
+      region,
+      country,
+    } = req.body;
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        email,
+        name,
+        profileUrl,
+        backgroundUrl,
+        location: {
+          create: {
+            street,
+            town,
+            region,
+            country,
+          },
         },
       },
-    },
-    include: { location: true },
-  });
+      include: { location: true },
+    });
 
-  res.status(200).json(updatedUser);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 exports.getLoggedInUser = async (req, res) => {
-  const userId = req.user.id;
-
-  const loggedInUser = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    include: { location: true },
-  });
-
-  res.status(200).json(loggedInUser);
-};
-
-exports.getUserProducts = async (req,res)=> {
   try {
-    const {id} = req.user;
+    const userId = req.user.id;
 
-    const products = await prisma.user.findUnique({
-      where:{
-        id
+    const loggedInUser = await prisma.user.findUnique({
+      where: {
+        id: userId,
       },
-      select:{
-        sellerProducts:true,
-        winLotProducts:true,
-        lostLotProducts:true
-      }
+      include: { location: true },
     });
 
-    res.status(200).json({products})
-  } catch (err) {
-    res.status(400).json({message:err.message})
+    res.status(200).json(loggedInUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
-}
+};
+
+exports.getUserProducts = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const products = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        sellerProducts: true,
+        winLotProducts: true,
+        lostLotProducts: true,
+      },
+    });
+
+    res.status(200).json({ products });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
