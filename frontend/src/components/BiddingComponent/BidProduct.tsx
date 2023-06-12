@@ -115,8 +115,9 @@ const BidProduct = () => {
   console.log("check", checkWatchLIst);
 
   console.log("product", product?.currentBidPrice);
+  console.log("owner",product?.currentOwnerName)
 
-  const owner = product?.currentOwnerName;
+  const owner = product?.currentOwnerName === null ? false : true;
 
   const {
     isLoading: bidding,
@@ -127,6 +128,7 @@ const BidProduct = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["bidProduct"]);
       console.log("bid", data?.data);
+      notifyForAddWatchList({text:"Successfully bid on the product ",bgC:"#388e3c"})
     },
     onError: (error) => {
       const errorMessage = error as AxiosError;

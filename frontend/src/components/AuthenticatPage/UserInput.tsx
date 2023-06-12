@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
@@ -28,6 +28,9 @@ register,
   fieldError,
   helperTitile
 }) => {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <Box>
       <Typography
@@ -43,6 +46,7 @@ register,
         {text}
       </Typography>
       <TextField
+        size={largeScreen ? "medium" : "small"}
         aria-labelledby={link}
         type={type}
         variant="outlined"
