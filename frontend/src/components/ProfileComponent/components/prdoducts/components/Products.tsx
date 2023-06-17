@@ -10,12 +10,17 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useContext } from "react";
+
+import React, { useCallback, useContext, useState } from "react";
 import { UserProductsResponse } from "../../../../Utils/apiTypes/apiTypes";
-import ProductInfo from "../../CreateProduct/ProductInfo";
+
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../Utils/ThemeContext/ThemeContext";
 import { motion } from "framer-motion";
+import HoverCardComponent from "./HoverCardComponent";
+
+
+
 
 interface userProductsProps {
   products: Array<UserProductsResponse>;
@@ -29,12 +34,11 @@ const productContainer = {
     opacity: 1,
     transition: {
       staggerChildren: 0.4,
-      type:"spring",
+      type: "spring",
       ease: "easeInOut",
     },
   },
 };
-
 
 const productItem = {
   hidden: {
@@ -45,6 +49,7 @@ const productItem = {
     opacity: 1,
     y: 0,
     transition: {
+      
       duration: 1.4,
       type: "spring",
       ease: "easeInOut",
@@ -58,14 +63,33 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
   const belowLg = useMediaQuery(theme.breakpoints.down("lg"));
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [editModal, setEditModal] = useState(false);
 
   const { themeMode } = useContext(ThemeContext);
-  const light = themeMode === "light"
+  const light = themeMode === "light";
+
 
   if (products.length === 0)
-    return     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' ,width:"100%"}}>
-      <Typography color={light ? 'warning.dark' : "white"} align="center" fontWeight={'bold'} variant="h4">You don't have any Product.</Typography>
-  </Box>
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "50vh",
+          width: "100%",
+        }}
+      >
+        <Typography
+          color={light ? "warning.dark" : "white"}
+          align="center"
+          fontWeight={"bold"}
+          variant="h4"
+        >
+          You don't have any Product.
+        </Typography>
+      </Box>
+    );
 
   return (
     <Box
@@ -77,7 +101,12 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
       p={Mobile ? 2 : 0}
       mx={"auto"}
     >
-      <Typography fontWeight={"bold"} variant="h5" mb={2} color={light ? "black" : "white"}>
+      <Typography
+        fontWeight={"bold"}
+        variant="h5"
+        mb={2}
+        color={light ? "black" : "white"}
+      >
         Products
       </Typography>
       <Grid container spacing={3}>
@@ -95,7 +124,13 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
               }}
             >
               <Card key={p?.id}>
-                <Button disableElevation disableRipple fullWidth sx={{p:0}} onClick={() => navigate(`/products/${p?.id}`)}>
+                <Button
+                  disableElevation
+                  disableRipple
+                  fullWidth
+                  sx={{ p: 0 }}
+                  onClick={() => navigate(`/products/${p?.id}`)}
+                >
                   <CardMedia
                     component={"img"}
                     alt="product image"
@@ -110,28 +145,12 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
                     }}
                   />
                 </Button>
-                {/* Mobile ? "body1" : belowLg ? "caption" : "body2" */}
                 <CardContent>
-                  <Typography
-                    component={"div"}
-                    variant={Mobile ? "body1" : belowLg ? "caption" : "body2"}
-                    color={"text.secondary"}
-                    sx={{
-                      mb: 3,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {p?.title}
-                  </Typography>
-
-                  <ProductInfo name="Your Price" price={+p?.price} />
-                  {p?.currentBidPrice ? (<ProductInfo name="Current Price" price={+p?.currentBidPrice}/>) : <ProductInfo name="Current Price" price={0}/>}
-                  <ProductInfo name="Category" value={p?.category?.name} />
+                      <HoverCardComponent p={p}/>
                 </CardContent>
               </Card>
             </Paper>
+            
           </Grid>
         ))}
       </Grid>

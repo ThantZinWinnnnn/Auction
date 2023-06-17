@@ -186,6 +186,12 @@ const BidProduct = () => {
     }
   };
 
+
+  const dueDate = moment(Date.now()).format("MMM DD, YYYY") > moment(product?.updatedAt).format("MMM DD, YYYY")
+  const date = moment(Date.now()).format("MMM DD, YYYY")
+
+  console.log("equalDate", dueDate,"nowDate",date)
+
   return (
     <>
       {/*to add shadow */}
@@ -284,22 +290,24 @@ const BidProduct = () => {
                   fontWeight={"bold"}
                   variant="body1"
                   textAlign={"center"}
-                  color={light ? "black" : "white"}
+                  color={dueDate ? "red" :  light ? "black" : "white"}
                   sx={{
                     pl: {},
                   }}
                 >
-                  Reserve not met
+                  {dueDate ? "This Product can't be bid (Overdue Date)" :"Reserve not met"}
                 </Typography>
                 <Box display={"flex"} justifyContent="space-between" my={2.5}>
                   <Typography
                     fontWeight={"bold"}
                     component={"div"}
                     color={light ? "black" : "white"}
+                    variant={ "caption" }
                   >
                     Opening bid
                   </Typography>
                   <Typography
+                    variant={"caption" }
                     fontWeight={"bold"}
                     component={"div"}
                     color={light ? "black" : "white"}
@@ -318,11 +326,13 @@ const BidProduct = () => {
                     <Typography
                       fontWeight={"bold"}
                       component={"div"}
+                      variant={ "caption" }
                       color={light ? "black" : "white"}
                     >
                       Current bid
                     </Typography>
                     <Typography
+                    variant={ "caption" }
                       fontWeight={"bold"}
                       component={"div"}
                       color={light ? "black" : "white"}
@@ -372,7 +382,7 @@ const BidProduct = () => {
                     ) : (
                       <BidButton
                         color="white"
-                        disabled={bidding}
+                        disabled={bidding || dueDate}
                         func={bidProductHandler}
                         ButtonText="Place bid"
                         padding={{
@@ -450,14 +460,15 @@ const BidProduct = () => {
                       xs: 14,
                       sm: 16,
                     }}
-                    bgC={checkWatchLIst ? "white" : "#181818"}
+                    bgC={ "white" }
                     hoverC={"grey.200"}
-                    color={checkWatchLIst ? "black" : "white"}
+                    color={ "black" }
                   />
                 )}
                 <BidButton
-                  color="white"
+                  color="black"
                   func={modelHandler}
+                  border="1px solid black"
                   ButtonText="Ask a question"
                   icon={<MailOutlineIcon />}
                   padding={{
@@ -470,8 +481,8 @@ const BidProduct = () => {
                     xs: 14,
                     sm: 16,
                   }}
-                  bgC={"#181818"}
-                  hoverC={"grey.700"}
+                  bgC={"white"}
+                  hoverC={"grey.200"}
                 />
               </Box>
             </Box>

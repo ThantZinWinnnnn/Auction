@@ -62,6 +62,8 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
     dayjs("2023-04-17"),
     dayjs("2023-04-21"),
   ]);
+
+  console.log("datee",moment(moment(date[0]?.$d).toISOString()).format('YYYY-MM-DD'))
   const [open,setOpen] = useState<boolean>(true);
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {

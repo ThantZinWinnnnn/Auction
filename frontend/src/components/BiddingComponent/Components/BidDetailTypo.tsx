@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery,useTheme } from "@mui/material";
 
 interface bidDetail{
     text:string,
@@ -7,8 +7,10 @@ interface bidDetail{
 }
 
 const BidDetailTypo = (props:bidDetail) => {
+  const theme = useTheme();
+  const is4k = useMediaQuery(theme.breakpoints.up("sm"));
   return (
-    <Typography fontWeight={props.fontW} variant="h6" component={"div"} color={props.light ? "black" : "white"}>
+    <Typography fontWeight={props.fontW} variant={is4k ? "subtitle2" :"caption"} component={"div"} color={props.light ? "black" : "white"}>
       {props.text}
     </Typography>
   );
