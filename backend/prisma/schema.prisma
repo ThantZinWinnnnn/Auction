@@ -54,7 +54,7 @@ model Product {
   sellerId          String?
   currentOwner      User?              @relation("currentOwnerOfProducts", fields: [currentOwnerId], references: [id])
   currentOwnerId    String?
-  createdAt         DateTime           @default(now())
+  createdAt         DateTime           @updatedAt
   updatedAt         DateTime           @updatedAt
   category          Json
   subCategory       Json?

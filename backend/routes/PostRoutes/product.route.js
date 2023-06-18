@@ -13,6 +13,7 @@ const {
   bidProductByUser,
   addWatchListProduct,
   removeWatchListProduct,
+  updateProduct
 } = require("../../controllers/ProductControllers/poroduct.controller");
 const {
   detailTitles,
@@ -29,6 +30,9 @@ router.route("/watchlist").post(isAuthenticatedUser, addWatchListProduct);
 router
   .route("/removeWatchList")
   .put(isAuthenticatedUser, removeWatchListProduct);
+router.route('/updatedProduct').put(isAuthenticatedUser,updateProduct)
+
+//delete api
 router.route("/:productId").delete(deleteById);
 
 //temporary api

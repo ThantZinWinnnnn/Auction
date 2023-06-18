@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const { singUp,getAllUser,logout,loginUser,forgotPassword,updatePassword,getLoggedInUser,updateProfile,getUserProducts} = require('../../controllers/UserControllers/userController')
+const { singUp,getAllUser,logout,loginUser,forgotPassword,updatePassword,getLoggedInUser,updateProfile,getUserProducts, reUpdateUserProfile} = require('../../controllers/UserControllers/userController')
 const { isAuthenticatedUser } = require("../../middleware/AuthUser")
 
 router.route('/logout').get(logout)
@@ -13,6 +13,7 @@ router.route('/signin').post(loginUser)
 router.route('/forgot').put(forgotPassword)
 router.route('/updatepass').post(updatePassword)
 router.route('/updateProfile').put(isAuthenticatedUser,updateProfile)
+router.route('/reUpdateProfile').put(isAuthenticatedUser,reUpdateUserProfile)
 
 
 module.exports = router

@@ -50,24 +50,81 @@ exports.createPost = async (req, res) => {
   res.status(201).json(post);
 };
 
+exports.updateProduct = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const {
+      price,
+      currentBidPrice,
+      category,
+      subCategory,
+      startDate,
+      date,
+      productId,
+    } = req.body;
+
+    console.log("endDate", date, "start", startDate);
+
+    const updateProduct = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        sellerProducts: {
+          update: {
+            where: {
+              id: productId,
+            },
+            data: {
+              price,
+              currentBidPrice,
+              category: { name: category },
+              subCategory: { name: subCategory },
+              createdAt: startDate,
+              updatedAt: date,
+            },
+          },
+        },
+      },
+      include: {
+        sellerProducts: {
+          where: {
+            id: productId,
+          },
+        },
+      },
+    });
+
+    console.log("updated", updateProduct);
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 exports.deletePosts = async (req, res) => {
   const post = await prisma.product.deleteMany();
   res.status(200).json(post);
 };
 
 exports.deleteById = async (req, res) => {
-  const { productId } = req.params;
+  try {
+    const { productId } = req.params;
 
-  const post = await prisma.product.delete({
-    where: {
-      id: productId,
-    },
-  });
+    const post = await prisma.product.delete({
+      where: {
+        id: productId,
+      },
+    });
 
-  res.status(200).json({
-    success: true,
-    post,
-  });
+    res.status(200).json({
+      success: true,
+      post,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 exports.postById = async (req, res) => {

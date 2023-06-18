@@ -153,6 +153,8 @@ exports.updateProfile = async (req, res) => {
       country,
     } = req.body;
 
+    console.log("body", req.body);
+
     const updatedUser = await prisma.user.update({
       where: {
         id: userId,
@@ -168,6 +170,56 @@ exports.updateProfile = async (req, res) => {
             town,
             region,
             country,
+          },
+        },
+      },
+      include: { location: true },
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+exports.reUpdateUserProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const {
+      name,
+      email,
+      profileUrl,
+      backgroundUrl,
+      street,
+      town,
+      region,
+      country,
+      locationId,
+    } = req.body;
+
+    console.log("body", req.body);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        email,
+        name,
+        profileUrl,
+        backgroundUrl,
+        location: {
+          update: {
+            where: {
+              id: locationId,
+            },
+            data: {
+              street,
+              town,
+              region,
+              country,
+            },
           },
         },
       },
