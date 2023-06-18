@@ -85,7 +85,7 @@ const Products: React.FC<prodcutsProps> = ({ products, loading }) => {
         variants={productContainer}
       >
         {products?.map((product) => (
-          <AnimatePresence>
+          <AnimatePresence key={`${product?.id}`}>
             <Product
               
               product={product}

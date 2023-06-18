@@ -22,7 +22,7 @@ const UserSellProductsPage: React.FC = () => {
     const products = userProducts?.data?.products?.sellerProducts;
     // console.log("productsUser", products);
 
-    return <Products products={products} />;
+    return <Products products={products} showEditButton={true} />;
   }
 };
 

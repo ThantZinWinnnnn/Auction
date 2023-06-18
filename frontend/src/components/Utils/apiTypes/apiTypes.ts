@@ -1,3 +1,5 @@
+import { SelectChangeEvent } from "@mui/material";
+import { Dayjs } from "dayjs";
 
 export interface UserLocation{
     id?:string,
@@ -119,4 +121,34 @@ export interface ForgotPassword {
 export interface WatchListNotiType{
     text:string,
     bgC:string
+}
+
+
+export interface OwnerUpdateProduct{
+    price:number,
+    currentBidPrice:number | null,
+    category:string,
+    subCategory:string,
+    date:any,
+    startDate:any
+}
+
+export interface OwnerUpdateHandler{
+    priceHandler:(event: SelectChangeEvent)=>void,
+    currentPriceHandler:(event: SelectChangeEvent)=>void,
+    categoryHandler:(event: SelectChangeEvent)=>void,
+    subCategoryHandler:(event: SelectChangeEvent)=>void,
+    dateHandler:(newValue: React.SetStateAction<Dayjs | null>)=>void
+    finalUpdateHandler:()=>void,
+    startDateHandler:(newValue: React.SetStateAction<Dayjs | null>)=>void
+}
+
+export interface finalUpdateProduct{
+    price:number,
+    currentBidPrice:number | null,
+    category:string,
+    subCategory:string,
+    date:string,
+    productId:string | undefined,
+    startDate:string
 }

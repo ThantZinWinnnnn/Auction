@@ -52,6 +52,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const Mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const currentDate = moment(Date.now()).format("YYYY-MM-DD");
 
   const [productImage, setProductImage] = useState("");
   const [productTitle, SetProductTitle] = useState("");
@@ -59,8 +60,8 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
   const [subCategory, setSubCategory] = useState("");
   const [price, setPrice] = useState("");
   const [date, setDate] = useState<DateRange<Dayjs>>([
-    dayjs("2023-04-17"),
-    dayjs("2023-04-21"),
+    dayjs(`${currentDate}`),
+    dayjs(`${currentDate}`),
   ]);
 
   console.log("datee",moment(moment(date[0]?.$d).toISOString()).format('YYYY-MM-DD'))

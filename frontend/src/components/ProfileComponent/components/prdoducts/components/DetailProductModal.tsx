@@ -10,34 +10,57 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
-import { UserProductsResponse } from "../../../../Utils/apiTypes/apiTypes";
+import {
+  OwnerUpdateHandler,
+  OwnerUpdateProduct,
+  UserProductsResponse,
+} from "../../../../Utils/apiTypes/apiTypes";
 import ProductInput from "./ProductInput";
 import UpdateDatePicker from "./UpdateDatePicker";
 import BidButton from "../../../../BiddingComponent/Components/BidButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MemoizedDatePicker from "./UpdateDatePicker";
 import moment from "moment";
+import UpdatingButton from "../../../../Utils/LoadingIndicator/UpdatingButton";
 
-const DatePickerComponent = React.lazy(() => import("./UpdateDatePicker"));
+const DetailProductModal: React.FC<ProductProps> = ({
+  updateObj,
+  deleteHandler,
+  deleting,
+  updating,
+  p,
+  updateHandlerObj,
+}) => {
+  const { price, currentBidPrice, category, subCategory, date, startDate } =
+    updateObj;
 
-const DetailProductModal: React.FC<ProductProps> = ({ p }) => {
-  const date = moment(p?.updatedAt).format("YYYY-MM-DD");
-  console.log("dattttt", date);
+  console.log("dattttt", date, "startDate", startDate);
 
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const mobileScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box component={"section"}>
       <Box
         component={"div"}
         sx={{
           display: "flex",
-          height: mediumScreen ? "400px" : "400px",
+          height: {
+            xs:"550px",
+            sm:"400px"
+          },
+          flexDirection: mobileScreen ? "column" : "row",
           gap: 1.3,
         }}
         width={"100%"}
       >
-        <Box width={"50%"} overflow={"hidden"} component={"div"}>
+        <Box  overflow={"hidden"} component={"div"} sx={{
+         width:{
+          xs:"100%",
+          sm:"50%"
+         }
+        }}>
           <img
             src={p?.image}
             width={"100%"}
@@ -51,44 +74,71 @@ const DetailProductModal: React.FC<ProductProps> = ({ p }) => {
         </Box>
         <Box
           component={"div"}
-          width={"50%"}
+
           sx={{
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
               width: "1px",
             },
+            width:{
+              xs:"100%",
+              sm:"50%"
+             }
           }}
         >
           <Typography
-            variant="subtitle1"
             fontWeight={"bold"}
             textAlign={"left"}
             sx={{
               mb: 1.8,
+              fontSize: {
+                sm: 12,
+                lg: 13,
+              },
             }}
           >
             {p?.title}
           </Typography>
           <Box display={"flex"} flexDirection={"column"} gap={1}>
             <ProductInput
-              p={p}
+              changeHanler={updateHandlerObj.priceHandler}
+              title="Your Price"
+              value={`${price}`}
+              disable={Boolean(p?.currentBidPrice) ? true : false}
+            />
+            <ProductInput
+              changeHanler={updateHandlerObj.currentPriceHandler}
+              title="Current Bid Price"
+              value={`${currentBidPrice}`}
+              disable={Boolean(p?.currentBidPrice) ? true : false}
+            />
+            <ProductInput
+              changeHanler={updateHandlerObj.categoryHandler}
               title="Category"
-              value={`${p?.category?.name}`}
+              value={`${category}`}
+              disable={Boolean(p?.currentBidPrice) ? true : false}
             />
-            <ProductInput p={p} title="Price" value={`${p?.price}`} />
-            <ProductInput
-              p={p}
-              title="SubCategory"
-              value={`${p?.subCategory?.name}`}
-            />
-            <ProductInput
-              p={p}
-              title="Price"
-              value={`${p?.price}`}
-              disable={true}
-            />
+            {Boolean(p?.currentBidPrice) ? (
+              <ProductInput
+                changeHanler={updateHandlerObj.subCategoryHandler}
+                title="Sub Category"
+                value={`${subCategory}`}
+                disable={true}
+              />
+            ) : null}
             {/* <UpdateDatePicker/> */}
-            <MemoizedDatePicker date={date} />
+            {Boolean(p?.currentOwnerName) ? null : (
+              <MemoizedDatePicker
+                title="Update your product start date"
+                date={startDate}
+                changeHandler={updateHandlerObj.startDateHandler}
+              />
+            )}
+            <MemoizedDatePicker
+              title="Update your product end date"
+              date={date}
+              changeHandler={updateHandlerObj.dateHandler}
+            />
           </Box>
         </Box>
       </Box>
@@ -105,30 +155,45 @@ const DetailProductModal: React.FC<ProductProps> = ({ p }) => {
           },
         }}
       >
-        <Tooltip placement="top" title={Boolean(p?.currentOwnerName) ? "Can't delete product.It has owner" : "Delete"}>
-          <Box>
-          <BidButton
-            padding={{ xs: 0.8 }}
-            ButtonText="Delete"
-            fontS={{ xs: 12 }}
-            bgC="error.dark"
-            hoverC="error.main"
-            color="white"
-            func={() => {}}
-            icon={<DeleteIcon />}
-            disabled={Boolean(p?.currentOwnerName)}
-          />
+        <Tooltip
+          placement="top"
+          title={
+            Boolean(p?.currentOwnerName)
+              ? "Can't delete product.It has bid owner"
+              : "Delete"
+          }
+        >
+          <Box width={"100%"}>
+            {deleting ? (
+              <UpdatingButton text="Deleting" />
+            ) : (
+              <BidButton
+                padding={{ xs: 1 }}
+                ButtonText="Delete"
+                fontS={{ xs: 11, md: 13 }}
+                bgC="error.dark"
+                hoverC="error.main"
+                color="white"
+                func={deleteHandler}
+                icon={<DeleteIcon />}
+                disabled={Boolean(p?.currentOwnerName)}
+              />
+            )}
           </Box>
         </Tooltip>
-        <BidButton
-          padding={{ xs: 0.8 }}
-          ButtonText="Update"
-          fontS={{ xs: 12 }}
-          bgC="warning.dark"
-          hoverC="warning.main"
-          color="white"
-          func={() => {}}
-        />
+        {updating ? (
+          <UpdatingButton text="Updating" />
+        ) : (
+          <BidButton
+            padding={{ xs: 1 }}
+            ButtonText="Update"
+            fontS={{ xs: 11, md: 13 }}
+            bgC="warning.dark"
+            hoverC="warning.main"
+            color="white"
+            func={updateHandlerObj.finalUpdateHandler}
+          />
+        )}
       </Box>
     </Box>
   );
@@ -138,4 +203,9 @@ export default DetailProductModal;
 
 interface ProductProps {
   p: UserProductsResponse;
+  deleting?: boolean;
+  updating?: boolean;
+  deleteHandler: () => void;
+  updateObj: OwnerUpdateProduct;
+  updateHandlerObj: OwnerUpdateHandler;
 }

@@ -1,14 +1,22 @@
 import { Box, OutlinedInput, Typography } from '@mui/material'
-import React, { memo } from 'react'
-import { UserProductsResponse } from '../../../../Utils/apiTypes/apiTypes'
 
-const ProductInput:React.FC<ProductInputProps> = ({p,title,value,disable}) => {
+import React, { memo } from 'react'
+
+
+
+const ProductInput:React.FC<ProductInputProps> = ({title,value,disable,changeHanler}) => {
+
   return (
     <Box display={"flex"} flexDirection={"column"} gap={0.2}>
-    <Typography variant="caption" fontWeight={"bold"}>
+    <Typography fontWeight={"semibold"} sx={{
+      fontSize:{
+        sm:10.8,
+        md:13,
+      }
+    }}>
      {title}
     </Typography>
-    <OutlinedInput size="small" value={value}  disabled={disable}/>
+    <OutlinedInput size="small" value={value} disabled={disable} onChange={changeHanler}/>
   </Box>
   )
 }
@@ -16,10 +24,9 @@ const ProductInput:React.FC<ProductInputProps> = ({p,title,value,disable}) => {
 export default memo(ProductInput)
 
 interface ProductInputProps {
-    p:UserProductsResponse,
     title:string,
     value:string,
-    onChange?:(e:React.ChangeEvent<HTMLInputElement>) => void
+    changeHanler?:(e:React.ChangeEvent<HTMLInputElement>) => void
     disable?:boolean
 
 }

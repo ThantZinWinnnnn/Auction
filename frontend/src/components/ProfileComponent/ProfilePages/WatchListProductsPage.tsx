@@ -24,7 +24,7 @@ const WatchListProductsPage = () => {
     // console.log("watch",products)
     const products: Array<UserProductsResponse> = [];
     responseProducts.forEach((p: any) => products.push(p?.product));
-    return <Products products={products} />;
+    return <Products products={products} showEditButton={false}/>;
   }
 };
 

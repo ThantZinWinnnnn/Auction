@@ -34,7 +34,7 @@ export default function LostLotProductPage() {
     // console.log("finalP", products);
    
 
-    return <Products products={products} />
+    return <Products products={products} showEditButton={false} />
 
   }
 }

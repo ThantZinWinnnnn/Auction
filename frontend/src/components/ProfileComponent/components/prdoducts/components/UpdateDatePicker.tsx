@@ -6,18 +6,23 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Box, Typography } from "@mui/material";
 
-const UpdateDatePicker:React.FC<DateProps> = ({date}) => {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs(`${date}`));
+const UpdateDatePicker:React.FC<DateProps> = ({date,changeHandler,title}) => {
 
-  console.log("date", value);
+  console.log("date", date);
 
   return (
     <Box>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
-          <DemoItem label={<Typography>Update your product date</Typography>}>
+          <DemoItem label={<Typography sx={{
+            fontSize:{
+              sm:10.8,
+              md:13,
+            }
+          }}>{title}</Typography>}>
             <DatePicker
-              value={value}
+              value={date}
+              onChange={changeHandler}
               sx={{
                 "& .MuiInputBase-root": {
                   fontSize: "14px", // Customize the font size here
@@ -38,5 +43,6 @@ export default MemoizedDatePicker;
 
 interface DateProps{
     date:any,
-    changeHandler?:()=>void
+    changeHandler?:(newValue: React.SetStateAction<Dayjs | null>)=>void,
+    title:string
 }

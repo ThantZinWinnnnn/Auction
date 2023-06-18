@@ -13,7 +13,7 @@ const UpdatingButton: React.FC<ButtonProps> = ({ text }) => {
       fullWidth
       loadingPosition="start"
       sx={{
-        p: {
+        py: {
           sm: 1,
         },
         fontSize: {

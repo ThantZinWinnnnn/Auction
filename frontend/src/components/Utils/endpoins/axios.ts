@@ -8,11 +8,12 @@ import {
   UpdateProduct,
   SignUpUser,
   BidProductByUser,
-  ForgotPassword
+  ForgotPassword,
+  finalUpdateProduct
 } from "../apiTypes/apiTypes";
 
-  const BASE_URL = "https://auction-backend-nb7b.onrender.com/api";
-  //const BASE_URL = "http://localhost:3000/api"
+  //const BASE_URL = "https://auction-backend-nb7b.onrender.com/api";
+  const BASE_URL = "http://localhost:3000/api"
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -50,9 +51,9 @@ const userInfoAPI = {
 const productAPI = {
   createProduct: (productData: Product) =>
     axiosInstance.post("/products/create", productData),
-  updateProduct: (productId: string, productData: UpdateProduct) =>
-    axiosInstance.put(`/products/${productId}`, productData),
-  deleteProduct: (productId: string) =>
+  updateProduct: ( productData: finalUpdateProduct) =>
+    axiosInstance.put(`/products/updatedProduct`, productData),
+  deleteProduct: (productId: string | undefined) =>
     axiosInstance.delete(`/products/${productId}`),
   getProduct: (productId: string | undefined) =>
     axiosInstance.get(`/products/${productId}`),
@@ -73,8 +74,8 @@ const productAPI = {
     axiosInstance.post("/products/category",category),
   searchProduct: (product: string) =>
     axiosInstance.get(`/products/queryProduct?product=${product}`),
-    getProductBySubCategory:(subCategory:JSON | undefined) => 
-    axiosInstance.post("/products/subCategory",subCategory)
+  getProductBySubCategory:(subCategory:JSON | undefined) => 
+    axiosInstance.post("/products/subCategory",subCategory),
 };
 
 export { authAPI, productAPI, userInfoAPI };

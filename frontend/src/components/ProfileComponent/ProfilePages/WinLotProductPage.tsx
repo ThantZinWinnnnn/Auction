@@ -28,6 +28,6 @@ export default function WinLotProductPage() {
     responseProducts.forEach((p: any) => products.push(p?.product));
     // console.log("finalP", products);
 
-    return <Products products={products} />;
+    return <Products products={products} showEditButton={false}/>;
   }
 }

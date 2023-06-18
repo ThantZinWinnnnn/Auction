@@ -34,6 +34,7 @@ import ButtonLoading from "../Utils/LoadingIndicator/ButtonLoading";
 import Toast from "../ProfileComponent/components/CreateProduct/Toast";
 import { AxiosError } from "axios";
 import RequestMailForm from "./Components/RequestMailForm";
+import dayjs from "dayjs";
 
 const notifyForFirstBid = () =>
   toast.error("OOPS! Your Price must be more than original Price", {
@@ -44,19 +45,18 @@ const notifyForFirstBid = () =>
     },
   });
 
-  const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: 'none',
+  bgcolor: "background.paper",
+  border: "none",
   boxShadow: 24,
   borderRadius: "8px",
   p: 4,
 };
-
 
 const notifyForAddWatchList = ({ text, bgC }: WatchListNotiType) =>
   toast.success(`${text}`, {
@@ -115,7 +115,7 @@ const BidProduct = () => {
   console.log("check", checkWatchLIst);
 
   console.log("product", product?.currentBidPrice);
-  console.log("owner",product?.currentOwnerName)
+  console.log("owner", product?.currentOwnerName);
 
   const owner = product?.currentOwnerName === null ? false : true;
 
@@ -128,7 +128,10 @@ const BidProduct = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["bidProduct"]);
       console.log("bid", data?.data);
-      notifyForAddWatchList({text:"Successfully bid on the product ",bgC:"#388e3c"})
+      notifyForAddWatchList({
+        text: "Successfully bid on the product ",
+        bgC: "#388e3c",
+      });
     },
     onError: (error) => {
       const errorMessage = error as AxiosError;
@@ -186,11 +189,22 @@ const BidProduct = () => {
     }
   };
 
+  const dueDate =
+  moment(
+    dayjs(`${moment(product?.updatedAt).format("MMM DD, YYYY")}`)?.$d
+  ).isBefore(dayjs(`${moment(Date.now()).format("MMM DD, YYYY")}`)?.$d)
+  const date = moment(Date.now()).format("MMM DD, YYYY");
 
-  const dueDate = moment(Date.now()).format("MMM DD, YYYY") > moment(product?.updatedAt).format("MMM DD, YYYY")
-  const date = moment(Date.now()).format("MMM DD, YYYY")
-
-  console.log("equalDate", dueDate,"nowDate",date)
+  // console.log(
+  //   "equalDate",
+  //   dueDate,
+  //   "nowDate",
+  //   date,
+  //   "apidate",
+  //   moment(
+  //     dayjs(`${moment(product?.updatedAt).format("MMM DD, YYYY")}`)?.$d
+  //   ).isBefore(dayjs(`${moment(Date.now()).format("MMM DD, YYYY")}`)?.$d)
+  // );
 
   return (
     <>
@@ -256,10 +270,10 @@ const BidProduct = () => {
             animate={{
               opacity: 1,
               y: 0,
-              transition:{
-                duration:2.5,
-                type:"spring"
-              }
+              transition: {
+                duration: 2.5,
+                type: "spring",
+              },
             }}
             width={isMobile ? "100%" : "55%"}
             sx={{
@@ -290,24 +304,26 @@ const BidProduct = () => {
                   fontWeight={"bold"}
                   variant="body1"
                   textAlign={"center"}
-                  color={dueDate ? "red" :  light ? "black" : "white"}
+                  color={dueDate ? "red" : light ? "black" : "white"}
                   sx={{
                     pl: {},
                   }}
                 >
-                  {dueDate ? "This Product can't be bid (Overdue Date)" :"Reserve not met"}
+                  {dueDate
+                    ? "This Product can't be bid (Overdue Date)"
+                    : "Reserve not met"}
                 </Typography>
                 <Box display={"flex"} justifyContent="space-between" my={2.5}>
                   <Typography
                     fontWeight={"bold"}
                     component={"div"}
                     color={light ? "black" : "white"}
-                    variant={ "caption" }
+                    variant={"caption"}
                   >
                     Opening bid
                   </Typography>
                   <Typography
-                    variant={"caption" }
+                    variant={"caption"}
                     fontWeight={"bold"}
                     component={"div"}
                     color={light ? "black" : "white"}
@@ -326,13 +342,13 @@ const BidProduct = () => {
                     <Typography
                       fontWeight={"bold"}
                       component={"div"}
-                      variant={ "caption" }
+                      variant={"caption"}
                       color={light ? "black" : "white"}
                     >
                       Current bid
                     </Typography>
                     <Typography
-                    variant={ "caption" }
+                      variant={"caption"}
                       fontWeight={"bold"}
                       component={"div"}
                       color={light ? "black" : "white"}
@@ -460,9 +476,9 @@ const BidProduct = () => {
                       xs: 14,
                       sm: 16,
                     }}
-                    bgC={ "white" }
+                    bgC={"white"}
                     hoverC={"grey.200"}
-                    color={ "black" }
+                    color={"black"}
                   />
                 )}
                 <BidButton
@@ -529,7 +545,7 @@ const BidProduct = () => {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <RequestMailForm modalHanler={modelHandler}/>
+            <RequestMailForm modalHanler={modelHandler} />
           </Box>
         </Modal>
       </Box>

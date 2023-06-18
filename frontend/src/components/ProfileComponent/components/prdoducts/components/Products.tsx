@@ -24,6 +24,7 @@ import HoverCardComponent from "./HoverCardComponent";
 
 interface userProductsProps {
   products: Array<UserProductsResponse>;
+  showEditButton:boolean
 }
 
 const productContainer = {
@@ -57,7 +58,7 @@ const productItem = {
   },
 };
 
-const Products: React.FC<userProductsProps> = ({ products }) => {
+const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const belowLg = useMediaQuery(theme.breakpoints.down("lg"));
@@ -100,6 +101,10 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
       width={Mobile ? "100%" : mediumScreen ? "90%" : "80%"}
       p={Mobile ? 2 : 0}
       mx={"auto"}
+      sx={{overflowY: "scroll",
+            "&::-webkit-scrollbar": {
+              width: "1px",
+            },}}
     >
       <Typography
         fontWeight={"bold"}
@@ -109,7 +114,7 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
       >
         Products
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} >
         {products?.map((p: UserProductsResponse) => (
           <Grid item lg={3} md={4} sm={6} xs={12} key={p?.id}>
             <Paper
@@ -146,7 +151,7 @@ const Products: React.FC<userProductsProps> = ({ products }) => {
                   />
                 </Button>
                 <CardContent>
-                      <HoverCardComponent p={p}/>
+                      <HoverCardComponent p={p} showEdit={showEditButton} key={p?.id}/>
                 </CardContent>
               </Card>
             </Paper>
