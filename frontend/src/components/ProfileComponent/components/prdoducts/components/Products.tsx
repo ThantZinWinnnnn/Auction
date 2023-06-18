@@ -18,13 +18,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../Utils/ThemeContext/ThemeContext";
 import { motion } from "framer-motion";
 import HoverCardComponent from "./HoverCardComponent";
-
-
-
+import ScrollToTopFab from "../../../../Utils/Fab/UpArrow";
 
 interface userProductsProps {
   products: Array<UserProductsResponse>;
-  showEditButton:boolean
+  showEditButton: boolean;
 }
 
 const productContainer = {
@@ -50,7 +48,6 @@ const productItem = {
     opacity: 1,
     y: 0,
     transition: {
-      
       duration: 1.4,
       type: "spring",
       ease: "easeInOut",
@@ -58,7 +55,10 @@ const productItem = {
   },
 };
 
-const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
+const Products: React.FC<userProductsProps> = ({
+  products,
+  showEditButton,
+}) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const belowLg = useMediaQuery(theme.breakpoints.down("lg"));
@@ -68,7 +68,6 @@ const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
 
   const { themeMode } = useContext(ThemeContext);
   const light = themeMode === "light";
-
 
   if (products.length === 0)
     return (
@@ -101,10 +100,12 @@ const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
       width={Mobile ? "100%" : mediumScreen ? "90%" : "80%"}
       p={Mobile ? 2 : 0}
       mx={"auto"}
-      sx={{overflowY: "scroll",
-            "&::-webkit-scrollbar": {
-              width: "1px",
-            },}}
+      sx={{
+        overflowY: "scroll",
+        "&::-webkit-scrollbar": {
+          width: "1px",
+        },
+      }}
     >
       <Typography
         fontWeight={"bold"}
@@ -114,7 +115,7 @@ const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
       >
         Products
       </Typography>
-      <Grid container spacing={3} >
+      <Grid container spacing={3}>
         {products?.map((p: UserProductsResponse) => (
           <Grid item lg={3} md={4} sm={6} xs={12} key={p?.id}>
             <Paper
@@ -151,14 +152,20 @@ const Products: React.FC<userProductsProps> = ({ products ,showEditButton}) => {
                   />
                 </Button>
                 <CardContent>
-                      <HoverCardComponent p={p} showEdit={showEditButton} key={p?.id}/>
+                  <HoverCardComponent
+                    p={p}
+                    showEdit={showEditButton}
+                    key={p?.id}
+                  />
                 </CardContent>
               </Card>
             </Paper>
-            
           </Grid>
         ))}
       </Grid>
+      <Box width={"10%"} pl={"auto"} ml={"auto"}>
+        <ScrollToTopFab />
+      </Box>
     </Box>
   );
 };
