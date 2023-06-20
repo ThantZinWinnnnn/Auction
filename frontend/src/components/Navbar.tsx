@@ -125,9 +125,9 @@ const Navbar = () => {
               <Box
                 sx={{
                   width: {
-                    xs: "90px",
-                    md: "75px",
-                    lg: "90px",
+                    xs: "120px",
+                    md: "110px",
+                    lg: "140px",
                   },
                   height: {
                     xs: "80px",
@@ -151,12 +151,25 @@ const Navbar = () => {
                   mb:{
                     sm:"0px",
                     md:2
-                  },display:"flex",alignItems:"center",justifyContent:"center"
+                  },display:"flex",alignItems:"center",justifyContent:"center",
+              
+                  mt:{
+                    sm:0.5,
+                    md:1,
+                    lg:2
+                  }
                 }}
                 overflow="hidden"
                 component="div"
               >
+                <Box width={"100%"}>
                 <img width={"100%"} src={"/Logo.svg"} alt="logo" />
+                </Box>
+                <Typography sx={{
+                  fontSize:{
+                    xs:14
+                  }
+                }} color={light ? "warning.dark" : "warning.main"} fontWeight={"bolder"}> Auction</Typography>
               </Box>
             </Link>
           </Box>

@@ -108,14 +108,14 @@ const BidProduct = () => {
     (p) => p?.productId === productId
   );
 
-  console.log("Watcfff", watchList);
+  //console.log("Watcfff", watchList);
 
-  console.log("watchlist", watchList?.productId);
+  //console.log("watchlist", watchList?.productId);
   let checkWatchLIst = watchList?.productId === productId ? true : false;
-  console.log("check", checkWatchLIst);
+  //console.log("check", checkWatchLIst);
 
-  console.log("product", product?.currentBidPrice);
-  console.log("owner", product?.currentOwnerName);
+  //console.log("product", product?.currentBidPrice);
+  //console.log("owner", product?.currentOwnerName);
 
   const owner = product?.currentOwnerName === null ? false : true;
 
@@ -177,7 +177,10 @@ const BidProduct = () => {
 
   const bidProductHandler = () => {
     const priceNumber = Number(bidPrice);
-    if (product?.currentBidPrice === null && priceNumber < product?.price) {
+
+    console.log("bidp",product,"less",(product?.currentBidPrice === 0 || product?.currentBidPrice === null ) && priceNumber < product?.price,"null",product?.currentBidPrice === null, "lessmone",priceNumber < product?.price)
+
+    if ((product?.currentBidPrice === 0 || product?.currentBidPrice === null )&& priceNumber < product?.price) {
       //setOpen(true);
       notifyForFirstBid();
     } else {
@@ -228,14 +231,36 @@ const BidProduct = () => {
       >
         <Typography
           fontWeight={"bold"}
+          lineHeight={2}
           mb={4}
           mt={2}
-          fontSize={18}
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 13,
+              md: 12,
+              lg:14,
+              xl: 16,
+            },
+            pl:{
+              sm:2,
+              lg:2.6
+            },
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: "2",
+            WebkitBoxOrient: "vertical",
+          }}
           color={light ? "black" : "white"}
         >
           {product?.title}
         </Typography>
-        <Box display={"flex"} flexDirection={isMobile ? "column" : "row"}>
+        <Box display={"flex"} flexDirection={isMobile ? "column" : "row"} sx={{
+          gap:{
+            xs:2
+          }
+        }}>
           <Box
             width={isMobile ? "100%" : "45%"}
             height="500px"
@@ -253,9 +278,12 @@ const BidProduct = () => {
             {isLoading ? (
               <Skeleton variant="rounded" width={"100%"} height={"100%"} />
             ) : (
-              <Box width={"100%"} height={"100%"}>
+              <Box width={"100%"} height={"100%"} sx={{
+                borderRadius:'10px',
+                overflow:'hidden',
+              }}>
                 <img
-                  style={{ objectFit: "contain" }}
+                  style={{ objectFit: "cover" }}
                   width={"100%"}
                   height="100%"
                   src={product?.image}
@@ -306,7 +334,9 @@ const BidProduct = () => {
                   textAlign={"center"}
                   color={dueDate ? "red" : light ? "black" : "white"}
                   sx={{
-                    pl: {},
+                    mt: {
+                      xs:1  
+                    },
                   }}
                 >
                   {dueDate
@@ -402,13 +432,14 @@ const BidProduct = () => {
                         func={bidProductHandler}
                         ButtonText="Place bid"
                         padding={{
-                          xs: 1.4,
+                          xs: 1.3,
                           sm: 1.6,
                           md: 1.7,
                         }}
                         bgC={light ? "warning.main" : "warning.dark"}
                         fontS={{
-                          xs: 16,
+                          xs: 14,
+                          sm:16
                         }}
                         hoverC={light ? "warning.dark" : "warning.main"}
                       />
@@ -424,10 +455,12 @@ const BidProduct = () => {
                     mt={isLargeScreen ? 4 : 2.2}
                     sx={{ color: light ? "black" : "white" }}
                   >
-                    <Typography fontWeight={"bold"} component={"div"}>
+                    <Typography fontWeight={"bold"} component={"div"}
+                      variant="caption"
+                    >
                       Sales tax
                     </Typography>
-                    <Typography fontWeight={"bold"} component={"div"}>
+                    <Typography variant="caption" mb={1} fontWeight={"bold"} component={"div"}>
                       20%
                     </Typography>
                   </Box>
@@ -474,7 +507,7 @@ const BidProduct = () => {
                     }}
                     fontS={{
                       xs: 14,
-                      sm: 16,
+                      sm: 13,
                     }}
                     bgC={"white"}
                     hoverC={"grey.200"}
@@ -495,7 +528,7 @@ const BidProduct = () => {
                   }}
                   fontS={{
                     xs: 14,
-                    sm: 16,
+                    sm: 13,
                   }}
                   bgC={"white"}
                   hoverC={"grey.200"}

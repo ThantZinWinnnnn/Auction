@@ -29,7 +29,7 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [themeMode, setThemeMode] = useState("light");
+  const [themeMode, setThemeMode] = useState(`${localStorage.getItem("theme")}`);
 
   // Create the theme based on the current mode
   const theme = createTheme(themeMode === "light" ? lightTheme : darkTheme);
@@ -37,6 +37,7 @@ function App() {
   // Toggle between light and dark themes
   const handleThemeToggle = () => {
     setThemeMode(themeMode === "light" ? "dark" : "light");
+    localStorage.setItem("theme", themeMode === "light" ? "dark" : "light");
   };
 
   const themeContextValue: ThemeContextType = {

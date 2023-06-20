@@ -130,7 +130,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user, light }) => {
   console.log("update", updatedUser);
 
   return (
-    <>
+    <Box>
       <Input
         text={bgUrl}
         name="backImageGroundUrl"
@@ -231,7 +231,7 @@ const UpdateModel: React.FC<UpdateProps> = ({ handler, user, light }) => {
       
       </Box>
       <Toaster position="bottom-center" reverseOrder={true} />
-    </>
+    </Box>
   );
 };
 

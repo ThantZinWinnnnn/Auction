@@ -19,6 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { productAPI } from "../../../Utils/endpoins/axios";
 
 import moment from "moment";
+import toast, { Toaster } from "react-hot-toast";
 
 import { DateRange } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
@@ -39,12 +40,14 @@ import {
 } from "../../../../data/DummyData";
 import { PrimaryCategories } from "../../../../data/DummyData";
 
-import { Product } from "../../../Utils/apiTypes/apiTypes";
+import { Product, WatchListNotiType } from "../../../Utils/apiTypes/apiTypes";
 import Toast from "./Toast";
 import ButtonLoading from "../../../Utils/LoadingIndicator/ButtonLoading";
 interface themeProps {
   light: boolean;
 }
+
+
 
 
 const CreateProduct: React.FC<themeProps> = ({ light }) => {
@@ -118,7 +121,8 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
       setCategory("");
       setSubCategory("");
       setPrice("");
-      setDate([dayjs("2023-04-17"), dayjs("2023-04-21")]);
+      setDate([dayjs(`${currentDate}`), dayjs(`${currentDate}`)]);
+      toast.success("Successfully created a new product",)
 
       // console.log("product", data?.data);
       // const date = data?.data?.post?.createdAt;
@@ -126,6 +130,7 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
     },
     onError: (error) => {
       console.log("error", error);
+      toast.error("Something went wrong", {icon: "⛔"})
     },
   });
 
@@ -336,9 +341,10 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
           </Grid>
         </Box>
       </Box>
-
-      {isSuccess && <Toast open={open} handleClose={handleClose} info="success" message="Successfully created Product" Xaxis="right" Yaxis="bottom"/>  }
-      {isError && <Toast open={open} handleClose={handleClose} info="error" message="Please Enter the full Information" Xaxis="right" Yaxis="bottom"/>}
+      
+      <Toaster position="top-center" reverseOrder={true} />
+      {/* {isSuccess && <Toast open={open} handleClose={handleClose} info="success" message="Successfully created Product" Xaxis="right" Yaxis="bottom"/>  }
+      {isError && <Toast open={open} handleClose={handleClose} info="error" message="Please Enter the full Information" Xaxis="right" Yaxis="bottom"/>} */}
     </>
   );
 };

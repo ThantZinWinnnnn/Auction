@@ -41,7 +41,10 @@ const style = {
     xs: 2,
     lg: 4,
   },
-  overflow: "scroll",
+  overflowY: "scroll",
+      "&::-webkit-scrollbar": {
+        width: "1px",
+      },
 };
 
 type func = () => void;

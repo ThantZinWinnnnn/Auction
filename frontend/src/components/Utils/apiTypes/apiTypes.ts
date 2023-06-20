@@ -87,7 +87,7 @@ export interface ResponseProduct {
     updatedAt:string,
     category:category,
     subCategory:category,
-    currentBidPrice:string | null,
+    currentBidPrice:number | null,
     currentOwnerName:string | null,
     watchListProducts?:Array<ProductWatchList>
 }
