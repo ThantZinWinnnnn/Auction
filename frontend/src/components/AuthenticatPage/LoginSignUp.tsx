@@ -290,7 +290,14 @@ const LoginSignUp = () => {
                 <FormControlLabel
                   value={check}
                   onChange={checkHandler}
-                  control={<Checkbox disableRipple disableTouchRipple />}
+                  control={<Checkbox disableRipple disableTouchRipple  sx={{
+                    '&.Mui-checked': {
+                      color: '#3F51B5', // Customize the checked color
+                    },
+                    '&:not(.Mui-checked)': {
+                      color: 'grey.400', // Customize the unchecked color
+                    },
+                  }}/>}
                   label={
                     <Typography
                       textAlign={"left"}
@@ -332,6 +339,11 @@ const LoginSignUp = () => {
                     "&:hover": {
                       bgcolor: "grey.800",
                     },
+                    color:"white",
+                    "&.Mui-disabled": {
+                      background: "#eaeaea",
+                      color: "#c0c0c0"
+                    }
                   }}
                 >
                   {forgotPs
