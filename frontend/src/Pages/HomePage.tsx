@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar";
-import Product from "../components/product/Product";
 import SidebarLists from "../components/SidebarLists";
 import MobileLists from "../components/SideLists/MobileLists";
 import { productAPI } from "../components/Utils/endpoins/axios";
@@ -19,8 +18,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { HomePageProductsSkeleton } from "../components/Utils/LoadingIndicator/ProductListsLoading";
 import { Title } from "../components/Utils/helmet/Title";
-import { UpArrowFab } from "../components/Utils/Fab/UpArrowFab";
-import Scroll from "../components/Utils/Fab/UpArrow";
 import ScrollToTopFab from "../components/Utils/Fab/UpArrow";
 
 

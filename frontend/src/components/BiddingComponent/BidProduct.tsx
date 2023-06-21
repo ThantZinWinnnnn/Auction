@@ -424,7 +424,7 @@ const BidProduct = () => {
                     my={isMobile ? 2 : "none"}
                   >
                     {bidding ? (
-                      <ButtonLoading text="Bidding" />
+                      <ButtonLoading text="Bidding"  fontSize={{xs:14,sm:16}}/>
                     ) : (
                       <BidButton
                         color="white"
@@ -486,6 +486,9 @@ const BidProduct = () => {
                         ? "Removing from watchlist"
                         : "Adding to watchlist"
                     }
+                    fontSize={{
+                      xs:14,sm:13
+                    }}
                   />
                 ) : (
                   <BidButton

@@ -317,7 +317,7 @@ const LoginSignUp = () => {
               </FormGroup>
               {updating ? (
                 <Box mt={4}>
-                  <ButtonLoading text="Updating..." />
+                  <ButtonLoading text="Updating..." fontSize={{xs:16,sm:18}} />
                 </Box>
               ) : (
                 <Button

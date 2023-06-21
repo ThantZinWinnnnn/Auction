@@ -319,7 +319,10 @@ const CreateProduct: React.FC<themeProps> = ({ light }) => {
                   },
                 }}
               >
-                {isLoading ? <ButtonLoading text="Loading"/> : <BidButton
+                {isLoading ? <ButtonLoading text="Loading" fontSize={{
+                  xl:16,
+                  md:13
+                }}/> : <BidButton
                   color="white"
                   disabled={isLoading}
                   ButtonText="Create Product"
