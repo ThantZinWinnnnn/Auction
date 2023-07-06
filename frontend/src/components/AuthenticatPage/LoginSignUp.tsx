@@ -19,6 +19,7 @@ import UserInput from "./UserInput";
 import { ForgotPassword } from "../Utils/apiTypes/apiTypes";
 import { useAuthentication } from "../../Hooks/user.customhook";
 import Toast from "../ProfileComponent/components/CreateProduct/Toast";
+import toast, { Toaster } from "react-hot-toast";
 
 interface FormValues {
   username?: string;
@@ -31,6 +32,8 @@ const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(8).required(),
 });
+
+
 
 const LoginSignUp = () => {
   const navigate = useNavigate();
@@ -112,6 +115,7 @@ const LoginSignUp = () => {
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={true}/>
       <Box width={"100%"} sx={{ p: 2 }} bgcolor={"white"} borderRadius={2}>
         <Box display={"flex"} alignItems="center" gap={3} mb={2}>
           <Box sx={{ width: "50px", height: "50px" }} overflow="hidden">
