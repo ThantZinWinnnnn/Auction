@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import {
   OwnerUpdateHandler,
   OwnerUpdateProduct,
@@ -22,6 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import MemoizedDatePicker from "./UpdateDatePicker";
 import moment from "moment";
 import UpdatingButton from "../../../../Utils/LoadingIndicator/UpdatingButton";
+import { ThemeContext } from "../../../../Utils/ThemeContext/ThemeContext";
 
 const DetailProductModal: React.FC<ProductProps> = ({
   updateObj,
@@ -34,11 +35,16 @@ const DetailProductModal: React.FC<ProductProps> = ({
   const { price, currentBidPrice, category, subCategory, date, startDate } =
     updateObj;
 
+
+
   console.log("dattttt", date, "startDate", startDate);
 
   const theme = useTheme();
   const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const mobileScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { themeMode } = useContext(ThemeContext);
+  const light = themeMode === "light";
+
 
   return (
     <Box component={"section"}>
@@ -89,6 +95,7 @@ const DetailProductModal: React.FC<ProductProps> = ({
           <Typography
             fontWeight={"bold"}
             textAlign={"left"}
+            color={light  ? "black" : "white"}
             sx={{
               mb: 1.8,
               fontSize: {
@@ -132,12 +139,14 @@ const DetailProductModal: React.FC<ProductProps> = ({
                 title="Update your product start date"
                 date={startDate}
                 changeHandler={updateHandlerObj.startDateHandler}
+                light={light}
               />
             )}
             <MemoizedDatePicker
               title="Update your product end date"
               date={date}
               changeHandler={updateHandlerObj.dateHandler}
+              light={light}
             />
           </Box>
         </Box>
